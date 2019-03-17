@@ -9,7 +9,8 @@ function handleFileSelect(evt) {
   var files = evt.target.files; // FileList object
 
   // files is a FileList of File objects. List some properties.
-  var output = [];
+  let output = [];
+  let listOfSetupArray = [];
   $("#list2").html("");
   for (var i = 0, f; (f = files[i]); i++) {
     $("#list2").append(
@@ -32,7 +33,10 @@ function handleFileSelect(evt) {
 
     var reader = new FileReader();
     reader.onload = function(e) {
-      new Setup(e.target.result);
+      const setup = new Setup(e.target.result);
+      listOfSetupArray[i] = setup;
+      console.log(setup);
+      console.log(listOfSetupArray);
     };
     reader.readAsText(f);
     if (i !== files.length - 1)

@@ -107,7 +107,6 @@ dic.BrakeDiscSettingFL = "Front Left Brake Disc";
 dic.BrakeDiscSettingFR = "Front Right Brake Disc";
 dic.BrakeDiscSettingRL = "Rear Left Brake Disc";
 dic.BrakeDiscSettingRR = "Rear Right Brake Disc";
-// dic.
 
 //Start jquery
 $(function() {

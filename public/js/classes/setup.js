@@ -10,11 +10,32 @@ class Setup {
     this.Gear6Setting = "";
     this.Gear7Setting = "";
     this.Gear8Setting = "";
+
+    // #region ADVANCED
+    this.Symmetric = "";
+    this.PressureSettingFL = "";
+    this.PressureSettingFR = "";
+    this.PressureSettingRL = "";
+    this.PressureSettingRR = "";
+    this.FrontTireCompoundSetting = "";
+    this.RearTireCompoundSetting = "";
+    this.CamberSettingFL = "";
+    this.CamberSettingFR = "";
+    this.CamberSettingRL = "";
+    this.CamberSettingRR = "";
+    this.RearBrakeSetting = "";
+    this.BrakeDuctSetting = "";
+    this.BrakePressureSetting = "";
+    this.BrakeDiscSettingFL = "";
+    this.BrakeDiscSettingFR = "";
+    this.BrakeDiscSettingRL = "";
+    this.BrakeDiscSettingRR = "";
+    // #endregion
     this.bindDataToVariables();
+    this.showData();
   }
 
   // #region getters
-
   getGear1Setting() {
     return this.Gear1Setting;
   }
@@ -47,14 +68,92 @@ class Setup {
     return this.Gear8Setting;
   }
 
+  getSymmetric() {
+    return this.Symmetric;
+  }
+
+  getPressureSettingFL() {
+    return this.PressureSettingFL;
+  }
+
+  getPressureSettingFR() {
+    return this.PressureSettingFR;
+  }
+
+  getPressureSettingRL() {
+    return this.PressureSettingRL;
+  }
+
+  getPressureSettingRR() {
+    return this.PressureSettingRR;
+  }
+
+  getFrontTireCompoundSetting() {
+    return this.FrontTireCompoundSetting;
+  }
+
+  getRearTireCompoundSetting() {
+    return this.RearTireCompoundSetting;
+  }
+
+  getCamberSettingFL() {
+    return this.CamberSettingFL;
+  }
+
+  getCamberSettingFR() {
+    return this.CamberSettingFR;
+  }
+
+  getCamberSettingRL() {
+    return this.CamberSettingRL;
+  }
+
+  getCamberSettingRR() {
+    return this.CamberSettingRR;
+  }
+
+  getRearBrakeSetting() {
+    return this.RearBrakeSetting;
+  }
+
+  getBrakeDuctSetting() {
+    return this.BrakeDuctSetting;
+  }
+
+  getBrakePressureSetting() {
+    return this.BrakePressureSetting;
+  }
+
+  getBrakeDiscSettingFL() {
+    return this.BrakeDiscSettingFL;
+  }
+
+  getBrakeDiscSettingFR() {
+    return this.BrakeDiscSettingFR;
+  }
+
+  getBrakeDiscSettingRL() {
+    return this.BrakeDiscSettingRL;
+  }
+
+  getBrakeDiscSettingRR() {
+    return this.BrakeDiscSettingRR;
+  }
+
   // #endregion
 
-  setGearsSetting(num, line) {
+  setByDoubleSlash(prop, line) {
     let val = line.split("//");
-    this["Gear" + num + "Setting"] = val[val.length - 1];
-    $("#list2").append(
-      "<li>GEAR " + num + ": " + this["Gear" + num + "Setting"] + "</li>"
-    );
+    this[prop] = val[val.length - 1];
+    $("#list2").append("<li>" + dic[prop] + ": " + this[prop] + "</li>");
+  }
+
+  setByEquals(prop, line) {
+    let val = line.split("=");
+    this[prop] = val[val.length - 1];
+
+    //Special for YES/NO
+    // symmetricFound;
   }
 
   bindDataToVariables() {
@@ -68,100 +167,80 @@ class Setup {
       gear5Found = false,
       gear6Found = false,
       gear7Found = false,
-      gear8Found = false;
+      gear8Found = false,
+      symmetricFound = false;
     $.each(splitted, function(key, value) {
       // console.log("splitted2: " + value);
 
       // #region setGears
-
       if (!gear1Found) {
         if (value.includes("Gear1Setting")) {
-          // var aux = value.split("//");
-          // console.log(aux);
-          // aux = aux[aux.length - 1];
-          // console.log(aux);
-          self.setGearsSetting(1, value);
+          self.setByDoubleSlash("Gear1Setting", value);
           gear1Found = true;
         }
       }
 
       if (!gear2Found) {
         if (value.includes("Gear2Setting")) {
-          // var aux = value.split("//");
-          // console.log(aux);
-          // aux = aux[aux.length - 1];
-          // console.log(aux);
-          self.setGearsSetting(2, value);
+          self.setByDoubleSlash("Gear2Setting", value);
           gear2Found = true;
         }
       }
 
       if (!gear3Found) {
         if (value.includes("Gear3Setting")) {
-          // var aux = value.split("//");
-          // console.log(aux);
-          // aux = aux[aux.length - 1];
-          // console.log(aux);
-          self.setGearsSetting(3, value);
+          self.setByDoubleSlash("Gear3Setting", value);
           gear3Found = true;
         }
       }
 
       if (!gear4Found) {
         if (value.includes("Gear4Setting")) {
-          // var aux = value.split("//");
-          // console.log(aux);
-          // aux = aux[aux.length - 1];
-          // console.log(aux);
-          self.setGearsSetting(4, value);
+          self.setByDoubleSlash("Gear4Setting", value);
           gear4Found = true;
         }
       }
 
       if (!gear5Found) {
         if (value.includes("Gear5Setting")) {
-          // var aux = value.split("//");
-          // console.log(aux);
-          // aux = aux[aux.length - 1];
-          // console.log(aux);
-          self.setGearsSetting(5, value);
+          self.setByDoubleSlash("Gear5Setting", value);
           gear5Found = true;
         }
       }
 
       if (!gear6Found) {
         if (value.includes("Gear6Setting")) {
-          // var aux = value.split("//");
-          // console.log(aux);
-          // aux = aux[aux.length - 1];
-          // console.log(aux);
-          self.setGearsSetting(6, value);
+          self.setByDoubleSlash("Gear6Setting", value);
           gear6Found = true;
         }
       }
 
       if (!gear7Found) {
         if (value.includes("Gear7Setting")) {
-          // var aux = value.split("//");
-          // console.log(aux);
-          // aux = aux[aux.length - 1];
-          // console.log(aux);
-          self.setGearsSetting(7, value);
+          self.setByDoubleSlash("Gear7Setting", value);
           gear7Found = true;
         }
       }
 
       if (!gear8Found) {
         if (value.includes("Gear8Setting")) {
-          // var aux = value.split("//");
-          // console.log(aux);
-          // aux = aux[aux.length - 1];
-          // console.log(aux);
-          self.setGearsSetting(8, value);
+          self.setByDoubleSlash("Gear8Setting", value);
           gear8Found = true;
         }
       }
+      // #endregion
 
+      // #region ADVANCED
+      // if (!symmetricFound) {
+      //   if (value.includes("Symmetric")) {
+      //     // var aux = value.split("//");
+      //     // console.log(aux);
+      //     // aux = aux[aux.length - 1];
+      //     // console.log(aux);
+      //     self.setGearsSetting(1, value);
+      //     gear1Found = true;
+      //   }
+      // }
       // #endregion
     });
 
@@ -187,6 +266,14 @@ class Setup {
     // this.EngineMixtureSetting = "Engine Mixture";
     // this.EngineBoostSetting = "Boost Mapping";
     // this.EngineBrakingMapSetting = "Brake Map";
+  }
+
+  showData() {
+    var methods = Object.getOwnPropertyNames(Setup.prototype);
+    console.log(methods);
+    //Alternative solution would be to get this list, and filter only through getters
+    //and subst the "get" at the start, and I have a list of the props, as all props
+    //will have a getter
   }
 
   // Adding a method to the constructor
