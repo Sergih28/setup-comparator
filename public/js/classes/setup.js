@@ -271,6 +271,10 @@ class Setup {
   showData() {
     var methods = Object.getOwnPropertyNames(Setup.prototype);
     console.log(methods);
+    $.each(methods, function(key, value) {
+      if (value.startsWith("get"))
+        console.log("Method get: " + value.substr(3, value.length));
+    });
     //Alternative solution would be to get this list, and filter only through getters
     //and subst the "get" at the start, and I have a list of the props, as all props
     //will have a getter
