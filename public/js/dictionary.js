@@ -31,23 +31,23 @@ dic = {
   EngineBrakingMapSetting: "",
 
   Symmetric: "",
-  PressureSettingFL: "",
-  PressureSettingFR: "",
-  PressureSettingRL: "",
-  PressureSettingRR: "",
+  PressureSettingFRONTLEFT: "",
+  PressureSettingFRONTRIGHT: "",
+  PressureSettingREARLEFT: "",
+  PressureSettingREARRIGHT: "",
   FrontTireCompoundSetting: "",
   RearTireCompoundSetting: "",
-  CamberSettingFL: "",
-  CamberSettingFR: "",
-  CamberSettingRL: "",
-  CamberSettingRR: "",
+  CamberSettingFRONTLEFT: "",
+  CamberSettingFRONTRIGHT: "",
+  CamberSettingREARLEFT: "",
+  CamberSettingREARRIGHT: "",
   RearBrakeSetting: "",
   BrakeDuctSetting: "",
   BrakePressureSetting: "",
-  BrakeDiscSettingFL: "",
-  BrakeDiscSettingFR: "",
-  BrakeDiscSettingRL: "",
-  BrakeDiscSettingRR: ""
+  BrakeDiscSettingFRONTLEFT: "",
+  BrakeDiscSettingFRONTRIGHT: "",
+  BrakeDiscSettingREARLEFT: "",
+  BrakeDiscSettingREARRIGHT: ""
 };
 
 //--FUEL AND PIT STRATEGY--
@@ -90,28 +90,28 @@ dic.EngineBrakingMapSetting = "Brake Map";
 
 //--ADVANCED--
 dic.Symmetric = "Symmetrical";
-dic.PressureSettingFL = "Tyre Pressure Front Left";
-dic.PressureSettingFR = "Tyre Pressure Front Right";
-dic.PressureSettingRL = "Tyre Pressure Rear Left";
-dic.PressureSettingRR = "Tyre Pressure Rear Right";
+dic.PressureSettingFRONTLEFT = "Tyre Pressure Front Left";
+dic.PressureSettingFRONTRIGHT = "Tyre Pressure Front Right";
+dic.PressureSettingREARLEFT = "Tyre Pressure Rear Left";
+dic.PressureSettingREARRIGHT = "Tyre Pressure Rear Right";
 dic.FrontTireCompoundSetting = "Front Tire Compound";
 dic.RearTireCompoundSetting = "Rear Tire Compound";
-dic.CamberSettingFL = "Camber Front Left Tire";
-dic.CamberSettingFR = "Camber Front Right Tire";
-dic.CamberSettingRL = "Camber Rear Left Tire";
-dic.CamberSettingRR = "Camber Rear Right Tire";
+dic.CamberSettingFRONTLEFT = "Camber Front Left Tire";
+dic.CamberSettingFRONTRIGHT = "Camber Front Right Tire";
+dic.CamberSettingREARLEFT = "Camber Rear Left Tire";
+dic.CamberSettingREARRIGHT = "Camber Rear Right Tire";
 dic.RearBrakeSetting = "Brake Bias";
 dic.BrakeDuctSetting = "Brake Duct Blanking";
 dic.BrakePressureSetting = "Max Pedal Force";
-dic.BrakeDiscSettingFL = "Front Left Brake Disc";
-dic.BrakeDiscSettingFR = "Front Right Brake Disc";
-dic.BrakeDiscSettingRL = "Rear Left Brake Disc";
-dic.BrakeDiscSettingRR = "Rear Right Brake Disc";
+dic.BrakeDiscSettingFRONTLEFT = "Brake Disc Front Left";
+dic.BrakeDiscSettingFRONTRIGHT = "Brake Disc Front Right";
+dic.BrakeDiscSettingREARLEFT = "Brake Disc Rear Left";
+dic.BrakeDiscSettingREARRIGHT = "Brake Disc Rear Right";
 
 //Start jquery
 $(function() {
   $.each(dic, function(key, value) {
     // console.log(key);
-    console.log(value);
+    // console.log(value);
   });
 });
