@@ -13,39 +13,78 @@ function handleFileSelect(evt) {
   let listOfSetupArray = [];
   $("#list2").html("");
   for (var i = 0, f; (f = files[i]); i++) {
-    $("#list2").append(
-      "<li>Setup Name: " +
-        escape(f.name).substring(0, escape(f.name).length - 4) +
-        "</li>"
-    );
-    // output.push(
-    //   "<li><strong>",
-    //   escape(f.name),
-    //   "</strong>"
-    //   //  (",
-    //   // f.type || "n/a",
-    //   // ") - ",
-    //   // f.size,
-    //   // " bytes, last modified: ",
-    //   // f.lastModifiedDate.toLocaleDateString(),
-    //   // "</li>"
-    // );
-
-    var reader = new FileReader();
-    reader.onload = function(e) {
+    readFile(f, function(e) {
+      // use result in callback...
       const setup = new Setup(e.target.result);
-      listOfSetupArray[i] = setup;
       setup.showSetupByTabs();
-      console.log(setup);
-      console.log(listOfSetupArray);
-    };
-    reader.readAsText(f);
-    // if (i !== files.length - 1)
-    //   $("#list2").append("<li>--------------------------</li>");
+      delete setup._setupData;
+      listOfSetupArray.push(setup);
+      console.log("inside readfile");
+      // console.log(listOfSetupArray);
+      if (listOfSetupArray.length == i) compareSetups(listOfSetupArray);
+    });
   }
+}
 
-  // document.getElementById("list").innerHTML =
-  // "<ul>" + output.join("") + "</ul>";
+function readFile(file, onLoadCallback) {
+  var reader = new FileReader();
+  reader.onload = onLoadCallback;
+  reader.readAsText(file);
+  // console.log("function readfile");
+}
+
+function compareSetups(setupsArray) {
+  console.log("inside compare setups with the array");
+  console.log(setupsArray);
+  const setupsArraySeparated = separateSetupsIntoAnArray(setupsArray);
+  const differencesArray = checkArrayDifferences(setupsArraySeparated);
+  console.log(setupsArraySeparated);
+  console.log("differencesArray");
+  console.log(differencesArray);
+}
+
+function separateSetupsIntoAnArray(setupsArray) {
+  let setupFillingArray = [];
+  for (let i = 0; i < setupsArray.length; i++) {
+    setupFillingArray.push(compareTabs(setupsArray[i]));
+  }
+  return setupFillingArray;
+}
+
+function compareTabs(setups, arrayWithThings = []) {
+  Object.entries(setups).forEach(entry => {
+    let key = entry[0];
+    let value = entry[1];
+    if (typeof value === "object") compareTabs(value, arrayWithThings);
+    arrayWithThings.push({ [key]: value });
+  });
+  return arrayWithThings;
+}
+
+function checkArrayDifferences(setupsArraySeparated) {
+  let differencesArray = [];
+  const numberOfSetups = setupsArraySeparated.length;
+  const numberOfParams = setupsArraySeparated[0].length;
+  for (let i = 0; i < numberOfParams; i++) {
+    let valuesThatAreComparing = [];
+    for (let j = 0; j < numberOfSetups; j++) {
+      Object.entries(setupsArraySeparated[j][i]).forEach(entry => {
+        let key = entry[0];
+        let value = entry[1];
+        valuesThatAreComparing.push({ [key]: value });
+      });
+    }
+    console.log(valuesThatAreComparing);
+    // if all values DO NOT match, push to differencesArray
+    for (let j = 0; j < numberOfSetups - 1; j++) {
+      if (
+        String(Object.values(valuesThatAreComparing[j])) !=
+        String(Object.values(valuesThatAreComparing[j + 1]))
+      )
+        differencesArray.push(valuesThatAreComparing);
+    }
+  }
+  return differencesArray;
 }
 
 document

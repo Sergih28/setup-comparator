@@ -25,7 +25,7 @@ class Setup {
     const _tab = "_" + tab;
     const _prop = "_" + prop;
     if (notes) {
-      let val = line.substring(7, line.length - 1);
+      let val = line.substring(7, line.length - 2);
       val = this.removeWeirdChars(val);
 
       // val.replace(/[^a-zA-Z0-9]/g, "sssssssss");
@@ -463,11 +463,6 @@ class Setup {
     //will have a getter
   }
 
-  // Adding a method to the constructor
-  showSetupOnConsole() {
-    // console.log(this.setupData);
-  }
-
   showSetupByTabs() {
     // let keys = Object.keys(this._generalTab);
     // let values = Object.values(this._generalTab);
@@ -475,16 +470,6 @@ class Setup {
     // // console.log(keys);
     // // console.log(values);
     // // console.log(entries);
-
-    // for (const [prop, val] of entries) {
-    //   $("#GENERAL TAB").append(
-    //     "<li><strong>" +
-    //       dic[prop.substring(1, prop.length)] +
-    //       "</strong>: " +
-    //       val +
-    //       "</li>"
-    //   );
-    // }
     this.showSetupTab("_setups");
     this.showSetupTab("_general");
     this.showSetupTab("_suspension");
@@ -513,6 +498,11 @@ class Setup {
           "</li>"
       );
     }
+  }
+
+  compareSetups(setups) {
+    //check if setups is array?
+    $("#list").append("<div>LOLOLOL" + "</div>");
   }
 }
 

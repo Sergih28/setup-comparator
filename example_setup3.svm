@@ -34,7 +34,7 @@ FuelSetting=7//8L (1lap)
 //FenderFlareSetting=0//1
 
 [FRONTWING]
-FWSetting=57//58
+FWSetting=59//60
 
 [REARWING]
 RWSetting=44//45
