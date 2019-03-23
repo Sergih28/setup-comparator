@@ -1,7 +1,7 @@
 body {
   font-family: sans-serif;
   margin: 0 auto;
-  max-width: 1280px;
+  max-width: 1780px;
 }
 
 .navbar {
@@ -72,4 +72,19 @@ body {
 
 #lblLoadSetup:hover {
   background: red;
+}
+
+#list div ul {
+  padding: 0px 10px;
+  list-style-type: none;
+}
+
+#list div ul:not(:last-child) {
+  border-right: 3px solid cyan;
+}
+
+#list div {
+  border: 4px solid #106ba0;
+  padding: 0 15px;
+  margin-bottom: 5px;
 }

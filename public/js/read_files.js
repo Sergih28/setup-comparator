@@ -35,12 +35,13 @@ function handleFileSelect(evt) {
     reader.onload = function(e) {
       const setup = new Setup(e.target.result);
       listOfSetupArray[i] = setup;
+      setup.showSetupByTabs();
       console.log(setup);
       console.log(listOfSetupArray);
     };
     reader.readAsText(f);
-    if (i !== files.length - 1)
-      $("#list2").append("<li>--------------------------</li>");
+    // if (i !== files.length - 1)
+    //   $("#list2").append("<li>--------------------------</li>");
   }
 
   // document.getElementById("list").innerHTML =

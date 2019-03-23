@@ -1,63 +1,13 @@
 var dic = new Object();
 
-dic = {
-  FuelSetting: "",
-  NumPitstopsSetting: "",
-  Pitstop1Setting: "",
-  Pitstop2Setting: "",
-  Pitstop3Setting: "",
-  Notes: "",
-  Gear1Setting: "",
-  Gear2Setting: "",
-  Gear3Setting: "",
-  Gear4Setting: "",
-  Gear5Setting: "",
-  Gear6Setting: "",
-  Gear7Setting: "",
-  Gear8Setting: "",
-  FinalDriveSetting: "",
-  ReverseSetting: "",
-  SteerLockSetting: "",
-  DiffPumpSetting: "",
-  DiffPowerSetting: "",
-  DiffCoastSetting: "",
-  DiffPreloadSetting: "",
-  FWSetting: "",
-  RWSetting: "",
-  RevLimitSetting: "",
-  RadiatorSetting: "",
-  EngineMixtureSetting: "",
-  EngineBoostSetting: "",
-  EngineBrakingMapSetting: "",
+dic = {};
 
-  Symmetric: "",
-  PressureSettingFRONTLEFT: "",
-  PressureSettingFRONTRIGHT: "",
-  PressureSettingREARLEFT: "",
-  PressureSettingREARRIGHT: "",
-  FrontTireCompoundSetting: "",
-  RearTireCompoundSetting: "",
-  CamberSettingFRONTLEFT: "",
-  CamberSettingFRONTRIGHT: "",
-  CamberSettingREARLEFT: "",
-  CamberSettingREARRIGHT: "",
-  RearBrakeSetting: "",
-  BrakeDuctSetting: "",
-  BrakePressureSetting: "",
-  BrakeDiscSettingFRONTLEFT: "",
-  BrakeDiscSettingFRONTRIGHT: "",
-  BrakeDiscSettingREARLEFT: "",
-  BrakeDiscSettingREARRIGHT: ""
-};
-
-//--FUEL AND PIT STRATEGY--
+//--SETUPS--
 dic.FuelSetting = "Starting Fuel";
 dic.NumPitstopsSetting = "Number of Stops";
 dic.Pitstop1Setting = "Stop 1";
 dic.Pitstop2Setting = "Stop 2";
 dic.Pitstop3Setting = "Stop 3";
-
-// NOTES
 dic.Notes = "Notes";
 
 // --------------------------------------------------
@@ -85,6 +35,63 @@ dic.RadiatorSetting = "Radiator";
 dic.EngineMixtureSetting = "Engine Mixture";
 dic.EngineBoostSetting = "Boost Mapping";
 dic.EngineBrakingMapSetting = "Brake Map";
+
+// --------------------------------------------------
+
+//--SUSPENSION--
+dic.Symmetric = "Symmetrical";
+dic.Front3rdPackerSetting = "Third Packers Front";
+dic.Front3rdSpringSetting = "Third Spring Front";
+dic.Front3rdSlowBumpSetting = "Third Slow Bump Front";
+dic.Front3rdFastBumpSetting = "Third Fast Bump Front";
+dic.Front3rdSlowReboundSetting = "Third Slow Rebound Front";
+dic.Front3rdFastReboundSetting = "Third Fast Rebound Front";
+dic.Rear3rdPackerSetting = "Third Packers Rear";
+dic.Rear3rdSpringSetting = "Third Spring Rear";
+dic.Rear3rdSlowBumpSetting = "Third Slow Bump Rear";
+dic.Rear3rdFastBumpSetting = "Third Fast Bump Rear";
+dic.Rear3rdSlowReboundSetting = "Third Slow Rebound Rear";
+dic.Rear3rdFastReboundSetting = "Third Fast Rebound Rear";
+dic.SpringSettingFRONTLEFT = "Spring Rate Front Left";
+dic.SpringSettingFRONTRIGHT = "Spring Rate Front Right";
+dic.SpringSettingREARLEFT = "Spring Rate Rear Left";
+dic.SpringSettingREARRIGHT = "Spring Rate Rear Right";
+dic.SlowBumpSettingFRONTLEFT = "Slow Bump Front Left";
+dic.SlowBumpSettingFRONTRIGHT = "Slow Bump Front Right";
+dic.SlowBumpSettingREARLEFT = "Slow Bump Rear Left";
+dic.SlowBumpSettingREARRIGHT = "Slow Bump Rear Right";
+dic.SlowReboundSettingFRONTLEFT = "Slow Rebound Front Left";
+dic.SlowReboundSettingFRONTRIGHT = "Slow Rebound Front Right";
+dic.SlowReboundSettingREARLEFT = "Slow Rebound Rear Left";
+dic.SlowReboundSettingREARRIGHT = "Slow Rebound Rear Right";
+dic.FastBumpSettingFRONTLEFT = "Fast Bump Front Left";
+dic.FastBumpSettingFRONTRIGHT = "Fast Bump Front Right";
+dic.FastBumpSettingREARLEFT = "Fast Bump Rear Left";
+dic.FastBumpSettingREARRIGHT = "Fast Bump Rear Right";
+dic.FastReboundSettingFRONTLEFT = "Fast Rebound Front Left";
+dic.FastReboundSettingFRONTRIGHT = "Fast Rebound Front Right";
+dic.FastReboundSettingREARLEFT = "Fast Rebound Rear Left";
+dic.FastReboundSettingREARRIGHT = "Fast Rebound Rear Right";
+dic.PackerSettingFRONTLEFT = "Packers Front Left";
+dic.PackerSettingFRONTRIGHT = "Packers Front Right";
+dic.PackerSettingREARLEFT = "Packers Rear Left";
+dic.PackerSettingREARRIGHT = "Packers Rear Right";
+dic.RideHeightSettingFRONTLEFT = "Ride Height Front Left";
+dic.RideHeightSettingFRONTRIGHT = "Ride Height Front Right";
+dic.RideHeightSettingREARLEFT = "Ride Height Rear Left";
+dic.RideHeightSettingREARRIGHT = "Ride Height Rear Right";
+dic.FrontAntiSwaySetting = "Anti-Roll Bar Front";
+dic.RearAntiSwaySetting = "Anti-Roll Bar Rear";
+dic.FrontToeInSetting = "Toe In Front";
+dic.RearToeInSetting = "Toe In Rear";
+
+// --------------------------------------------------
+
+//--CHASSIS--
+dic.LeftCasterSetting = "Caster Left";
+dic.RightCasterSetting = "Caster Right";
+dic.CGRightSetting = "Lateral";
+dic.CGRearSetting = "Weight Dist";
 
 // --------------------------------------------------
 
