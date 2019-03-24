@@ -384,7 +384,7 @@ class Setup {
       if (value.includes("Symmetric")) {
         let value2;
         value.includes("0") ? (value2 = "✗") : (value2 = "✓");
-        self.setValues("advancedTab", "Symmetric", value2, "=");
+        // self.setValues("advancedTab", "Symmetric", value2, "=");
         self.setValues("suspensionTab", "Symmetric", value2, "=");
         return true;
       }

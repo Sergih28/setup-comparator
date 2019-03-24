@@ -14,12 +14,12 @@ function handleFileSelect(evt) {
   // files is a FileList of File objects. List some properties.
   let output = [];
   let listOfSetupArray = [];
-  $("#setupstab").html("");
-  $("#generaltab").html("");
-  $("#suspensiontab").html("");
-  $("#chassistab").html("");
-  $("#advancedtab").html("");
-  $("#list2").html("");
+  // $("#setupstab").html("");
+  // $("#generaltab").html("");
+  // $("#suspensiontab").html("");
+  // $("#chassistab").html("");
+  // $("#advancedtab").html("");
+  // $("#list2").html("");
 
   for (var i = 0, f; (f = files[i]); i++) {
     readFile(f, function(e) {
@@ -179,28 +179,72 @@ function giveMeTabNameFromClass(obj, key) {
 }
 
 function showComparisonOnScreen(comparisonObjectToShow) {
+  console.log("comparisonObjectToShow");
+  console.log(comparisonObjectToShow);
+  console.log("comparisonObjectToShow.length");
+  console.log(comparisonObjectToShow.length);
+  let oldTab = "";
+  let firstRowTH = true;
+  let closeRowTH = false;
+  let firstRowTD = true;
+  let closeRowTD = false;
   for (let i = 0; i < comparisonObjectToShow.length; i++) {
-    let name = nameToShow(i, comparisonObjectToShow);
-    let tab = tabToPlace(i, comparisonObjectToShow);
-    let diffParam = diffParamToShow(i, comparisonObjectToShow);
-    let diffValue = diffValueToShow(i, comparisonObjectToShow);
-    appendComparisonToHTML(name, tab, diffParam, diffValue, i);
+    console.log("comparisonObjectToShow[i].length");
+    console.log(comparisonObjectToShow[i].length);
+    for (let j = 0; j < comparisonObjectToShow[i].length; j++) {
+      firstRowTD = j == 0;
+      closeRowTD = j == comparisonObjectToShow[i].length + 1;
+      console.log("firstRowTH inside the j loop");
+      console.log(firstRowTH, j);
+      let name = nameToShow(i, j, comparisonObjectToShow);
+      let tab = tabToPlace(i, j, comparisonObjectToShow);
+      let diffParam = diffParamToShow(i, j, comparisonObjectToShow);
+      let diffValue = diffValueToShow(i, j, comparisonObjectToShow);
+      // if (oldTab == "") oldTab = tab;
+      // if (j == comparisonObjectToShow[i].length - 1) closeRowTH = true;
+      if (j == comparisonObjectToShow[i].length - 1) {
+        if (comparisonObjectToShow[i + 1]) {
+          let nextTab = tabToPlace(i + 1, j, comparisonObjectToShow);
+          if (nextTab != tab) closeRowTH = true;
+        } else closeRowTH = true;
+      }
+
+      firstRowTH = oldTab != tab;
+      oldTab = tab;
+
+      // TODO: dirty trick to save into an array the old tabs to see if
+      // a new tab has already been painted so it doesn't add TH
+
+      appendComparisonToHTML(
+        name,
+        tab,
+        diffParam,
+        diffValue,
+        firstRowTH,
+        closeRowTH,
+        closeRowTD,
+        firstRowTD,
+        closeRowTD
+      );
+    }
+    firstRowTH = false;
+    closeRowTH = false;
   }
 
   // $("#setupstab").html("<li>LOOOOOOOOL</li>");
 }
 
-function nameToShow(i, comparisonObjectToShow) {
-  return comparisonObjectToShow[i][0].setupName;
+function nameToShow(i, j, comparisonObjectToShow) {
+  return comparisonObjectToShow[i][j].setupName;
 }
 
-function tabToPlace(i, comparisonObjectToShow) {
-  return comparisonObjectToShow[i][0].tab;
+function tabToPlace(i, j, comparisonObjectToShow) {
+  return comparisonObjectToShow[i][j].tab;
 }
 
-function diffParamToShow(i, comparisonObjectToShow) {
+function diffParamToShow(i, j, comparisonObjectToShow) {
   let r = "";
-  Object.entries(comparisonObjectToShow[i][0]).forEach(entry => {
+  Object.entries(comparisonObjectToShow[i][j]).forEach(entry => {
     if (String(entry[0].startsWith("_"))) {
       r = String(entry[0]);
     }
@@ -208,9 +252,9 @@ function diffParamToShow(i, comparisonObjectToShow) {
   //look for the right text on the dictionary
   return dic[r.substring(1, r.length)];
 }
-function diffValueToShow(i, comparisonObjectToShow) {
+function diffValueToShow(i, j, comparisonObjectToShow) {
   let r = "";
-  Object.entries(comparisonObjectToShow[i][0]).forEach(entry => {
+  Object.entries(comparisonObjectToShow[i][j]).forEach(entry => {
     if (String(entry[0].startsWith("_"))) {
       r = String(entry[1]);
     }
@@ -218,9 +262,51 @@ function diffValueToShow(i, comparisonObjectToShow) {
   return r;
 }
 
-function appendComparisonToHTML(name, tab, diffParam, diffValue, addTH) {
-  // if (addTH == 0) {
-  $("#" + tab + " thead tr").html("<th>" + name + "</th>");
+function appendComparisonToHTML(
+  name,
+  tab,
+  diffParam,
+  diffValue,
+  firstRowTH,
+  closeRowTH,
+  firstRowTD,
+  closeRowTD
+) {
+  console.log(
+    "inside loop",
+    name,
+    tab,
+    diffParam,
+    diffValue,
+    firstRowTH,
+    closeRowTH,
+    firstRowTD,
+    closeRowTD
+  );
+  if (firstRowTH)
+    $("#" + tab + "Table thead").append("<tr><th></th><th>" + name + "</th>");
+  if (closeRowTH)
+    $("#" + tab + "Table thead tr").append("<th>" + name + "</th></tr>");
+
+  if (firstRowTD)
+    $("#" + tab + "Table tbody").append(
+      "<tr><td>" + diffParam + "</td><td>" + diffValue + "</td>"
+    );
+  else $("#" + tab + "Table tbody tr").append("<td>" + diffValue + "</td>");
+  if (closeRowTD) $("#" + tab + "Table tbody tr").append("</tr>");
+  // if (firstRowTH) {
+  //   $("#" + tab + "Table thead").append("<tr><th></th><th>" + name + "</th>");
+  //   $("#" + tab + "Table tbody").append(
+  //     "<tr><td>" + diffParam + "</td><td>" + diffValue + "</td>"
+  //   );
+  // } else {
+  //   $("#" + tab + "Table tbody tr").append("<td>" + diffValue + "</td>");
+  // }
+  // if (closeRowTH)
+  //   $("#" + tab + "Table thead tr").append("<th>" + name + "</th></tr>");
+  // if (lastColumn) {
+  //   // $("#" + tab + "Table thead").append("</tr>");
+  //   $("#" + tab + "Table tbody").append("</tr>");
   // }
 }
 
