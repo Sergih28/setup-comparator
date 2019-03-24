@@ -257,7 +257,7 @@ function showComparisonOnScreen(comparisonObjectToShow) {
 }
 
 function nameToShow(i, j, comparisonObjectToShow) {
-  return comparisonObjectToShow[i][j].setupName;
+  return comparisonObjectToShow[i][j].setupName.slice(0, -4);
 }
 
 function tabToPlace(i, j, comparisonObjectToShow) {
