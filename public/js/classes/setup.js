@@ -1,5 +1,6 @@
 class Setup {
   constructor(setupData) {
+    // this._setupName = setupName;
     this._setupData = setupData;
     this._setupsTab = new SetupsTab();
     this._generalTab = new GeneralTab();
@@ -27,8 +28,6 @@ class Setup {
     if (notes) {
       let val = line.substring(7, line.length - 2);
       val = this.removeWeirdChars(val);
-
-      // val.replace(/[^a-zA-Z0-9]/g, "sssssssss");
       this[_tab][_prop] += val;
       return true;
     }
@@ -36,7 +35,6 @@ class Setup {
     if (line.includes("//")) line = line.replace("//", separator);
     let val = line.split(separator);
     pitstop ? (val = val[val.length - 2]) : (val = val[val.length - 1]);
-    // notes ? (this[_tab][_prop] += val) : ;
     this[_tab][_prop] = val;
     // $("#list2").append(
     //   "<li><strong>" + dic[prop] + "</strong>: " + this[_tab][_prop] + "</li>"
@@ -485,12 +483,12 @@ class Setup {
     // console.log(values);
     // console.log(entries);
 
-    $("#" + title + "_TAB").append(
-      "<li><strong style='font-size: 25px;'>" + title + "</strong></li>"
-    );
+    // $("#" + title + "_TAB").append(
+    //   "<li><strong style='font-size: 25px;'>" + title + "</strong></li>"
+    // );
 
     for (const [prop, val] of entries) {
-      $("#" + title + "_TAB").append(
+      $("#" + title.toLowerCase() + "Tab").append(
         "<li><strong>" +
           dic[prop.substring(1, prop.length)] +
           "</strong>: " +
@@ -508,6 +506,7 @@ class Setup {
 
 class SetupsTab {
   constructor() {
+    // this._setupName = setupName;
     this._FuelSetting = "";
     this._NumPitstopsSetting = "";
     this._Pitstop1Setting = "";
@@ -515,6 +514,10 @@ class SetupsTab {
     this._Pitstop3Setting = "";
     this._Notes = "";
   }
+
+  // get setupName() {
+  //   return this._setupName;
+  // }
 
   get FuelSetting() {
     return this._FuelSetting;
@@ -567,6 +570,7 @@ class SetupsTab {
 
 class GeneralTab {
   constructor() {
+    // this._setupName = setupName;
     this._Gear1Setting = "";
     this._Gear2Setting = "";
     this._Gear3Setting = "";
@@ -596,6 +600,10 @@ class GeneralTab {
     this._Gear8Setting = "";
     this._Gear8Setting = "";
   }
+
+  // get setupName() {
+  //   return this._setupName;
+  // }
 
   get Gear1Setting() {
     return this._Gear1Setting;
@@ -776,6 +784,7 @@ class GeneralTab {
 
 class SuspensionTab {
   constructor() {
+    // this._setupName = setupName;
     this._Symmetric = "";
     this._Front3rdPackerSetting = "";
     this._Front3rdSpringSetting = "";
@@ -822,6 +831,10 @@ class SuspensionTab {
     this._FrontToeInSetting = "";
     this._RearToeInSetting = "";
   }
+
+  // get setupName() {
+  //   return this._setupName;
+  // }
 
   get Symmetric() {
     return this._Symmetric;
@@ -1186,11 +1199,16 @@ class SuspensionTab {
 
 class ChassisTab {
   constructor() {
+    // this._setupName = setupName;
     this._LeftCasterSetting = "";
     this._RightCasterSetting = "";
     this._CGRightSetting = "";
     this._CGRearSetting = "";
   }
+
+  // get setupName() {
+  //   return this._setupName;
+  // }
 
   get LeftCasterSetting() {
     return this._LeftCasterSetting;
@@ -1227,6 +1245,7 @@ class ChassisTab {
 
 class AdvancedTab {
   constructor() {
+    // this._setupName = setupName;
     this._Symmetric = "";
     this._PressureSettingFRONTLEFT = "";
     this._PressureSettingFRONTRIGHT = "";
@@ -1246,6 +1265,10 @@ class AdvancedTab {
     this._BrakeDiscSettingREARLEFT = "";
     this._BrakeDiscSettingREARRIGHT = "";
   }
+
+  // get setupName() {
+  //   return this._setupName;
+  // }
 
   get Symmetric() {
     return this._Symmetric;
