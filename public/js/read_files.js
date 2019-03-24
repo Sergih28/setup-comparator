@@ -238,22 +238,12 @@ function showComparisonOnScreen(comparisonObjectToShow) {
   }
 
   let tables = $("table");
-  console.log("tables");
-  console.log(tables);
   for (i = 0; i < tables.length; i++) {
     let tableId = tables[i].id;
     let rows = $("#" + tableId + " tbody tr").length;
     tableId = tableId.substring(0, tableId.length - 5);
-    console.log("#" + tableId + "badge");
-    console.log($("#" + tableId + "badge"));
-    console.log("rows");
-    console.log(rows);
-    // document.getElementById(tableId + "badge").innerHTML = rows;
     $("#" + tableId + "badge").text(String(rows));
-    // $(tables[i] + "")
   }
-  // var rows= $('table tbody tr.MyClass').length;
-  // $("#setupstab").html("<li>LOOOOOOOOL</li>");
 }
 
 function nameToShow(i, j, comparisonObjectToShow) {
