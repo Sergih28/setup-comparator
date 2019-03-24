@@ -185,9 +185,9 @@ function showComparisonOnScreen(comparisonObjectToShow) {
   console.log(comparisonObjectToShow.length);
   let oldTab = "";
   let firstRowTH = true;
+  let rowTH = false;
   let closeRowTH = false;
   let firstRowTD = true;
-  let rowTH = false;
   let closeRowTD = false;
   let completedTHforThisTab = false;
   for (let i = 0; i < comparisonObjectToShow.length; i++) {
@@ -201,24 +201,18 @@ function showComparisonOnScreen(comparisonObjectToShow) {
       let diffParam = diffParamToShow(i, j, comparisonObjectToShow).trim();
       let diffValue = diffValueToShow(i, j, comparisonObjectToShow).trim();
       // if (oldTab == "") oldTab = tab;
-      // if (j == comparisonObjectToShow[i].length - 1) closeRowTH = true;
+      if (j == comparisonObjectToShow[i].length - 1) closeRowTH = true;
       if (j == comparisonObjectToShow[i].length - 1) {
         if (comparisonObjectToShow[i + 1]) {
           let nextTab = tabToPlace(i + 1, j, comparisonObjectToShow);
           if (nextTab != tab) closeRowTH = true;
-        } else closeRowTH = true;
+        } else closeRowTH = false;
       }
 
       firstRowTH = oldTab != tab;
+      if (firstRowTH) rowTH = true;
 
       oldTab = tab;
-      if (
-        j > 0 &&
-        j < comparisonObjectToShow[i].length &&
-        !completedTHforThisTab
-      )
-        rowTH = true;
-      else rowTH = false;
 
       // TODO: dirty trick to save into an array the old tabs to see if
       // a new tab has already been painted so it doesn't add TH
@@ -243,6 +237,22 @@ function showComparisonOnScreen(comparisonObjectToShow) {
     rowTH = false;
   }
 
+  let tables = $("table");
+  console.log("tables");
+  console.log(tables);
+  for (i = 0; i < tables.length; i++) {
+    let tableId = tables[i].id;
+    let rows = $("#" + tableId + " tbody tr").length;
+    tableId = tableId.substring(0, tableId.length - 5);
+    console.log("#" + tableId + "badge");
+    console.log($("#" + tableId + "badge"));
+    console.log("rows");
+    console.log(rows);
+    // document.getElementById(tableId + "badge").innerHTML = rows;
+    $("#" + tableId + "badge").text(String(rows));
+    // $(tables[i] + "")
+  }
+  // var rows= $('table tbody tr.MyClass').length;
   // $("#setupstab").html("<li>LOOOOOOOOL</li>");
 }
 
@@ -297,13 +307,12 @@ function appendComparisonToHTML(
     firstRowTD,
     closeRowTD
   );
-  // if (firstRowTH)
-  //   $("#" + tab + "Table thead").append("<tr><th></th><th>" + name + "</th>");
-  // if (rowTH) $("#" + tab + "Table thead tr").append("<th>" + name + "</th>");
-  // if (closeRowTH)
-  //   $("#" + tab + "Table thead")
-  //     .last()
-  //     .append("</tr>");
+  if (firstRowTH) $("#" + tab + "Table thead").append("<tr><th></th>");
+  if (rowTH) $("#" + tab + "Table thead tr").append("<th>" + name + "</th>");
+  if (closeRowTH)
+    $("#" + tab + "Table thead")
+      .last()
+      .append("</tr>");
 
   if (firstRowTD) {
     $("#" + tab + "Table tbody").append(
@@ -317,20 +326,6 @@ function appendComparisonToHTML(
     $("#" + tab + "Table tbody tr")
       .last()
       .append("</tr>");
-  // if (firstRowTH) {
-  //   $("#" + tab + "Table thead").append("<tr><th></th><th>" + name + "</th>");
-  //   $("#" + tab + "Table tbody").append(
-  //     "<tr><td>" + diffParam + "</td><td>" + diffValue + "</td>"
-  //   );
-  // } else {
-  //   $("#" + tab + "Table tbody tr").append("<td>" + diffValue + "</td>");
-  // }
-  // if (closeRowTH)
-  //   $("#" + tab + "Table thead tr").append("<th>" + name + "</th></tr>");
-  // if (lastColumn) {
-  //   // $("#" + tab + "Table thead").append("</tr>");
-  //   $("#" + tab + "Table tbody").append("</tr>");
-  // }
 }
 
 document
