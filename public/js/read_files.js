@@ -187,19 +187,19 @@ function showComparisonOnScreen(comparisonObjectToShow) {
   let firstRowTH = true;
   let closeRowTH = false;
   let firstRowTD = true;
+  let rowTH = false;
   let closeRowTD = false;
+  let completedTHforThisTab = false;
   for (let i = 0; i < comparisonObjectToShow.length; i++) {
     console.log("comparisonObjectToShow[i].length");
     console.log(comparisonObjectToShow[i].length);
     for (let j = 0; j < comparisonObjectToShow[i].length; j++) {
       firstRowTD = j == 0;
-      closeRowTD = j == comparisonObjectToShow[i].length + 1;
-      console.log("firstRowTH inside the j loop");
-      console.log(firstRowTH, j);
-      let name = nameToShow(i, j, comparisonObjectToShow);
-      let tab = tabToPlace(i, j, comparisonObjectToShow);
-      let diffParam = diffParamToShow(i, j, comparisonObjectToShow);
-      let diffValue = diffValueToShow(i, j, comparisonObjectToShow);
+      closeRowTD = j == comparisonObjectToShow[i].length - 1;
+      let name = nameToShow(i, j, comparisonObjectToShow).trim();
+      let tab = tabToPlace(i, j, comparisonObjectToShow).trim();
+      let diffParam = diffParamToShow(i, j, comparisonObjectToShow).trim();
+      let diffValue = diffValueToShow(i, j, comparisonObjectToShow).trim();
       // if (oldTab == "") oldTab = tab;
       // if (j == comparisonObjectToShow[i].length - 1) closeRowTH = true;
       if (j == comparisonObjectToShow[i].length - 1) {
@@ -210,25 +210,37 @@ function showComparisonOnScreen(comparisonObjectToShow) {
       }
 
       firstRowTH = oldTab != tab;
+
       oldTab = tab;
+      if (
+        j > 0 &&
+        j < comparisonObjectToShow[i].length &&
+        !completedTHforThisTab
+      )
+        rowTH = true;
+      else rowTH = false;
 
       // TODO: dirty trick to save into an array the old tabs to see if
       // a new tab has already been painted so it doesn't add TH
 
+      console.log("rowTH");
+      console.log(rowTH);
       appendComparisonToHTML(
         name,
         tab,
         diffParam,
         diffValue,
         firstRowTH,
+        rowTH,
         closeRowTH,
-        closeRowTD,
         firstRowTD,
         closeRowTD
       );
     }
+    if (closeRowTH) completedTHforThisTab = true;
     firstRowTH = false;
     closeRowTH = false;
+    rowTH = false;
   }
 
   // $("#setupstab").html("<li>LOOOOOOOOL</li>");
@@ -268,6 +280,7 @@ function appendComparisonToHTML(
   diffParam,
   diffValue,
   firstRowTH,
+  rowTH,
   closeRowTH,
   firstRowTD,
   closeRowTD
@@ -279,21 +292,31 @@ function appendComparisonToHTML(
     diffParam,
     diffValue,
     firstRowTH,
+    rowTH,
     closeRowTH,
     firstRowTD,
     closeRowTD
   );
-  if (firstRowTH)
-    $("#" + tab + "Table thead").append("<tr><th></th><th>" + name + "</th>");
-  if (closeRowTH)
-    $("#" + tab + "Table thead tr").append("<th>" + name + "</th></tr>");
+  // if (firstRowTH)
+  //   $("#" + tab + "Table thead").append("<tr><th></th><th>" + name + "</th>");
+  // if (rowTH) $("#" + tab + "Table thead tr").append("<th>" + name + "</th>");
+  // if (closeRowTH)
+  //   $("#" + tab + "Table thead")
+  //     .last()
+  //     .append("</tr>");
 
-  if (firstRowTD)
+  if (firstRowTD) {
     $("#" + tab + "Table tbody").append(
       "<tr><td>" + diffParam + "</td><td>" + diffValue + "</td>"
     );
-  else $("#" + tab + "Table tbody tr").append("<td>" + diffValue + "</td>");
-  if (closeRowTD) $("#" + tab + "Table tbody tr").append("</tr>");
+  } else
+    $("#" + tab + "Table tbody tr")
+      .last()
+      .append("<td>" + diffValue + "</td>");
+  if (closeRowTD)
+    $("#" + tab + "Table tbody tr")
+      .last()
+      .append("</tr>");
   // if (firstRowTH) {
   //   $("#" + tab + "Table thead").append("<tr><th></th><th>" + name + "</th>");
   //   $("#" + tab + "Table tbody").append(
