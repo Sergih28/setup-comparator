@@ -298,7 +298,11 @@ function appendComparisonToHTML(
 
   if (firstRowTD) {
     $("#" + tab + "Table tbody").append(
-      "<tr><td>" + diffParam + "</td><td>" + diffValue + "</td>"
+      "<tr><td><span style='color: black;'>" +
+        diffParam +
+        "</span></td><td>" +
+        diffValue +
+        "</td>"
     );
   } else
     $("#" + tab + "Table tbody tr")
