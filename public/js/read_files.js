@@ -298,7 +298,7 @@ function appendComparisonToHTML(
 
   if (firstRowTD) {
     $("#" + tab + "Table tbody").append(
-      "<tr><td><span style='color: black;'>" +
+      "<tr><td><span style='color: black; margin-left: 6px;'>" +
         diffParam +
         "</span></td><td>" +
         diffValue +

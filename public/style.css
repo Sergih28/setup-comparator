@@ -93,5 +93,14 @@ h5 {
 }
 
 #lblLoadSetup {
-  width: 100vw;
+  width: 100%;
+}
+
+.col {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.badge {
+  margin-top: 3px;
 }
