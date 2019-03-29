@@ -14,22 +14,16 @@ function handleFileSelect(evt) {
   // files is a FileList of File objects. List some properties.
   let output = [];
   let listOfSetupArray = [];
-  // $("#setupstab").html("");
-  // $("#generaltab").html("");
-  // $("#suspensiontab").html("");
-  // $("#chassistab").html("");
-  // $("#advancedtab").html("");
-  // $("#list2").html("");
 
   for (var i = 0, f; (f = files[i]); i++) {
     readFile(f, function(e) {
       // use result in callback...
+      clearTables(); //clear tables every time we input some files
       const setup = new Setup(e.target.result);
       setup.showSetupByTabs();
       delete setup._setupData;
       listOfSetupArray.push(setup);
       console.log("inside readfile");
-      // console.log(listOfSetupArray);
       if (listOfSetupArray.length == i && i > 1) {
         const comparisonObjectToShow = compareSetups(listOfSetupArray);
         showComparisonOnScreen(comparisonObjectToShow);
@@ -93,6 +87,7 @@ function checkArrayDifferences(setupsArraySeparated) {
   let namesArray = $.map(files, function(val) {
     return val.name;
   });
+
   for (i = 0; i < numberOfParams; i++) {
     let valuesThatAreComparing = [];
     for (let j = 0; j < numberOfSetups; j++) {
@@ -111,23 +106,20 @@ function checkArrayDifferences(setupsArraySeparated) {
     // First value is the setup name
     // Second value is the setupTab name
     // So we duplicate the array, delete the first and second value so we can compare (because it compares it as a string)
-    for (let j = 0; j < numberOfSetups - 1; j++) {
-      let duplicate = JSON.parse(
-        JSON.stringify(Object.values(valuesThatAreComparing)[j])
-      );
-      delete duplicate.setupName;
-      delete duplicate.tab;
-      duplicate = String(Object.values(duplicate));
-      let duplicate2 = JSON.parse(
-        JSON.stringify(Object.values(valuesThatAreComparing)[j + 1])
-      );
-      delete duplicate2.setupName;
-      delete duplicate2.tab;
-      duplicate2 = String(Object.values(duplicate2));
+    let duplicate = JSON.parse(
+      JSON.stringify(Object.values(valuesThatAreComparing)[0])
+    );
+    delete duplicate.setupName;
+    delete duplicate.tab;
+    duplicate = String(Object.values(duplicate));
+    let duplicate2 = JSON.parse(
+      JSON.stringify(Object.values(valuesThatAreComparing)[1])
+    );
+    delete duplicate2.setupName;
+    delete duplicate2.tab;
+    duplicate2 = String(Object.values(duplicate2));
 
-      if (duplicate != duplicate2)
-        differencesArray.push(valuesThatAreComparing);
-    }
+    if (duplicate != duplicate2) differencesArray.push(valuesThatAreComparing);
   }
   return differencesArray;
 }
@@ -316,6 +308,24 @@ function appendComparisonToHTML(
     $("#" + tab + "Table tbody tr")
       .last()
       .append("</tr>");
+}
+
+function clearTables() {
+  $("#setupstab").html(
+    '<table id="setupstabTable" class="highlight responsive-table"><thead></thead><tbody></tbody></table>'
+  );
+  $("#generaltab").html(
+    '<table id="generaltabTable" class="highlight responsive-table"><thead></thead><tbody></tbody></table>'
+  );
+  $("#suspensiontab").html(
+    '<table id="suspensiontabTable" class="highlight responsive-table"><thead></thead><tbody></tbody></table>'
+  );
+  $("#chassistab").html(
+    '<table id="chassistabTable" class="highlight responsive-table"><thead></thead><tbody></tbody></table>'
+  );
+  $("#advancedtab").html(
+    '<table id="advancedtabTable" class="highlight responsive-table"><thead></thead><tbody></tbody></table>'
+  );
 }
 
 document

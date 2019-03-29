@@ -114,11 +114,3 @@ dic.BrakeDiscSettingFRONTLEFT = "Brake Disc Front Left";
 dic.BrakeDiscSettingFRONTRIGHT = "Brake Disc Front Right";
 dic.BrakeDiscSettingREARLEFT = "Brake Disc Rear Left";
 dic.BrakeDiscSettingREARRIGHT = "Brake Disc Rear Right";
-
-//Start jquery
-$(function() {
-  $.each(dic, function(key, value) {
-    // console.log(key);
-    // console.log(value);
-  });
-});

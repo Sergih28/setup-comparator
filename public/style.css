@@ -88,21 +88,10 @@ body {
   margin-bottom: 5px;
 }
 
-/*Creates table with scrollable tbody*/
-/* tbody {
-  display: block;
-  height: 500px;
-  overflow: auto;
+h5 {
+  text-align: center;
 }
-thead,
-tbody tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
+
+#lblLoadSetup {
+  width: 100vw;
 }
-thead {
-  width: calc(100% - 1em);
-}
-table {
-  width: 100%;
-} */
