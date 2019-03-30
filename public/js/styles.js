@@ -11,8 +11,9 @@ $(function() {
   ) {
     isMobile = true;
   }
+  isMobile = false;
   $(".tabs").tabs({
-    // swipeable: isMobile,
+    swipeable: isMobile,
     duration: 200
   });
 });
