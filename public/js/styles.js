@@ -12,7 +12,7 @@ $(function() {
     isMobile = true;
   }
   $(".tabs").tabs({
-    swipeable: isMobile,
+    // swipeable: isMobile,
     duration: 200
   });
 });
