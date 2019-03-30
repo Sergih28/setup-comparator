@@ -31,6 +31,22 @@ function handleFileSelect(evt) {
         $(tables).each(function() {
           sortMe($(this).attr("id"));
         });
+        const badges = $(".badge");
+        console.log(badges);
+        let numberOfChanges = 0;
+        $(badges).each(function() {
+          console.log($(this).text());
+          numberOfChanges += parseInt($(this).text());
+        });
+        setTimeout(function() {
+          M.toast({
+            html:
+              "The setups compared have " + numberOfChanges + " differences!",
+            displayLength: 4000,
+            inDuration: 1500,
+            outDuration: 1000
+          });
+        }, 1000);
         console.log("Should append here at the end");
       }
       // if (listOfSetupArray.length == 1) {
