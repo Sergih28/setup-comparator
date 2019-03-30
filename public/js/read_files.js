@@ -27,6 +27,10 @@ function handleFileSelect(evt) {
       if (listOfSetupArray.length == i && i > 1) {
         const comparisonObjectToShow = compareSetups(listOfSetupArray);
         showComparisonOnScreen(comparisonObjectToShow);
+        const tables = $("table");
+        $(tables).each(function() {
+          sortMe($(this).attr("id"));
+        });
         console.log("Should append here at the end");
       }
       // if (listOfSetupArray.length == 1) {
