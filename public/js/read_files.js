@@ -47,7 +47,7 @@ function handleFileSelect(evt) {
             outDuration: 1000
           });
         }, 1000);
-        console.log("Should append here at the end");
+        console.log("Should append here at the end of everything");
       }
       // if (listOfSetupArray.length == 1) {
       //   // showComparisonOnScreen(comparisonObjectToShow);
