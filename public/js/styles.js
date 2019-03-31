@@ -12,27 +12,42 @@ $(function() {
     isMobile = true;
   }
   isMobile = false;
+
+  // initialize tabs, swipeable to false even on mobiles because when the screen is narrow the table style changes and it clashes
   $(".tabs").tabs({
     swipeable: isMobile,
     duration: 200
   });
+
+  //initialize the FeatureDiscovery
   $(".tap-target").tapTarget();
   var instance = M.TapTarget.getInstance($(".tap-target"));
   setTimeout(function() {
     instance.open();
+    console.log("opening");
   }, 500);
   setTimeout(function() {
-    instance.close();
+    if (instance.isOpen) instance.close();
+    console.log("closing");
   }, 7000);
+
+  // function to open and close clicking the button
   $("#menu").bind("click", function() {
     if (instance.isOpen) $(".tap-target").tapTarget("close");
     else $(".tap-target").tapTarget("open");
   });
+
+  // Adding the option to click the element that was clicked just after closing the FeatureDiscovery
+  // Otherwise it would close the FeatureDiscovery but not make the click on the element you clicked
   instance.options = {
     onClose: function() {
+      // the event will not exist when it's the autoClose
+      // if it doesn't exist do nothing
+      if (typeof event == "undefined") return false;
       var target = event.target;
       setTimeout(function() {
         target.click();
+        console.log("xxx");
       }, 0);
     }
   };
