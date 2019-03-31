@@ -11,6 +11,10 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/dictionary.js"></script>
@@ -52,47 +56,85 @@
       >
     </div>
 
-    <div class="row">
-      <div class="col s12 no-padding">
-        <ul class="tabs tabs-fixed-width">
-          <li class="tab col s2">
-            <a class="active" href="#setupstab"
-              ><span class="badge" id="setupstabbadge"></span>Setups</a
-            >
-          </li>
-          <li class="tab col s2">
-            <a href="#generaltab"
-              ><span class="badge" id="generaltabbadge"></span>General</a
-            >
-          </li>
-          <li class="tab col s2">
-            <a href="#suspensiontab"
-              ><span class="badge" id="suspensiontabbadge"></span>Suspension</a
-            >
-          </li>
-          <li class="tab col s2">
-            <a href="#chassistab"
-              ><span class="badge" id="chassistabbadge"></span>Chassis</a
-            >
-          </li>
-          <li class="tab col s2">
-            <a href="#advancedtab"
-              ><span class="badge" id="advancedtabbadge"></span>Advanced</a
-            >
-          </li>
-        </ul>
+    <div id="main">
+      <div class="row no-padding">
+        <div class="col s12 no-padding">
+          <ul class="tabs tabs-fixed-width">
+            <li class="tab col s2">
+              <a class="active" href="#setupstab"
+                ><span class="badge" id="setupstabbadge"></span>Setups</a
+              >
+            </li>
+            <li class="tab col s2">
+              <a href="#generaltab"
+                ><span class="badge" id="generaltabbadge"></span>General</a
+              >
+            </li>
+            <li class="tab col s2">
+              <a href="#suspensiontab"
+                ><span class="badge" id="suspensiontabbadge"></span
+                >Suspension</a
+              >
+            </li>
+            <li class="tab col s2">
+              <a href="#chassistab"
+                ><span class="badge" id="chassistabbadge"></span>Chassis</a
+              >
+            </li>
+            <li class="tab col s2">
+              <a href="#advancedtab"
+                ><span class="badge" id="advancedtabbadge"></span>Advanced</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div id="setupstab" class="col s12 customTab no-padding"></div>
+        <div id="generaltab" class="col s12 customTab no-padding"></div>
+        <div id="suspensiontab" class="col s12 customTab no-padding"></div>
+        <div id="chassistab" class="col s12 customTab no-padding"></div>
+        <div id="advancedtab" class="col s12 customTab no-padding"></div>
       </div>
-      <div id="setupstab" class="col s12 customTab no-padding"></div>
-      <div id="generaltab" class="col s12 customTab no-padding"></div>
-      <div id="suspensiontab" class="col s12 customTab no-padding"></div>
-      <div id="chassistab" class="col s12 customTab no-padding"></div>
-      <div id="advancedtab" class="col s12 customTab no-padding"></div>
+      <!-- Element Showed -->
+      <div class="fixed-action-btn">
+        <a
+          id="menu"
+          class="waves-effect waves-light btn-large btn-floating red white-text"
+          ><i class="material-icons">menu</i></a
+        >
+      </div>
+      <!-- Tap Target Structure -->
+      <div
+        class="tap-target red white-text"
+        data-target="menu"
+        id="tap-target-div"
+      >
+        <div class="tap-target-content">
+          <h5 style="margin-bottom: 0px;">Welcome to the</h5>
+          <h5>SETUP COMPARATOR</h5>
+          <p>
+            Click on <i>LOAD SETUPS</i> to start comparing your rFactor 2
+            setups!
+          </p>
+          <!-- <p>
+            You will see the differences organized in the same tabs you have
+            ingame!
+          </p> -->
+        </div>
+      </div>
     </div>
+    <footer class="page-footer">
+      <div class="footer-copyright">
+        <div class="container" style="text-align: center;" id="footer-text">
+          Copyright ©
+        </div>
+      </div>
+    </footer>
     <script src="js/read_files.js"></script>
     <script src="js/custom_file_input.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="js/styles.js"></script>
     <script>
+      addProjectYearToFooter();
       addTimestampsToScriptTags();
     </script>
   </body>

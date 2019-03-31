@@ -16,4 +16,24 @@ $(function() {
     swipeable: isMobile,
     duration: 200
   });
+  $(".tap-target").tapTarget();
+  var instance = M.TapTarget.getInstance($(".tap-target"));
+  setTimeout(function() {
+    instance.open();
+  }, 500);
+  setTimeout(function() {
+    instance.close();
+  }, 7000);
+  $("#menu").bind("click", function() {
+    if (instance.isOpen) $(".tap-target").tapTarget("close");
+    else $(".tap-target").tapTarget("open");
+  });
+  instance.options = {
+    onClose: function() {
+      var target = event.target;
+      setTimeout(function() {
+        target.click();
+      }, 0);
+    }
+  };
 });
