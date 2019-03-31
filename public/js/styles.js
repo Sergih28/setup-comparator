@@ -54,7 +54,6 @@ $(function() {
       var target = event.target;
       setTimeout(function() {
         target.click();
-        console.log("xxx");
       }, 0);
     }
   };
