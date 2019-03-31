@@ -19,22 +19,29 @@ $(function() {
     duration: 200
   });
 
+  // bool that controls if you manually have closed the FeatureDiscovery, so it does not close it after 7 seconds
+  // if you hide and show it again before that time
+  let hasBeenClosed = false;
+
   //initialize the FeatureDiscovery
   $(".tap-target").tapTarget();
-  var instance = M.TapTarget.getInstance($(".tap-target"));
+  let instance = M.TapTarget.getInstance($(".tap-target"));
   setTimeout(function() {
     instance.open();
-    console.log("opening");
   }, 500);
   setTimeout(function() {
-    if (instance.isOpen) instance.close();
-    console.log("closing");
+    if (instance.isOpen && !hasBeenClosed) instance.close();
   }, 7000);
 
   // function to open and close clicking the button
   $("#menu").bind("click", function() {
-    if (instance.isOpen) $(".tap-target").tapTarget("close");
-    else $(".tap-target").tapTarget("open");
+    if (instance.isOpen) {
+      $(".tap-target").tapTarget("close");
+      hasBeenClosed = true;
+    } else {
+      $(".tap-target").tapTarget("open");
+      hasBeenClosed = true;
+    }
   });
 
   // Adding the option to click the element that was clicked just after closing the FeatureDiscovery
