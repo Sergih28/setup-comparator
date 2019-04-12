@@ -1,7 +1,7 @@
 "use strict";
 
 (function($, window, document, undefined) {
-  $(".inputfile").each(function() {
+  $.each($(".inputfile"), function() {
     var $input = $(this),
       $label = $input.next("label"),
       labelVal = $label.html();

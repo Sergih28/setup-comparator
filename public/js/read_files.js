@@ -9,16 +9,21 @@ let fileNameGlobal = "";
 let counterGlobal = "";
 
 function handleFileSelect(evt) {
-  var files = evt.target.files; // FileList object
+  let files = evt.target.files; // FileList object
 
   // files is a FileList of File objects. List some properties.
   let output = [];
   let listOfSetupArray = [];
 
   for (var i = 0, f; (f = files[i]); i++) {
+    var tablesCleared = false;
     readFile(f, function(e) {
       // use result in callback...
-      clearTables(); //clear tables every time we input some files
+
+      //clear tables every time we input some files, but only the first time we iterate
+      if (!tablesCleared) clearTables();
+      tablesCleared = true;
+
       const setup = new Setup(e.target.result);
       setup.showSetupByTabs();
       delete setup._setupData;
@@ -27,10 +32,13 @@ function handleFileSelect(evt) {
       if (listOfSetupArray.length == i && i > 1) {
         const comparisonObjectToShow = compareSetups(listOfSetupArray);
         showComparisonOnScreen(comparisonObjectToShow);
-        const tables = $("table");
-        $(tables).each(function() {
+        $.each($("table"), function() {
           sortMe($(this).attr("id"));
         });
+        // const tables = $("table");
+        // $(tables).each(function() {
+        //   sortMe($(this).attr("id"));
+        // });
         // $("#suspensiontabbadge")
         //   .parent("a")[0]
         //   .click();
@@ -67,7 +75,7 @@ function handleFileSelect(evt) {
 }
 
 function readFile(file, onLoadCallback) {
-  var reader = new FileReader();
+  let reader = new FileReader();
   reader.onload = onLoadCallback;
   reader.readAsText(file);
   console.log("function readfile");
@@ -343,24 +351,22 @@ function appendComparisonToHTML(
       .append("</tr>");
 }
 
+// Create empty tables overwriting the existing ones (if any)
 function clearTables() {
-  $("#setupstab").html(
-    '<table id="setupstabTable" class="highlight responsive-table"><thead></thead><tbody></tbody></table>'
-  );
-  $("#generaltab").html(
-    '<table id="generaltabTable" class="highlight responsive-table"><thead></thead><tbody></tbody></table>'
-  );
-  $("#suspensiontab").html(
-    '<table id="suspensiontabTable" class="highlight responsive-table"><thead></thead><tbody></tbody></table>'
-  );
-  $("#chassistab").html(
-    '<table id="chassistabTable" class="highlight responsive-table"><thead></thead><tbody></tbody></table>'
-  );
-  $("#advancedtab").html(
-    '<table id="advancedtabTable" class="highlight responsive-table"><thead></thead><tbody></tbody></table>'
-  );
+  // get table Ids into the array
+  let tablesList = [];
+  $.each($("[custom-role='table']"), (key, val) => {
+    tablesList.push($(val).attr("id"));
+  });
+
+  // loop through each existent table and create it again from scratch
+  $.each(tablesList, (i, tabId) => {
+    $("#" + tabId).html(
+      '<table id="' +
+        tabId +
+        'Table" class="highlight responsive-table"><thead></thead><tbody></tbody></table>'
+    );
+  });
 }
 
-document
-  .getElementById("file-loadSetup")
-  .addEventListener("change", handleFileSelect, false);
+$("#file-loadSetup").on("change", handleFileSelect);

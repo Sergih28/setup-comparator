@@ -1,4 +1,4 @@
-var dic = new Object();
+let dic = new Object();
 
 dic = {};
 

@@ -1,3 +1,4 @@
+// Sort table rows alphabetically
 function sortMe(tableId) {
   let tbody = $("#" + tableId + " tbody");
   tbody
@@ -10,6 +11,7 @@ function sortMe(tableId) {
     .appendTo(tbody);
 }
 
+// Add timestamps to scripts to avoid them being cached
 function addTimestampsToScriptTags() {
   const date = Date.now().toString();
   const randomNumber = Math.floor(Math.random() * 999999).toString();
@@ -20,6 +22,7 @@ function addTimestampsToScriptTags() {
   });
 }
 
+// Add the project year(s) inside the footer
 function addProjectYearToFooter() {
   const firstYear = new Date(new Date().setFullYear(2019, 3, 6)).getFullYear();
   const todayYear = new Date().getFullYear();
