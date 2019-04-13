@@ -21,8 +21,11 @@ dic.Gear5Setting = "Gear 5";
 dic.Gear6Setting = "Gear 6";
 dic.Gear7Setting = "Gear 7";
 dic.Gear8Setting = "Gear 8";
+dic.RatioSetSetting = "Ratio Set";
 dic.FinalDriveSetting = "Gear Final";
 dic.ReverseSetting = "Gear Reverse";
+dic.GearAutoUpShiftSetting = "Gear Auto Upshift";
+dic.GearAutoDownShiftSetting = "Gear Auto Downshift";
 dic.SteerLockSetting = "Wheel Range (Lock)";
 dic.DiffPumpSetting = "Pump";
 dic.DiffPowerSetting = "Power";
@@ -30,6 +33,8 @@ dic.DiffCoastSetting = "Coast";
 dic.DiffPreloadSetting = "Preload";
 dic.FWSetting = "Front Wing";
 dic.RWSetting = "Rear Wing";
+dic.FenderFlareSettingLEFTFENDER = "Fender Flare Left";
+dic.FenderFlareSettingRIGHTFENDER = "Fender Flare Right";
 dic.RevLimitSetting = "Rev Limiter";
 dic.RadiatorSetting = "Radiator";
 dic.EngineMixtureSetting = "Engine Mixture";
@@ -84,13 +89,36 @@ dic.FrontAntiSwaySetting = "Anti-Roll Bar Front";
 dic.RearAntiSwaySetting = "Anti-Roll Bar Rear";
 dic.FrontToeInSetting = "Toe In Front";
 dic.RearToeInSetting = "Toe In Rear";
+dic.FrontToeOffsetSetting = "Front Toe Offset";
+dic.RearToeOffsetSetting = "Rear Toe Offset";
+dic.RearSplitSetting = "Torque Split";
 
 // --------------------------------------------------
 
 //--CHASSIS--
+dic.FenderFlareSettingLEFTFENDER = "Fender Flare Left";
+dic.FenderFlareSettingRIGHTFENDER = "Fender Flare Right";
+dic.LeftTrackBarSetting = "Track Bar Left";
+dic.RightTrackBarSetting = "Track Bar Right";
 dic.LeftCasterSetting = "Caster Left";
 dic.RightCasterSetting = "Caster Right";
+dic.ChassisAdj00Setting = "Chassis Adjustment 1";
+dic.ChassisAdj01Setting = "Chassis Adjustment 2";
+dic.ChassisAdj02Setting = "Chassis Adjustment 3";
+dic.ChassisAdj03Setting = "Chassis Adjustment 4";
+dic.ChassisAdj04Setting = "Chassis Adjustment 5";
+dic.ChassisAdj05Setting = "Chassis Adjustment 6";
+dic.ChassisAdj06Setting = "Chassis Adjustment 7";
+dic.ChassisAdj07Setting = "Chassis Adjustment 8";
+dic.ChassisAdj08Setting = "Chassis Adjustment 9";
+dic.ChassisAdj09Setting = "Chassis Adjustment 10";
+dic.ChassisAdj10Setting = "Chassis Adjustment 11";
+dic.ChassisAdj11Setting = "Chassis Adjustment 12";
+dic.FrontWheelTrackSetting = "Front Wheel Track";
+dic.RearWheelTrackSetting = "Rear Wheel Track";
 dic.CGRightSetting = "Lateral";
+dic.CGHeightSetting = "Vertical";
+dic.WedgeSetting = "Wedge";
 dic.CGRearSetting = "Weight Dist";
 
 // --------------------------------------------------
