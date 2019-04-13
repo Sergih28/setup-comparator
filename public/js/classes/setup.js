@@ -40,7 +40,6 @@ class Setup {
     var self = this;
     let splitted = this._setupData.split("\n");
     let FRFLRRRL = "";
-    //Control flare
     $.each(splitted, function(key, value) {
       if (value.startsWith("["))
         FRFLRRRL = value.substring(1, value.length - 2);
@@ -150,16 +149,6 @@ class Setup {
         return true;
       }
 
-      if (value.includes("FenderFlareSetting")) {
-        self.setValues(
-          "generalTab",
-          "FenderFlareSetting" + FRFLRRRL,
-          value,
-          "="
-        );
-        return true;
-      }
-
       if (value.includes("RevLimitSetting")) {
         self.setValues("generalTab", "RevLimitSetting", value);
         return true;
@@ -208,22 +197,12 @@ class Setup {
       }
 
       if (value.includes("Front3rdSlowReboundSetting")) {
-        self.setValues(
-          "suspensionTab",
-          "Front3rdSlowReboundSetting",
-          value,
-          "="
-        );
+        self.setValues("suspensionTab", "Front3rdSlowReboundSetting", value);
         return true;
       }
 
       if (value.includes("Front3rdFastReboundSetting")) {
-        self.setValues(
-          "suspensionTab",
-          "Front3rdFastReboundSetting",
-          value,
-          "="
-        );
+        self.setValues("suspensionTab", "Front3rdFastReboundSetting", value);
         return true;
       }
 
@@ -248,22 +227,12 @@ class Setup {
       }
 
       if (value.includes("Rear3rdSlowReboundSetting")) {
-        self.setValues(
-          "suspensionTab",
-          "Rear3rdSlowReboundSetting",
-          value,
-          "="
-        );
+        self.setValues("suspensionTab", "Rear3rdSlowReboundSetting", value);
         return true;
       }
 
       if (value.includes("Rear3rdFastReboundSetting")) {
-        self.setValues(
-          "suspensionTab",
-          "Rear3rdFastReboundSetting",
-          value,
-          "="
-        );
+        self.setValues("suspensionTab", "Rear3rdFastReboundSetting", value);
         return true;
       }
 
@@ -273,42 +242,22 @@ class Setup {
       }
 
       if (value.includes("SlowBumpSetting")) {
-        self.setValues(
-          "suspensionTab",
-          "SlowBumpSetting" + FRFLRRRL,
-          value,
-          "="
-        );
+        self.setValues("suspensionTab", "SlowBumpSetting" + FRFLRRRL, value);
         return true;
       }
 
       if (value.includes("SlowReboundSetting")) {
-        self.setValues(
-          "suspensionTab",
-          "SlowReboundSetting" + FRFLRRRL,
-          value,
-          "="
-        );
+        self.setValues("suspensionTab", "SlowReboundSetting" + FRFLRRRL, value);
         return true;
       }
 
       if (value.includes("FastBumpSetting")) {
-        self.setValues(
-          "suspensionTab",
-          "FastBumpSetting" + FRFLRRRL,
-          value,
-          "="
-        );
+        self.setValues("suspensionTab", "FastBumpSetting" + FRFLRRRL, value);
         return true;
       }
 
       if (value.includes("FastReboundSetting")) {
-        self.setValues(
-          "suspensionTab",
-          "FastReboundSetting" + FRFLRRRL,
-          value,
-          "="
-        );
+        self.setValues("suspensionTab", "FastReboundSetting" + FRFLRRRL, value);
         return true;
       }
 
@@ -318,12 +267,7 @@ class Setup {
       }
 
       if (value.includes("RideHeightSetting")) {
-        self.setValues(
-          "suspensionTab",
-          "RideHeightSetting" + FRFLRRRL,
-          value,
-          "="
-        );
+        self.setValues("suspensionTab", "RideHeightSetting" + FRFLRRRL, value);
         return true;
       }
 
@@ -365,11 +309,13 @@ class Setup {
 
       // #region CHASSIS TAB
       if (value.includes("FenderFlareSettingLEFTFENDER")) {
+        // self.setValues("generalTab", "FenderFlareSettingLEFTFENDER", value);
         self.setValues("chassisTab", "FenderFlareSettingLEFTFENDER", value);
         return true;
       }
 
       if (value.includes("FenderFlareSettingRIGHTFENDER")) {
+        // self.setValues("generalTab", "FenderFlareSettingRIGHTFENDER", value);
         self.setValues("chassisTab", "FenderFlareSettingRIGHTFENDER", value);
         return true;
       }
@@ -394,7 +340,7 @@ class Setup {
         return true;
       }
 
-      for (let i = 1; i <= 12; i++) {
+      for (let i = 0; i <= 11; i++) {
         let i2 = i < 10 ? "0" + i.toString() : i.toString();
         if (value.includes("ChassisAdj" + i2 + "Setting")) {
           self.setValues("chassisTab", "ChassisAdj" + i2 + "Setting", value);
@@ -402,8 +348,28 @@ class Setup {
         }
       }
 
+      if (value.includes("FrontWheelTrackSetting")) {
+        self.setValues("chassisTab", "FrontWheelTrackSetting", value);
+        return true;
+      }
+
+      if (value.includes("RearWheelTrackSetting")) {
+        self.setValues("chassisTab", "RearWheelTrackSetting", value);
+        return true;
+      }
+
       if (value.includes("CGRightSetting")) {
         self.setValues("chassisTab", "CGRightSetting", value);
+        return true;
+      }
+
+      if (value.includes("CGHeightSetting")) {
+        self.setValues("chassisTab", "CGHeightSetting", value);
+        return true;
+      }
+
+      if (value.includes("WedgeSetting")) {
+        self.setValues("chassisTab", "WedgeSetting", value);
         return true;
       }
 
@@ -465,13 +431,33 @@ class Setup {
         return true;
       }
 
+      if (value.includes("HandbrakePressSetting")) {
+        self.setValues("advancedTab", "HandbrakePressSetting", value);
+        return true;
+      }
+
       if (value.includes("BrakeDiscSetting")) {
-        self.setValues(
-          "advancedTab",
-          "BrakeDiscSetting" + FRFLRRRL,
-          value,
-          "="
-        );
+        self.setValues("advancedTab", "BrakeDiscSetting" + FRFLRRRL, value);
+        return true;
+      }
+
+      if (value.includes("TCSetting")) {
+        self.setValues("advancedTab", "TCSetting", value);
+        return true;
+      }
+
+      if (value.includes("ABSSetting")) {
+        self.setValues("advancedTab", "ABSSetting", value);
+        return true;
+      }
+
+      if (value.includes("TractionControlMapSetting")) {
+        self.setValues("advancedTab", "TractionControlMapSetting", value);
+        return true;
+      }
+
+      if (value.includes("AntilockBrakeSystemMapSetting")) {
+        self.setValues("advancedTab", "AntilockBrakeSystemMapSetting", value);
         return true;
       }
 

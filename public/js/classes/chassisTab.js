@@ -18,11 +18,11 @@ class ChassisTab {
     this._ChassisAdj09Setting = "";
     this._ChassisAdj10Setting = "";
     this._ChassisAdj11Setting = "";
-    this._;
-    this._;
+    this._FrontWheelTrackSetting = "";
+    this._RearWheelTrackSetting = "";
     this._CGRightSetting = "";
-    this._;
-    this._;
+    this._CGHeightSetting = "";
+    this._WedgeSetting = "";
     this._CGRearSetting = "";
   }
 
@@ -170,12 +170,44 @@ class ChassisTab {
     this._ChassisAdj11Setting = val;
   }
 
+  get FrontWheelTrackSetting() {
+    return this._FrontWheelTrackSetting;
+  }
+
+  set FrontWheelTrackSetting(val) {
+    this._FrontWheelTrackSetting = val;
+  }
+
+  get RearWheelTrackSetting() {
+    return this._RearWheelTrackSetting;
+  }
+
+  set RearWheelTrackSetting(val) {
+    this._RearWheelTrackSetting = val;
+  }
+
   get CGRightSetting() {
     return this._CGRightSetting;
   }
 
   set CGRightSetting(val) {
     this._CGRightSetting = val;
+  }
+
+  get CGHeightSetting() {
+    return this._CGHeightSetting;
+  }
+
+  set CGHeightSetting(val) {
+    this._CGHeightSetting = val;
+  }
+
+  get WedgeSetting() {
+    return this._WedgeSetting;
+  }
+
+  set WedgeSetting(val) {
+    this._WedgeSetting = val;
   }
 
   get CGRearSetting() {
