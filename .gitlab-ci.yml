@@ -6,6 +6,6 @@ pages:
     - echo 'Nothing to do...'
   artifacts:
     paths:
-      - publicPlainJs
+      - public
   only:
     - master
