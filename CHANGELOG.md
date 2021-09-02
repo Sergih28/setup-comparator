@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- React
+
+### Removed
+
+- Hability to compare setups
+
 ## [1.0.0] - 2021-01-01
 
 ### Added
