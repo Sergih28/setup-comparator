@@ -15,8 +15,9 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--
     <script src="js/dictionary.js"></script>
     <script src="js/classes/setup.js"></script>
     <script src="js/classes/advancedTab.js"></script>
@@ -25,138 +26,17 @@
     <script src="js/classes/generalTab.js"></script>
     <script src="js/classes/setupsTab.js"></script>
     <script src="js/main.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    -->
   </head>
   <body>
     <div id="root"></div>
-    <div class="navbar">
-      <input
-        type="file"
-        name="file-loadSetup[]"
-        id="file-loadSetup"
-        class="inputfile inputfile-LoadSetup"
-        data-multiple-caption="{count} setups loaded"
-        multiple
-      />
-      <label
-        id="lblLoadSetup"
-        class="waves-effect waves-light"
-        for="file-loadSetup"
-        ><svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="17"
-          viewBox="0 0 20 17"
-          style="margin-right: 4px"
-        >
-          <path
-            d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"
-          />
-        </svg>
-        <span style="margin-left: 4px">Load Setups</span></label
-      >
-    </div>
-
-    <div id="main">
-      <div class="row no-padding">
-        <div class="col s12 no-padding">
-          <ul class="tabs tabs-fixed-width">
-            <li class="tab col s2">
-              <a class="active" href="#setupstab"
-                ><span class="badge" id="setupstabbadge"></span>Setups</a
-              >
-            </li>
-            <li class="tab col s2">
-              <a href="#generaltab"
-                ><span class="badge" id="generaltabbadge"></span>General</a
-              >
-            </li>
-            <li class="tab col s2">
-              <a href="#suspensiontab"
-                ><span class="badge" id="suspensiontabbadge"></span
-                >Suspension</a
-              >
-            </li>
-            <li class="tab col s2">
-              <a href="#chassistab"
-                ><span class="badge" id="chassistabbadge"></span>Chassis</a
-              >
-            </li>
-            <li class="tab col s2">
-              <a href="#advancedtab"
-                ><span class="badge" id="advancedtabbadge"></span>Advanced</a
-              >
-            </li>
-          </ul>
-        </div>
-        <div
-          id="setupstab"
-          custom-role="table"
-          class="col s12 customTab no-padding"
-        ></div>
-        <div
-          id="generaltab"
-          custom-role="table"
-          class="col s12 customTab no-padding"
-        ></div>
-        <div
-          id="suspensiontab"
-          custom-role="table"
-          class="col s12 customTab no-padding"
-        ></div>
-        <div
-          id="chassistab"
-          custom-role="table"
-          class="col s12 customTab no-padding"
-        ></div>
-        <div
-          id="advancedtab"
-          custom-role="table"
-          class="col s12 customTab no-padding"
-        ></div>
-      </div>
-      <!-- Element Showed -->
-      <div class="fixed-action-btn">
-        <a
-          id="menu"
-          class="waves-effect waves-light btn-large btn-floating red white-text"
-          ><i class="material-icons">menu</i></a
-        >
-      </div>
-      <!-- Tap Target Structure -->
-      <div
-        class="tap-target red white-text"
-        data-target="menu"
-        id="tap-target-div"
-      >
-        <div class="tap-target-content">
-          <h5 style="margin-bottom: 0px">Welcome to the</h5>
-          <h5>SETUP COMPARATOR</h5>
-          <p>
-            Click on <i>LOAD SETUPS</i> to start comparing your rFactor 2
-            setups!
-          </p>
-          <!-- <p>
-            You will see the differences organized in the same tabs you have
-            ingame!
-          </p> -->
-        </div>
-      </div>
-    </div>
-    <footer class="page-footer">
-      <div class="footer-copyright">
-        <div class="container" style="text-align: center" id="footer-text">
-          Copyright ©
-        </div>
-      </div>
-    </footer>
-    <script src="js/read_files.js"></script>
-    <script src="js/custom_file_input.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="js/styles.js"></script>
-    <script>
-      addProjectYearToFooter()
+    <!--
+        <script src="js/read_files.js"></script>
+        <script src="js/custom_file_input.js"></script>
       addTimestampsToScriptTags()
     </script>
+    -->
   </body>
 </html>
