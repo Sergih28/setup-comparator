@@ -1,4 +1,5 @@
 import { tabs } from './Navbar'
+import Table from './Table'
 
 const Main = () => (
   <div id="main">
@@ -15,14 +16,7 @@ const Main = () => (
           ))}
         </ul>
       </div>
-      {tabs.map((tab: string, key: number) => (
-        <div
-          key={key}
-          id={`${tab}tab`}
-          custom-role="table"
-          className="col s12 customTab no-padding"
-        ></div>
-      ))}
+      <Table />
     </div>
   </div>
 )

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useSetup } from './SetupContext'
 
 export const tabs: string[] = [
   'Setups',
@@ -9,7 +9,12 @@ export const tabs: string[] = [
 ]
 
 const Navbar = () => {
-  const [selectedFiles, setSelectedFiles] = useState<FileList | null>()
+  const { updateSetups } = useSetup()
+
+  const handleFilesLoad = (files: unknown) => {
+    const f = files as FileList
+    if (updateSetups) updateSetups(f)
+  }
 
   return (
     <div className="navbar">
@@ -19,7 +24,7 @@ const Navbar = () => {
         className="inputfile inputfile-LoadSetup"
         data-multiple-caption="{count} setups loaded"
         multiple
-        onChange={(e) => setSelectedFiles(e.target.files)}
+        onChange={(e) => handleFilesLoad(e.target.files)}
       />
       <label
         id="lblLoadSetup"
