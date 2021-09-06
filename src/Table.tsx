@@ -1,5 +1,5 @@
 import { tabs } from './Navbar'
-import { useSetup, SetupCompleteProps } from './SetupContext'
+import { useSetup } from './SetupContext'
 
 const Table = () => {
   const { setups } = useSetup()
