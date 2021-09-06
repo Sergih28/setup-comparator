@@ -5,7 +5,7 @@ export interface SetupProps {
   value: string
 }
 
-export const emptySetup: SetupProps[] = [
+export const empty_setup: SetupProps[] = [
   {
     tab: 'Setup',
     key: 'FuelSetting',
