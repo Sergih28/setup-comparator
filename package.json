@@ -1,6 +1,6 @@
 {
-  "name": "rrr",
-  "version": "0.1.0",
+  "name": "Setup Comparator",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
