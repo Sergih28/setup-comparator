@@ -1,5 +1,5 @@
 import { useState, useContext, createContext, useEffect } from 'react'
-import { SetupProps, empty_setup } from './Setup'
+import { SetupProps, empty_setup } from './setup'
 
 export interface SetupCompleteProps {
   name: string
@@ -66,7 +66,7 @@ const cleanLine = (FRFLRRRL: string, line: string): SetupProps => {
         item.key === new_line_array[0] ||
         item.key === new_line_array[0] + FRFLRRRL
     )
-    const res = {
+    const res: SetupProps = {
       tab: current_tab?.tab || '',
       key: new_line_array[0] + FRFLRRRL,
       name: current_tab?.name || '',
@@ -75,7 +75,7 @@ const cleanLine = (FRFLRRRL: string, line: string): SetupProps => {
     return res
   }
 
-  return { tab: '', key: '', name: '', value: '' }
+  return { tab: '', key: '', name: '', value: '' } as SetupProps
 }
 
 const getSetupContent = (files_in_lines: string[][]): Array<SetupProps>[] => {
