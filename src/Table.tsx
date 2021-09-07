@@ -1,6 +1,7 @@
+import React from 'react'
 import { tabs } from './Navbar'
 import { useSetup, SetupCompleteProps } from './SetupContext'
-import { SetupProps } from './setup'
+import { SetupProps, empty_setup } from './setup'
 import { Tab } from '@headlessui/react'
 import { ReactElement } from 'react'
 
@@ -37,35 +38,40 @@ interface TableBodyProps {
 
 const TableBody = ({ setups, tab }: TableBodyProps) => (
   <tbody>
-    {setups &&
-      setups.length > 0 &&
-      setups[0].content.map((content: SetupProps, key3: number) => (
-        <>
-          {content.tab === tab && (
-            <tr key={key3}>
-              {setups?.map((setup_inside: SetupCompleteProps, key4: number) => (
-                <>
-                  {content.key ===
-                    setup_inside.content.find(
-                      (cont: SetupProps) => cont.key === content.key
-                    )?.key && (
-                    <td key={key4}>
-                      {setup_inside.content.find(
-                        (cont: SetupProps) => cont.key === content.key
-                      )?.tab === tab &&
-                        `${content.name}: ${
-                          setup_inside.content.find(
-                            (cont: SetupProps) => cont.key === content.key
-                          )?.value
-                        }`}
-                    </td>
-                  )}
-                </>
-              ))}
-            </tr>
-          )}
-        </>
-      ))}
+    {
+      // Loop through an empty setup as reference
+      // Add the rows when the key of the empty setup matches the current
+      // setup key in the loop (checking before if we are in the same tab)
+
+      setups &&
+        setups.length > 0 &&
+        empty_setup.map((default_content: SetupProps, key: number) => (
+          <React.Fragment key={key}>
+            {default_content.tab === tab && (
+              <tr>
+                {setups?.map((setup: SetupCompleteProps, key2: number) => {
+                  const setup_content_in_current_key: SetupProps | undefined =
+                    setup.content.find(
+                      (content: SetupProps) =>
+                        content.key === default_content.key
+                    )
+
+                  return (
+                    <React.Fragment key={key2}>
+                      {default_content.key ===
+                        setup_content_in_current_key?.key && (
+                        <td>
+                          {`${default_content.name}: ${setup_content_in_current_key?.value}`}
+                        </td>
+                      )}
+                    </React.Fragment>
+                  )
+                })}
+              </tr>
+            )}
+          </React.Fragment>
+        ))
+    }
   </tbody>
 )
 
