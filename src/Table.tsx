@@ -4,7 +4,11 @@ import { SetupProps } from './setup'
 import { Tab } from '@headlessui/react'
 import { ReactElement } from 'react'
 
-const Tabs = ({ tabs }: { tabs: string[] }): ReactElement => (
+interface TabsProps {
+  tabs: string[]
+}
+
+const Tabs = ({ tabs }: TabsProps): ReactElement => (
   <Tab.List>
     {tabs.map((tab: string, key: number) => (
       <Tab key={key}>{tab}</Tab>
@@ -12,13 +16,12 @@ const Tabs = ({ tabs }: { tabs: string[] }): ReactElement => (
   </Tab.List>
 )
 
-const Panels = ({
-  tabs,
-  setups,
-}: {
+interface PanelsProps {
   tabs: string[]
   setups: SetupCompleteProps[] | undefined
-}) => (
+}
+
+const Panels = ({ tabs, setups }: PanelsProps) => (
   <Tab.Panels>
     {tabs.map((tab: string, key: number) => (
       <Tab.Panel key={key}>
