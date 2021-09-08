@@ -123,7 +123,7 @@ const MyTable = () => {
   return (
     <>
       {setups && setups?.length > 0 && (
-        <Tabs>
+        <Tabs isFitted>
           <MyTabList tabs={tabs} />
           <MyTabPanels tabs={tabs} setups={setups} />
         </Tabs>
