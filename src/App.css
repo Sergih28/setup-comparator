@@ -25,6 +25,14 @@ code {
     color: #02C3EE;
 }
 
+.footer-copyright {
+    margin-right: 0.4rem;
+}
+
+.footer-version{
+    margin-right: 0.3rem;
+}
+
 body {
   font-family: sans-serif;
   margin: 0 auto;

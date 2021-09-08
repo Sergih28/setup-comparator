@@ -97,7 +97,7 @@ const processSetupsContent = (
   let FRFLRRRL = ''
 
   const setups_with_processed_content: SetupCompleteProps[] = setups.map(
-    (setup: SetupCompleteSplitProps, key: number): SetupCompleteProps => {
+    (setup: SetupCompleteSplitProps): SetupCompleteProps => {
       const processed_content: SetupProps[] = setup.split_content
         .map((line: string) => {
           FRFLRRRL = getLineTitle(FRFLRRRL, line)
