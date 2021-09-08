@@ -11,6 +11,16 @@ interface SetupContextProps {
   updateSetups: (new_setups: FileList) => void
 }
 
+interface SetupCompleteRawProps {
+  name: string
+  raw_content: string
+}
+
+interface SetupCompleteSplitProps {
+  name: string
+  split_content: string[]
+}
+
 const SetupContext = createContext<Partial<SetupContextProps>>({})
 
 export const useSetup = () => useContext(SetupContext)
@@ -78,15 +88,17 @@ const cleanLine = (FRFLRRRL: string, line: string): SetupProps => {
   return { tab: '', key: '', name: '', value: '' } as SetupProps
 }
 
-const getSetupContent = (files_in_lines: string[][]): Array<SetupProps>[] => {
+const processSetupsContent = (
+  setups: SetupCompleteSplitProps[]
+): SetupCompleteProps[] => {
   // FRFLRRRL is a variable to save the value
   // when we are in a FRONTRIGHT, FRONTLEFT, REARRIGHT or REARLEFT
   // group, so we can add it to the key to differentiate each other
   let FRFLRRRL = ''
 
-  const content: Array<SetupProps>[] = files_in_lines.map(
-    (setup: string[], key: number): Array<SetupProps> => {
-      const cleaned_lines: Array<SetupProps> = setup
+  const setups_with_processed_content: SetupCompleteProps[] = setups.map(
+    (setup: SetupCompleteSplitProps, key: number): SetupCompleteProps => {
+      const processed_content: SetupProps[] = setup.split_content
         .map((line: string) => {
           FRFLRRRL = getLineTitle(FRFLRRRL, line)
           return cleanLine(FRFLRRRL, line)
@@ -94,17 +106,49 @@ const getSetupContent = (files_in_lines: string[][]): Array<SetupProps>[] => {
         .filter(
           (line) => line.tab !== '' && line.key !== '' && line.value !== ''
         )
-      return cleaned_lines
+      const setup_with_processed_content: SetupCompleteProps = {
+        name: setup.name,
+        content: processed_content,
+      }
+      return setup_with_processed_content
     }
   )
 
-  return content
+  return setups_with_processed_content
 }
 
-const separateFilesIntoLines = (files: string[]): string[][] =>
-  Array.prototype.map.call(files, (file: string): string[] =>
-    file.split('\n')
-  ) as string[][]
+const readFiles = async (
+  files_list: FileList
+): Promise<SetupCompleteRawProps[]> => {
+  let files = Array.from(files_list).map(async (file) => {
+    let reader = new FileReader()
+    const raw_content_promise = new Promise((resolve, reject) => {
+      reader.onload = () => resolve(reader.result)
+      reader.onerror = () => reject(reader)
+      reader.readAsText(file)
+    })
+    const raw_content = (await raw_content_promise) as string
+
+    const setup_raw: SetupCompleteRawProps = {
+      name: file.name,
+      raw_content: raw_content,
+    }
+    return setup_raw
+  })
+
+  return (await Promise.all(files)) as SetupCompleteRawProps[]
+}
+
+const separateContentIntoLines = (
+  files: SetupCompleteRawProps[]
+): SetupCompleteSplitProps[] =>
+  Array.prototype.map.call(
+    files,
+    (file: SetupCompleteRawProps): SetupCompleteSplitProps => ({
+      name: file.name,
+      split_content: file.raw_content.split('\n'),
+    })
+  ) as SetupCompleteSplitProps[]
 
 export const SetupProvider = ({ children }: any) => {
   const [setups, setSetups] = useState<SetupCompleteProps[]>([])
@@ -113,71 +157,28 @@ export const SetupProvider = ({ children }: any) => {
     console.info('SETUPS HAVE BEEN UPDATED', setups)
   }, [setups])
 
-  const createSetup = async (name: string) => {
-    const new_setup: SetupCompleteProps = {
-      name: name,
-      content: [],
-    }
-
+  const createSetups = async (new_setups: SetupCompleteProps[]) => {
     setSetups((currentSetups: SetupCompleteProps[]) => {
-      return [...currentSetups, new_setup]
+      return [...currentSetups, ...new_setups]
     })
   }
 
-  const readFiles = async (files_list: FileList): Promise<unknown> => {
-    let files = Array.from(files_list).map((file) => {
-      let reader = new FileReader()
-
-      // Create new empty setup with the file name
-      const file_name = file.name
-      if (
-        setups.filter((setup: SetupCompleteProps) => setup.name === file_name)
-          .length === 0
-      ) {
-        createSetup(file_name)
-      }
-
-      return new Promise((resolve) => {
-        reader.onload = () => resolve(reader.result)
-        reader.readAsText(file)
-      })
-    })
-
-    return files
-  }
-
-  const fillSetupData = (content: Array<SetupProps>[]) => {
-    setSetups((currentSetups: SetupCompleteProps[]): SetupCompleteProps[] => {
-      const r = currentSetups.map((setup, key) => {
-        const filtered_setup = content.find(
-          (content_temp, key2: number) => key === key2
-        )
-        const new_content =
-          typeof filtered_setup !== 'undefined' && filtered_setup.length > 0
-            ? filtered_setup
-            : [...setup.content]
-
-        return { ...setup, content: new_content }
-      })
-
-      return r
-    })
-  }
-
-  const updateSetups = async (new_setups: FileList) => {
-    // read the files
-    const files: string[] = await Promise.all(
-      (await readFiles(new_setups)) as string[]
+  const updateSetups = async (new_files: FileList) => {
+    // Read the files
+    const setups_raw_content: SetupCompleteRawProps[] = await readFiles(
+      new_files
     )
 
-    // separate files into lines
-    const files_in_lines: string[][] = separateFilesIntoLines(files)
+    // Split setups content into lines
+    const setups_split_content: SetupCompleteSplitProps[] =
+      separateContentIntoLines(setups_raw_content)
 
-    // Put the setup content into an array of Setup objects of Setups array
-    const content: Array<SetupProps>[] = getSetupContent(files_in_lines)
+    // Process the setups content into an array of Setups.content objects
+    const setups_to_add: SetupCompleteProps[] =
+      processSetupsContent(setups_split_content)
 
-    // Add the content of the setups that were created before with only the name
-    fillSetupData(content)
+    // Add the new setups to setups
+    createSetups(setups_to_add)
   }
 
   return (

@@ -1,7 +1,7 @@
 import { useSetup } from './SetupContext'
 
 export const tabs: string[] = [
-  'Setups',
+  'Setup',
   'General',
   'Suspension',
   'Chassis',
