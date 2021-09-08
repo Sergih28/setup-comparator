@@ -122,10 +122,12 @@ const MyTable = () => {
 
   return (
     <>
-      <Tabs>
-        <MyTabList tabs={tabs} />
-        <MyTabPanels tabs={tabs} setups={setups} />
-      </Tabs>
+      {setups && setups?.length > 0 && (
+        <Tabs>
+          <MyTabList tabs={tabs} />
+          <MyTabPanels tabs={tabs} setups={setups} />
+        </Tabs>
+      )}
     </>
   )
 }
