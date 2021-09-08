@@ -2,33 +2,62 @@ import React from 'react'
 import { tabs } from './Navbar'
 import { useSetup, SetupCompleteProps } from './SetupContext'
 import { SetupProps, empty_setup } from './setup'
-import { Tab } from '@headlessui/react'
 import { ReactElement } from 'react'
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+} from '@chakra-ui/react'
 
 interface TabsProps {
   tabs: string[]
 }
 
-const Tabs = ({ tabs }: TabsProps): ReactElement => (
-  <Tab.List>
+const MyTabList = ({ tabs }: TabsProps): ReactElement => (
+  <TabList>
     {tabs.map((tab: string, key: number) => (
       <Tab key={key}>{tab}</Tab>
     ))}
-  </Tab.List>
+  </TabList>
 )
+
+const getSetupsNames = (setups: SetupCompleteProps[] | undefined) =>
+  setups?.map((setup: SetupCompleteProps, key2: number) => (
+    <Th style={{ textAlign: 'center' }} key={key2}>
+      {setup.name}
+    </Th>
+  ))
 
 interface TableHeadProps {
   setups: SetupCompleteProps[] | undefined
 }
 
 const TableHead = ({ setups }: TableHeadProps) => (
-  <thead>
-    <tr>
-      {setups?.map((setup: SetupCompleteProps, key2: number) => (
-        <th key={key2}>{setup.name}</th>
-      ))}
-    </tr>
-  </thead>
+  <Thead>
+    <Tr>
+      <Th></Th>
+      {getSetupsNames(setups)}
+    </Tr>
+  </Thead>
+)
+
+interface TableFooterProps {
+  setups: SetupCompleteProps[] | undefined
+}
+
+const TableFooter = ({ setups }: TableFooterProps) => (
+  <Tfoot>
+    <Tr>
+      <Th></Th>
+      {getSetupsNames(setups)}
+    </Tr>
+  </Tfoot>
 )
 
 interface TableBodyProps {
@@ -37,7 +66,7 @@ interface TableBodyProps {
 }
 
 const TableBody = ({ setups, tab }: TableBodyProps) => (
-  <tbody>
+  <Tbody>
     {
       // Loop through an empty setup as reference
       // Add the rows when the key of the empty setup matches the current
@@ -48,7 +77,7 @@ const TableBody = ({ setups, tab }: TableBodyProps) => (
         empty_setup.map((default_content: SetupProps, key: number) => (
           <React.Fragment key={key}>
             {default_content.tab === tab && (
-              <tr>
+              <Tr>
                 {setups?.map((setup: SetupCompleteProps, key2: number) => {
                   const setup_content_in_current_key: SetupProps | undefined =
                     setup.content.find(
@@ -60,19 +89,22 @@ const TableBody = ({ setups, tab }: TableBodyProps) => (
                     <React.Fragment key={key2}>
                       {default_content.key ===
                         setup_content_in_current_key?.key && (
-                        <td>
-                          {`${default_content.name}: ${setup_content_in_current_key?.value}`}
-                        </td>
+                        <>
+                          {key2 === 0 && <Th>{`${default_content.name}`}</Th>}
+                          <Td
+                            style={{ textAlign: 'center' }}
+                          >{`${setup_content_in_current_key?.value}`}</Td>
+                        </>
                       )}
                     </React.Fragment>
                   )
                 })}
-              </tr>
+              </Tr>
             )}
           </React.Fragment>
         ))
     }
-  </tbody>
+  </Tbody>
 )
 
 interface PanelsProps {
@@ -80,32 +112,31 @@ interface PanelsProps {
   setups: SetupCompleteProps[] | undefined
 }
 
-const Panels = ({ tabs, setups }: PanelsProps) => (
-  <Tab.Panels>
+const MyTabPanels = ({ tabs, setups }: PanelsProps) => (
+  <TabPanels>
     {tabs.map((tab: string, key: number) => (
-      <Tab.Panel key={key}>
-        <table>
+      <TabPanel key={key}>
+        <Table size="sm" variant="striped">
           <TableHead setups={setups} />
           <TableBody setups={setups} tab={tab} />
-        </table>
-      </Tab.Panel>
+          <TableFooter setups={setups} />
+        </Table>
+      </TabPanel>
     ))}
-  </Tab.Panels>
+  </TabPanels>
 )
 
-const Table = () => {
+const MyTable = () => {
   const { setups } = useSetup()
 
   return (
     <>
-      <div className="w-full max-w-md px-2 py-16 sm:px-0">
-        <Tab.Group>
-          <Tabs tabs={tabs} />
-          <Panels tabs={tabs} setups={setups} />
-        </Tab.Group>
-      </div>
+      <Tabs>
+        <MyTabList tabs={tabs} />
+        <MyTabPanels tabs={tabs} setups={setups} />
+      </Tabs>
     </>
   )
 }
 
-export default Table
+export default MyTable
