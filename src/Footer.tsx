@@ -1,3 +1,5 @@
+import { Flex, Square, Text } from '@chakra-ui/react'
+
 const Footer = () => {
   const copyrightYears = () => {
     const firstYear = new Date(new Date().setFullYear(2019, 3, 6)).getFullYear()
@@ -8,17 +10,11 @@ const Footer = () => {
 
   return (
     <>
-      <footer className="page-footer">
-        <div className="footer-copyright">
-          <div
-            className="container"
-            style={{ textAlign: 'center' }}
-            id="footer-text"
-          >
-            Copyright © {copyrightYears()}
-          </div>
-        </div>
-      </footer>
+      <Flex color="white">
+        <Square bg="#FF3000" size="100%" p={3}>
+          <Text>Copyright © {copyrightYears()}</Text>
+        </Square>
+      </Flex>
     </>
   )
 }

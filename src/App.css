@@ -80,7 +80,7 @@ body {
   font-size: 14px;
   font-weight: 600;
   color: #fff;
-  background-color: #106ba0;
+  background-color: #02C3EE;
   display: inline-block;
   transition: all 0.25s;
   cursor: pointer;
@@ -109,28 +109,17 @@ body {
   margin-bottom: 5px;
 }
 
-h5 {
-  text-align: center;
-}
 
 #lblLoadSetup {
   width: 100%;
 }
 
-.badge {
-  margin-top: 3px;
-}
 
 body {
   height: 100vh !important;
 }
 
-/* Properly make the width 100% of everything on the main part of the screen*/
-.row {
-  min-height: 100%;
-  height: auto;
-  margin-bottom: 3px;
-}
+
 
 #main {
   min-height: calc(
@@ -141,34 +130,5 @@ body {
   overflow: auto; /*without this there is a weird space between #main and footer*/
 }
 
-/* avoid any spacing between footer and #main*/
-.page-footer {
-  padding-top: 0px !important;
-  margin-top: 0px !important;
-}
 
-/* replacing some styles to make the button behaviour smoother and better */
-#menu {
-  position: absolute;
-  bottom: 15px;
-  right: 15px;
-}
 
-.tap-target-wrapper {
-  right: -334px !important;
-  bottom: -334px !important;
-  position: fixed !important;
-}
-
-/* featureDiscovey media for smaller screens*/
-@media only screen and (max-width: 600px) {
-  .tap-target,
-  .tap-target-wrapper {
-    width: 600px;
-    height: 600px;
-    display: none;
-  }
-  .fixed-action-btn {
-    display: none;
-  }
-}
