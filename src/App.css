@@ -17,6 +17,14 @@ code {
     monospace;
 }
 
+.footer-icon{
+    margin-bottom: 0.2rem;
+}
+
+.footer-icon:hover{
+    color: #02C3EE;
+}
+
 body {
   font-family: sans-serif;
   margin: 0 auto;
