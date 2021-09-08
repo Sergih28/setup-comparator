@@ -10,8 +10,8 @@ import { IconType } from 'react-icons/lib'
 const copyrightYears = (): string => {
   const firstYear = new Date(new Date().setFullYear(2019, 3, 6)).getFullYear()
   const todayYear = new Date().getFullYear()
-  if (firstYear !== todayYear) return ` ${firstYear} - ${todayYear}`
-  return ` ${firstYear}`
+  if (firstYear !== todayYear) return `${firstYear} - ${todayYear}`
+  return `${firstYear}`
 }
 
 interface CopyrightProps {
