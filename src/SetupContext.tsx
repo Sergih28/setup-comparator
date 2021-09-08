@@ -113,42 +113,41 @@ export const SetupProvider = ({ children }: any) => {
     console.info('SETUPS HAVE BEEN UPDATED', setups)
   }, [setups])
 
-  const createSetup = async (name: string) => {
-    const new_setup: SetupCompleteProps = {
-      name: name,
-      content: [],
-    }
+  const createSetups = async (setups: FileList) => {
+    const new_setups: SetupCompleteProps[] = Array.from(setups).map(
+      (setup: File): SetupCompleteProps => ({
+        name: setup.name,
+        content: [],
+      })
+    )
 
     setSetups((currentSetups: SetupCompleteProps[]) => {
-      return [...currentSetups, new_setup]
+      return [...currentSetups, ...new_setups]
     })
   }
 
   const readFiles = async (files_list: FileList): Promise<unknown> => {
+    console.log(performance.now())
     let files = Array.from(files_list).map((file) => {
       let reader = new FileReader()
-
-      // Create new empty setup with the file name
-      const file_name = file.name
-      if (
-        setups.filter((setup: SetupCompleteProps) => setup.name === file_name)
-          .length === 0
-      ) {
-        createSetup(file_name)
-      }
-
-      return new Promise((resolve) => {
+      console.log(performance.now())
+      console.log('promise', file)
+      return new Promise((resolve, reject) => {
         reader.onload = () => resolve(reader.result)
+        reader.onerror = () => reject(reader)
         reader.readAsText(file)
       })
     })
 
+    console.log(performance.now())
+    const r = (await Promise.all(files)) as string[]
+    console.log('r', 'files', r, files)
     return files
   }
 
   const fillSetupData = (content: Array<SetupProps>[]) => {
-    setSetups((currentSetups: SetupCompleteProps[]): SetupCompleteProps[] => {
-      const r = currentSetups.map((setup, key) => {
+    setSetups((setups: SetupCompleteProps[]): SetupCompleteProps[] => {
+      const r = setups.map((setup, key) => {
         const filtered_setup = content.find(
           (content_temp, key2: number) => key === key2
         )
@@ -165,6 +164,9 @@ export const SetupProvider = ({ children }: any) => {
   }
 
   const updateSetups = async (new_setups: FileList) => {
+    // Create new empty setups with the file name
+    createSetups(new_setups)
+
     // read the files
     const files: string[] = await Promise.all(
       (await readFiles(new_setups)) as string[]
