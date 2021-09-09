@@ -56,7 +56,7 @@ interface WrapperProps {
 const Wrapper = ({ children }: WrapperProps): ReactElement => (
   <Flex color="white">
     <Square bg="#FF3000" size="100%" p={3}>
-      <Text>{children}</Text>
+      <Text className="footer">{children}</Text>
     </Square>
   </Flex>
 )

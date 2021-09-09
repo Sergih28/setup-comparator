@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 import { tabs } from './Navbar'
 import { useSetup, SetupCompleteProps } from './SetupContext'
 import { SetupProps, empty_setup } from './setup'
@@ -9,14 +9,6 @@ import { Table, Thead, Tbody, Tfoot, Tr, Th, Td } from '@chakra-ui/react'
 interface TabsProps {
   tabs: string[]
 }
-
-const MyTabList = ({ tabs }: TabsProps): ReactElement => (
-  <TabList>
-    {tabs.map((tab: string, key: number) => (
-      <Tab key={key}>{tab}</Tab>
-    ))}
-  </TabList>
-)
 
 const getSetupsNames = (setups: SetupCompleteProps[] | undefined) =>
   setups?.map((setup: SetupCompleteProps, key2: number) => (
@@ -103,23 +95,43 @@ interface PanelsProps {
   setups: SetupCompleteProps[] | undefined
 }
 
-const MyTabPanels = ({ tabs, setups }: PanelsProps) => (
-  <TabPanels>
-    {tabs.map((tab: string, key: number) => (
-      <TabPanel key={key}>
-        <Table size="sm" variant="striped">
-          <TableHead setups={setups} />
-          <TableBody setups={setups} tab={tab} />
-          <TableFooter setups={setups} />
-        </Table>
-      </TabPanel>
-    ))}
-  </TabPanels>
-)
-
 const MyTable = () => {
   const { setups } = useSetup()
 
+  const tab_list = useRef<HTMLDivElement>(null)
+  const tab_panels = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    console.log(tab_list, tab_panels)
+    const height = tab_list.current?.offsetHeight
+
+    console.log(tab_panels.current?.style, height)
+
+    // if (tab_panels.current?.style)
+    //   tab_panels.current.style.marginTop = height?.toString() + 'px'
+    //tab_panels.current.style.height = height
+  }, [setups])
+
+  const MyTabList = ({ tabs }: TabsProps): ReactElement => (
+    <TabList ref={tab_list} style={{ position: 'sticky', top: 0 }}>
+      {tabs.map((tab: string, key: number) => (
+        <Tab key={key}>{tab}</Tab>
+      ))}
+    </TabList>
+  )
+  const MyTabPanels = ({ tabs, setups }: PanelsProps) => (
+    <TabPanels ref={tab_panels}>
+      {tabs.map((tab: string, key: number) => (
+        <TabPanel key={key}>
+          <Table size="sm" variant="striped">
+            <TableHead setups={setups} />
+            <TableBody setups={setups} tab={tab} />
+            <TableFooter setups={setups} />
+          </Table>
+        </TabPanel>
+      ))}
+    </TabPanels>
+  )
   return (
     <>
       {setups && setups?.length > 0 && (

@@ -47,11 +47,7 @@ const Navbar = () => {
         multiple
         onChange={(e) => handleFilesLoad(e.target.files)}
       />
-      <label
-        id="lblLoadSetup"
-        className="waves-effect waves-light"
-        htmlFor="file-loadSetup"
-      >
+      <label id="lblLoadSetup" htmlFor="file-loadSetup">
         <AttachmentIcon />
         <span style={{ marginLeft: '4px' }}>
           {loadSetupsText(amountSetups)}
