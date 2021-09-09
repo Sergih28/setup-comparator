@@ -44,8 +44,8 @@ const Navbar = () => {
   }
 
   return (
-    <Slide direction="top" in={show} style={{ zIndex: 1 }}>
-      <div className="navbar">
+    <Slide direction="top" in={show} style={{ zIndex: 1 }} id="navbar">
+      <div>
         <input
           type="file"
           id="file-loadSetup"

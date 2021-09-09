@@ -1,14 +1,25 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { tabs } from './Navbar'
 import { useSetup, SetupCompleteProps } from './SetupContext'
 import { SetupProps, empty_setup } from './setup'
 import { ReactElement } from 'react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
-import { Table, Thead, Tbody, Tfoot, Tr, Th, Td } from '@chakra-ui/react'
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+} from '@chakra-ui/react'
 import { ScaleFade } from '@chakra-ui/react'
+import { Badge } from '@chakra-ui/react'
 
 interface TabsProps {
   tabs: string[]
+  scrollbarHeight: number
 }
 
 const getSetupsNames = (setups: SetupCompleteProps[] | undefined) =>
@@ -94,41 +105,85 @@ const TableBody = ({ setups, tab }: TableBodyProps) => (
 interface PanelsProps {
   tabs: string[]
   setups: SetupCompleteProps[] | undefined
+  scrollbarHeight: number
 }
 
-const MyTable = () => {
-  const { setups } = useSetup()
+const MyTabPanels = ({ tabs, setups, scrollbarHeight }: PanelsProps) => (
+  <TabPanels className="main-table" style={{ paddingTop: `3px` }}>
+    {tabs.map((tab: string, key: number) => (
+      <TabPanel key={key}>
+        <Table size="sm" variant="striped">
+          <TableHead setups={setups} />
+          <TableCaption>You are comparing rFactor 2 setups</TableCaption>
+          <TableBody setups={setups} tab={tab} />
+          <TableFooter setups={setups} />
+        </Table>
+      </TabPanel>
+    ))}
+  </TabPanels>
+)
 
-  const MyTabList = ({ tabs }: TabsProps): ReactElement => (
-    <TabList className="tab-sticky">
+const MyTable = () => {
+  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth)
+  const [scrollbarHeight, setScrollbarHeight] = useState<number>(0)
+  const { setups } = useSetup()
+  const tabs_div = useRef(null)
+
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth)
+    const scrollbar_height: HTMLElement | undefined = tabs_div.current
+      ? tabs_div.current
+      : undefined
+    if (typeof scrollbar_height === 'undefined') return
+
+    if (scrollbar_height) {
+      const h = scrollbar_height as HTMLElement
+      setScrollbarHeight(h.offsetHeight - h.clientHeight - 2)
+    }
+  }
+
+  useEffect((): (() => void) => {
+    window.addEventListener('resize', handleResize)
+
+    return () => window.removeEventListener('resize', handleResize)
+  }, [windowWidth, scrollbarHeight])
+
+  useEffect(() => {
+    setTimeout(() => handleResize(), 0)
+  }, [setups])
+
+  const MyTabList = ({ tabs, scrollbarHeight }: TabsProps): ReactElement => (
+    <TabList
+      className="tab-sticky main-tabs"
+      ref={tabs_div}
+      style={{
+        height: `${50 + scrollbarHeight}px`,
+        marginBottom: `${scrollbarHeight + 2}px`,
+      }}
+    >
       {tabs.map((tab: string, key: number) => (
-        <Tab key={key}>{tab}</Tab>
+        <Tab key={key}>
+          {tab}
+          <div className="badge">0</div>
+        </Tab>
       ))}
     </TabList>
   )
-  const MyTabPanels = ({ tabs, setups }: PanelsProps) => (
-    <TabPanels>
-      {tabs.map((tab: string, key: number) => (
-        <TabPanel key={key}>
-          <Table size="sm" variant="striped">
-            <TableHead setups={setups} />
-            <TableBody setups={setups} tab={tab} />
-            <TableFooter setups={setups} />
-          </Table>
-        </TabPanel>
-      ))}
-    </TabPanels>
-  )
+
   return (
     <ScaleFade
       in={setups && setups?.length > 0}
       initialScale={0.8}
-      style={{ zIndex: 1 }}
+      className="grid-children"
     >
       {setups && setups?.length > 0 && (
-        <Tabs isFitted>
-          <MyTabList tabs={tabs} />
-          <MyTabPanels tabs={tabs} setups={setups} />
+        <Tabs isFitted className="main-grid">
+          <MyTabList tabs={tabs} scrollbarHeight={scrollbarHeight} />
+          <MyTabPanels
+            tabs={tabs}
+            setups={setups}
+            scrollbarHeight={scrollbarHeight}
+          />
         </Tabs>
       )}
     </ScaleFade>

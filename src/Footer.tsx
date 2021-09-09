@@ -70,7 +70,7 @@ const Footer = (): ReactElement => {
   }, [])
 
   return (
-    <Slide direction="bottom" in={show}>
+    <Slide direction="bottom" in={show} id="footer">
       <Wrapper>
         <Copyright years={copyrightYears()} author={author} />
         <Version version={version} />

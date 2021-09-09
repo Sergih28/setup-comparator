@@ -3,7 +3,7 @@ import Footer from './Footer'
 import Main from './Main'
 import Navbar from './Navbar'
 import { SetupProvider } from './SetupContext'
-import './App.css'
+import './App.scss'
 
 function App() {
   return (
