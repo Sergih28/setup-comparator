@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { Flex, Square, Text } from '@chakra-ui/react'
-import { version } from '../package.json'
+import { version, author } from '../package.json'
 import { Link } from '@chakra-ui/react'
 import { Icon } from '@chakra-ui/react'
 import { GoMarkGithub } from 'react-icons/go'
@@ -16,10 +16,13 @@ const copyrightYears = (): string => {
 
 interface CopyrightProps {
   years: string
+  author: { name: string }
 }
 
-const Copyright = ({ years }: CopyrightProps): ReactElement => (
-  <span className="footer-copyright">Copyright © {years}</span>
+const Copyright = ({ years, author }: CopyrightProps): ReactElement => (
+  <span className="footer-copyright">
+    Copyright © {years}, {author.name}
+  </span>
 )
 
 interface VersionProps {
@@ -60,7 +63,7 @@ const Wrapper = ({ children }: WrapperProps): ReactElement => (
 
 const Footer = (): ReactElement => (
   <Wrapper>
-    <Copyright years={copyrightYears()} />
+    <Copyright years={copyrightYears()} author={author} />
     <Version version={version} />
     <ImageFooter image={GoMarkGithub} />
   </Wrapper>

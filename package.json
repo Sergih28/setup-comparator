@@ -2,6 +2,9 @@
   "name": "setup-comparator",
   "version": "1.0.0",
   "private": true,
+  "author": {
+    "name": "Sergi Heras"
+  },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.15",
     "@chakra-ui/react": "^1.6.7",
