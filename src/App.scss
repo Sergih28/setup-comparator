@@ -11,8 +11,9 @@ body {
 }
 
 .App{
+    height: 100%;
     display: grid;
-    grid-template-rows: minmax(50px, auto) minmax(calc(100vh - 95px), 1fr) minmax(45px, auto);
+    grid-template-rows: auto 1fr auto;
     grid-template-columns: auto;
     grid-template-areas:
         "navbar"
@@ -63,21 +64,6 @@ body {
     overflow-x: auto;
 }
 
-.chakra-tabs__tab-list{
-    height: 80px !important;
-}
-/*
-.chakra-tabs__tab-panels, .chakra-tabs{
-    display: flex;
-    flex: 1 1 auto;
-}
-
-.chakra-tabs__tab-panels, .chakra-tabs__tab-list{
-    overflow-x: auto !important;
-    max-width: 100vw !important;
-}
-
-*/
 .badge {
     font-size: 0.75rem;
     margin-top: -0.75rem;
