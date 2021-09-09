@@ -1,10 +1,11 @@
-import React, { useRef, useEffect } from 'react'
+import React from 'react'
 import { tabs } from './Navbar'
 import { useSetup, SetupCompleteProps } from './SetupContext'
 import { SetupProps, empty_setup } from './setup'
 import { ReactElement } from 'react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { Table, Thead, Tbody, Tfoot, Tr, Th, Td } from '@chakra-ui/react'
+import { ScaleFade } from '@chakra-ui/react'
 
 interface TabsProps {
   tabs: string[]
@@ -98,29 +99,15 @@ interface PanelsProps {
 const MyTable = () => {
   const { setups } = useSetup()
 
-  const tab_list = useRef<HTMLDivElement>(null)
-  const tab_panels = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    console.log(tab_list, tab_panels)
-    const height = tab_list.current?.offsetHeight
-
-    console.log(tab_panels.current?.style, height)
-
-    // if (tab_panels.current?.style)
-    //   tab_panels.current.style.marginTop = height?.toString() + 'px'
-    //tab_panels.current.style.height = height
-  }, [setups])
-
   const MyTabList = ({ tabs }: TabsProps): ReactElement => (
-    <TabList ref={tab_list} style={{ position: 'sticky', top: 0 }}>
+    <TabList className="tab-sticky">
       {tabs.map((tab: string, key: number) => (
         <Tab key={key}>{tab}</Tab>
       ))}
     </TabList>
   )
   const MyTabPanels = ({ tabs, setups }: PanelsProps) => (
-    <TabPanels ref={tab_panels}>
+    <TabPanels>
       {tabs.map((tab: string, key: number) => (
         <TabPanel key={key}>
           <Table size="sm" variant="striped">
@@ -133,14 +120,18 @@ const MyTable = () => {
     </TabPanels>
   )
   return (
-    <>
+    <ScaleFade
+      in={setups && setups?.length > 0}
+      initialScale={0.8}
+      style={{ zIndex: 1 }}
+    >
       {setups && setups?.length > 0 && (
         <Tabs isFitted>
           <MyTabList tabs={tabs} />
           <MyTabPanels tabs={tabs} setups={setups} />
         </Tabs>
       )}
-    </>
+    </ScaleFade>
   )
 }
 

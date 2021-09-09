@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSetup } from './SetupContext'
 import { AttachmentIcon } from '@chakra-ui/icons'
+import { Slide } from '@chakra-ui/react'
 
 export const tabs: string[] = [
   'Setup',
@@ -25,6 +26,11 @@ const loadSetupsText = (amount_setups: number) => (
 const Navbar = () => {
   const { updateSetups } = useSetup()
   const [amountSetups, setAmountSetups] = useState<number>(0)
+  const [show, setShow] = useState<boolean>(false)
+
+  useEffect(() => {
+    setShow(true)
+  }, [])
 
   const handleFilesLoad = (files: unknown) => {
     const f = files as FileList
@@ -38,23 +44,24 @@ const Navbar = () => {
   }
 
   return (
-    <div className="navbar">
-      <input
-        type="file"
-        id="file-loadSetup"
-        className="inputfile inputfile-LoadSetup"
-        data-multiple-caption="{count} setups loaded"
-        multiple
-        onChange={(e) => handleFilesLoad(e.target.files)}
-      />
-      <label id="lblLoadSetup" htmlFor="file-loadSetup">
-        <AttachmentIcon />
-        <span style={{ marginLeft: '4px' }}>
-          {loadSetupsText(amountSetups)}
-        </span>
-      </label>
-      <div></div>
-    </div>
+    <Slide direction="top" in={show} style={{ zIndex: 1 }}>
+      <div className="navbar">
+        <input
+          type="file"
+          id="file-loadSetup"
+          className="inputfile inputfile-LoadSetup"
+          data-multiple-caption="{count} setups loaded"
+          multiple
+          onChange={(e) => handleFilesLoad(e.target.files)}
+        />
+        <label id="lblLoadSetup" htmlFor="file-loadSetup">
+          <AttachmentIcon />
+          <span style={{ marginLeft: '4px' }}>
+            {loadSetupsText(amountSetups)}
+          </span>
+        </label>
+      </div>
+    </Slide>
   )
 }
 

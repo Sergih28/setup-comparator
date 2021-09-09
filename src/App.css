@@ -5,9 +5,13 @@ body {
   height: 100vh !important;
 }
 
-#root, #App{
+#root, .App{
     height: 100%;
     width: 100%;
+}
+
+.chakra-slide{
+    position: relative !important;
 }
 
 .footer{
@@ -34,7 +38,7 @@ body {
   width: 0.1px;
   height: 0.1px;
   opacity: 0;
-  overflow: hidden;
+  /*overflow: hidden;*/
   position: absolute;
   z-index: -1;
 }
@@ -84,31 +88,17 @@ body {
   background: #FF3000;
 }
 
-.chakra-tabs{
-    /*height: calc(100vh - 95px) !important;*/
-    max-height: calc(100vh - 45px) !important;
+.tab-sticky{
+    position: sticky !important;
+    top: 0px !important;
+    background: #FFF;
 }
 
-.chakra-tabs__tab-panel{
-    /*position: relative;
-    height: auto;
-    max-height: calc(100% - 42px - 95px) !important;
-    overflow: auto;*/
-    /*
-    position: relative;
-    top: 42px;
-    */
-    /*height: calc(100vh - 42px - 95px) !important;*/
-    /*height: calc(100vh - 87px) !important;*/
-
-    overflow: auto;
+* {
+    box-shadow: none !important;
 }
 
 #main {
     flex: 1 1 auto;
-    /*max-height: 100vh;*/
-    min-height: calc(
-        100vh - 95px
-  ); /* pixel perfect matching so the footer it's just below and doesn't show at the bottom when loading the page*/
-  overflow: auto; /*without this there is a weird space between #main and footer*/
+    min-height: calc(100vh - 95px);
 }

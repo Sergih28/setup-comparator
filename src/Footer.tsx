@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { useState, useEffect, ReactNode } from 'react'
 import { Flex, Square, Text } from '@chakra-ui/react'
 import { version, author } from '../package.json'
 import { Link } from '@chakra-ui/react'
@@ -6,6 +6,7 @@ import { Icon } from '@chakra-ui/react'
 import { GoMarkGithub } from 'react-icons/go'
 import { ReactElement } from 'react'
 import { IconType } from 'react-icons/lib'
+import { Slide } from '@chakra-ui/react'
 
 const copyrightYears = (): string => {
   const first_year = new Date(new Date().setFullYear(2019, 3, 6)).getFullYear()
@@ -61,12 +62,22 @@ const Wrapper = ({ children }: WrapperProps): ReactElement => (
   </Flex>
 )
 
-const Footer = (): ReactElement => (
-  <Wrapper>
-    <Copyright years={copyrightYears()} author={author} />
-    <Version version={version} />
-    <ImageFooter image={GoMarkGithub} />
-  </Wrapper>
-)
+const Footer = (): ReactElement => {
+  const [show, setShow] = useState<boolean>(false)
+
+  useEffect(() => {
+    setShow(true)
+  }, [])
+
+  return (
+    <Slide direction="bottom" in={show}>
+      <Wrapper>
+        <Copyright years={copyrightYears()} author={author} />
+        <Version version={version} />
+        <ImageFooter image={GoMarkGithub} />
+      </Wrapper>
+    </Slide>
+  )
+}
 
 export default Footer
