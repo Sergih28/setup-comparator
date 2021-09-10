@@ -3,14 +3,6 @@ import { useSetup } from './SetupContext'
 import { AttachmentIcon } from '@chakra-ui/icons'
 import { Slide } from '@chakra-ui/react'
 
-export const tabs: string[] = [
-  'Setup',
-  'General',
-  'Suspension',
-  'Chassis',
-  'Advanced',
-]
-
 const loadSetupsText = (amount_setups: number) => (
   <>
     {amount_setups === 0 ? (

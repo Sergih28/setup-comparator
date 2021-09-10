@@ -1,3 +1,11 @@
+export const tabs: string[] = [
+  'Setup',
+  'General',
+  'Suspension',
+  'Chassis',
+  'Advanced',
+]
+
 export interface SetupProps {
   tab: string
   key: string

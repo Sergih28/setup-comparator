@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { tabs } from './Navbar'
+import { tabs } from './setup'
 import { useSetup, SetupCompleteProps } from './SetupContext'
 import { SetupProps, empty_setup } from './setup'
 import { ReactElement } from 'react'
@@ -15,11 +15,20 @@ import {
   TableCaption,
 } from '@chakra-ui/react'
 import { ScaleFade } from '@chakra-ui/react'
-import { Badge } from '@chakra-ui/react'
 
 interface TabsProps {
   tabs: string[]
   scrollbarHeight: number
+}
+
+interface DifferencesListProps {
+  key: 'Setup' | 'General' | 'Suspension' | 'Chassis' | 'Advanced'
+  value: number
+}
+
+interface DifferencesProps {
+  total: number
+  list: DifferencesListProps[]
 }
 
 const getSetupsNames = (setups: SetupCompleteProps[] | undefined) =>
@@ -123,10 +132,37 @@ const MyTabPanels = ({ tabs, setups, scrollbarHeight }: PanelsProps) => (
   </TabPanels>
 )
 
+const empty_differences: DifferencesProps = {
+  total: 0,
+  list: [
+    {
+      key: 'Setup',
+      value: 0,
+    },
+    {
+      key: 'General',
+      value: 0,
+    },
+    {
+      key: 'Suspension',
+      value: 0,
+    },
+    {
+      key: 'Chassis',
+      value: 0,
+    },
+    {
+      key: 'Advanced',
+      value: 0,
+    },
+  ],
+}
+
 const MyTable = () => {
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth)
   const [scrollbarHeight, setScrollbarHeight] = useState<number>(0)
   const { setups } = useSetup()
+  const [differences] = useState<DifferencesProps>(empty_differences)
   const tabs_div = useRef(null)
 
   const handleResize = () => {
@@ -161,12 +197,25 @@ const MyTable = () => {
         marginBottom: `${scrollbarHeight + 2}px`,
       }}
     >
-      {tabs.map((tab: string, key: number) => (
-        <Tab key={key}>
-          {tab}
-          <div className="badge">0</div>
-        </Tab>
-      ))}
+      {tabs.map((tab: string, key: number): ReactElement => {
+        const differences_value: number =
+          differences.list.find(
+            (item: DifferencesListProps) => item.key === tab
+          )?.value ?? 0
+
+        const singular_plural =
+          differences_value === 1
+            ? ['is', 'difference']
+            : ['are', 'differences']
+        const title: string = `There ${singular_plural[0]} ${differences_value} ${singular_plural[1]} in the ${tab} tab`
+
+        return (
+          <Tab key={key} title={title}>
+            {tab}
+            <div className="badge">{differences_value}</div>
+          </Tab>
+        )
+      })}
     </TabList>
   )
 
