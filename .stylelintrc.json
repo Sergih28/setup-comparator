@@ -1,0 +1,21 @@
+{
+  "extends": "stylelint-config-sass-guidelines",
+  "plugins": ["stylelint-order"],
+  "rules": {
+    "indentation": 4,
+    "number-leading-zero": "always",
+    "number-no-trailing-zeros": true,
+    "string-quotes": "single",
+    "color-hex-length": "long",
+    "selector-max-id": 2,
+    "order/order": [
+      "custom-properties",
+      "dollar-variables",
+      "at-variables",
+      "declarations",
+      "rules",
+      "at-rules"
+    ],
+    "order/properties-alphabetical-order": true
+  }
+}

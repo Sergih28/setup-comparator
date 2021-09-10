@@ -1,7 +1,9 @@
+import { ReactElement } from 'react'
+
 import Table from './Table'
 
-const Main = () => (
-  <div id="main">
+const Main = (): ReactElement => (
+  <div id='main'>
     <Table />
   </div>
 )
