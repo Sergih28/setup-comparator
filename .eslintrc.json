@@ -28,7 +28,7 @@
     "import/no-unresolved": "error",
     "no-console": "error",
     "quotes": ["error", "single"],
-    "@typescript-eslnt/ban-types": [
+    "@typescript-eslint/ban-types": [
       "error",
       {
         "extendDefaults": true,
@@ -40,12 +40,7 @@
     "import/order": [
       "error",
       {
-        "groups": [
-          "builtin",
-          "external",
-          ["sibling", "parent", "internal", "index"],
-          "object"
-        ],
+        "groups": ["builtin", "external", ["sibling", "parent", "internal", "index"], "object"],
         "pathGroups": [
           {
             "pattern": "react",
