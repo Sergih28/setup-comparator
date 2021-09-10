@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { tabs } from './setup'
-import { useSetup, SetupCompleteProps } from './SetupContext'
-import { SetupProps, empty_setup } from './setup'
-import { ReactElement } from 'react'
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import React, { useState, useEffect, useRef, ReactElement } from 'react'
+
 import {
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
   Table,
   Thead,
   Tbody,
@@ -13,8 +14,11 @@ import {
   Th,
   Td,
   TableCaption,
+  ScaleFade,
 } from '@chakra-ui/react'
-import { ScaleFade } from '@chakra-ui/react'
+
+import { tabs, SetupProps, empty_setup } from './setup'
+import { useSetup, SetupCompleteProps } from './SetupContext'
 
 interface TabsProps {
   tabs: string[]
@@ -31,7 +35,7 @@ interface DifferencesProps {
   list: DifferencesListProps[]
 }
 
-const getSetupsNames = (setups: SetupCompleteProps[] | undefined) =>
+const getSetupsNames = (setups: SetupCompleteProps[] | undefined): ReactElement[] | undefined =>
   setups?.map((setup: SetupCompleteProps, key2: number) => (
     <Th style={{ textAlign: 'center' }} key={key2}>
       {setup.name}
@@ -42,7 +46,7 @@ interface TableHeadProps {
   setups: SetupCompleteProps[] | undefined
 }
 
-const TableHead = ({ setups }: TableHeadProps) => (
+const TableHead = ({ setups }: TableHeadProps): ReactElement => (
   <Thead>
     <Tr>
       <Th></Th>
@@ -55,7 +59,7 @@ interface TableFooterProps {
   setups: SetupCompleteProps[] | undefined
 }
 
-const TableFooter = ({ setups }: TableFooterProps) => (
+const TableFooter = ({ setups }: TableFooterProps): ReactElement => (
   <Tfoot>
     <Tr>
       <Th></Th>
@@ -69,7 +73,7 @@ interface TableBodyProps {
   tab: string
 }
 
-const TableBody = ({ setups, tab }: TableBodyProps) => (
+const TableBody = ({ setups, tab }: TableBodyProps): ReactElement => (
   <Tbody>
     {
       // Loop through an empty setup as reference
@@ -83,16 +87,13 @@ const TableBody = ({ setups, tab }: TableBodyProps) => (
             {default_content.tab === tab && (
               <Tr>
                 {setups?.map((setup: SetupCompleteProps, key2: number) => {
-                  const setup_content_in_current_key: SetupProps | undefined =
-                    setup.content.find(
-                      (content: SetupProps) =>
-                        content.key === default_content.key
-                    )
+                  const setup_content_in_current_key: SetupProps | undefined = setup.content.find(
+                    (content: SetupProps) => content.key === default_content.key,
+                  )
 
                   return (
                     <React.Fragment key={key2}>
-                      {default_content.key ===
-                        setup_content_in_current_key?.key && (
+                      {default_content.key === setup_content_in_current_key?.key && (
                         <>
                           {key2 === 0 && <Th>{`${default_content.name}`}</Th>}
                           <Td
@@ -117,11 +118,11 @@ interface PanelsProps {
   scrollbarHeight: number
 }
 
-const MyTabPanels = ({ tabs, setups, scrollbarHeight }: PanelsProps) => (
-  <TabPanels className="main-table" style={{ paddingTop: `3px` }}>
+const MyTabPanels = ({ tabs, setups }: PanelsProps): ReactElement => (
+  <TabPanels className='main-table' style={{ paddingTop: '3px' }}>
     {tabs.map((tab: string, key: number) => (
       <TabPanel key={key}>
-        <Table size="sm" variant="striped">
+        <Table size='sm' variant='striped'>
           <TableHead setups={setups} />
           <TableCaption>You are comparing rFactor 2 setups</TableCaption>
           <TableBody setups={setups} tab={tab} />
@@ -158,14 +159,14 @@ const empty_differences: DifferencesProps = {
   ],
 }
 
-const MyTable = () => {
+const MyTable = (): ReactElement => {
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth)
   const [scrollbarHeight, setScrollbarHeight] = useState<number>(0)
   const { setups } = useSetup()
   const [differences] = useState<DifferencesProps>(empty_differences)
   const tabs_div = useRef(null)
 
-  const handleResize = () => {
+  const handleResize = (): void => {
     setWindowWidth(window.innerWidth)
     const scrollbar_height: HTMLElement | undefined = tabs_div.current
       ? tabs_div.current
@@ -181,7 +182,7 @@ const MyTable = () => {
   useEffect((): (() => void) => {
     window.addEventListener('resize', handleResize)
 
-    return () => window.removeEventListener('resize', handleResize)
+    return (): void => window.removeEventListener('resize', handleResize)
   }, [windowWidth, scrollbarHeight])
 
   useEffect(() => {
@@ -190,7 +191,7 @@ const MyTable = () => {
 
   const MyTabList = ({ tabs, scrollbarHeight }: TabsProps): ReactElement => (
     <TabList
-      className="tab-sticky main-tabs"
+      className='tab-sticky main-tabs'
       ref={tabs_div}
       style={{
         height: `${50 + scrollbarHeight}px`,
@@ -199,20 +200,16 @@ const MyTable = () => {
     >
       {tabs.map((tab: string, key: number): ReactElement => {
         const differences_value: number =
-          differences.list.find(
-            (item: DifferencesListProps) => item.key === tab
-          )?.value ?? 0
+          differences.list.find((item: DifferencesListProps) => item.key === tab)?.value ?? 0
 
         const singular_plural =
-          differences_value === 1
-            ? ['is', 'difference']
-            : ['are', 'differences']
-        const title: string = `There ${singular_plural[0]} ${differences_value} ${singular_plural[1]} in the ${tab} tab`
+          differences_value === 1 ? ['is', 'difference'] : ['are', 'differences']
+        const title = `There ${singular_plural[0]} ${differences_value} ${singular_plural[1]} in the ${tab} tab`
 
         return (
           <Tab key={key} title={title}>
             {tab}
-            <div className="badge">{differences_value}</div>
+            <div className='badge'>{differences_value}</div>
           </Tab>
         )
       })}
@@ -220,19 +217,11 @@ const MyTable = () => {
   )
 
   return (
-    <ScaleFade
-      in={setups && setups?.length > 0}
-      initialScale={0.8}
-      className="grid-children"
-    >
+    <ScaleFade in={setups && setups?.length > 0} initialScale={0.8} className='grid-children'>
       {setups && setups?.length > 0 && (
-        <Tabs isFitted className="main-grid">
+        <Tabs isFitted className='main-grid'>
           <MyTabList tabs={tabs} scrollbarHeight={scrollbarHeight} />
-          <MyTabPanels
-            tabs={tabs}
-            setups={setups}
-            scrollbarHeight={scrollbarHeight}
-          />
+          <MyTabPanels tabs={tabs} setups={setups} scrollbarHeight={scrollbarHeight} />
         </Tabs>
       )}
     </ScaleFade>
