@@ -106,6 +106,12 @@ If you wish that we support other simulators, don't hesitate to reach out and as
 
 This project is licensed under [MIT License].
 
+## Contributors
+
+<!-- readme: collaborators,contributors -start -->
+
+<!-- readme: collaborators,contributors -end -->
+
 [v1.0.0]: https://github.com/Sergih28/setup-comparator/releases/tag/v1.0.0
 [Contributing guidelines]: CONTRIBUTING.md
 [MIT License]: LICENSE
