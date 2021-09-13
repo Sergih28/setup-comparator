@@ -99,6 +99,7 @@ const processSetupsContent = (setups: SetupCompleteSplitProps[]): SetupCompleteP
           return cleanLine(FRFLRRRL, line)
         })
         .filter((line) => line.tab !== '' && line.key !== '' && line.value !== '')
+        .filter((line) => !line.value.startsWith('"Notes'))
       const setup_with_processed_content: SetupCompleteProps = {
         name: setup.name,
         content: processed_content,
@@ -130,12 +131,57 @@ const readFiles = async (files_list: FileList): Promise<SetupCompleteRawProps[]>
   return (await Promise.all(files)) as SetupCompleteRawProps[]
 }
 
-const separateContentIntoLines = (files: SetupCompleteRawProps[]): SetupCompleteSplitProps[] =>
+const joinNotesInSingleLine = (content: string[]): string[] => {
+  const notes_line_start = 'Notes='
+
+  // identify lines that contain notes
+  const lines_with_notes: string[] = content.filter((line: string): boolean =>
+    line.startsWith(notes_line_start),
+  )
+
+  // Clear notes lines without title except the first one
+  const lines_with_notes_title_fix = lines_with_notes.map((line: string, key: number): string => {
+    if (key === 0) {
+      const first_line_fix_quotes = line.slice(0, 6).concat(line.slice(7, line.length - 2))
+      return first_line_fix_quotes
+    }
+
+    const notes_title_replaced = line.replace(notes_line_start + '"', '')
+    const notes_without_double_quotes = notes_title_replaced.substr(
+      0,
+      notes_title_replaced.length - 2,
+    )
+    return notes_without_double_quotes
+  })
+
+  // Join those lines into 1
+  const notes_in_one_line = lines_with_notes_title_fix.reduce(
+    (prev_value: string, current_value: string): string => `${prev_value}${current_value}`,
+  )
+
+  // pop all lines that contain notes
+  const content_without_notes = content.filter((line: string) => !line.startsWith(notes_line_start))
+
+  // add new line with all notes together
+  const content_with_notes_joined = [...content_without_notes, notes_in_one_line]
+
+  return content_with_notes_joined
+}
+
+const separateContentIntoLines = (raw_content: string): string[] => {
+  const content_split_lines = raw_content.split('\n')
+
+  const content_split_lines_fixed_notes = joinNotesInSingleLine(content_split_lines)
+
+  return content_split_lines_fixed_notes
+}
+
+const splitSetupsContent = (files: SetupCompleteRawProps[]): SetupCompleteSplitProps[] =>
   Array.prototype.map.call(
     files,
     (file: SetupCompleteRawProps): SetupCompleteSplitProps => ({
       name: file.name,
-      split_content: file.raw_content.split('\n'),
+      split_content: separateContentIntoLines(file.raw_content),
     }),
   ) as SetupCompleteSplitProps[]
 
@@ -157,8 +203,7 @@ export const SetupProvider = ({ children }: SetupProviderProps): ReactElement =>
     const setups_raw_content: SetupCompleteRawProps[] = await readFiles(new_files)
 
     // Split setups content into lines
-    const setups_split_content: SetupCompleteSplitProps[] =
-      separateContentIntoLines(setups_raw_content)
+    const setups_split_content: SetupCompleteSplitProps[] = splitSetupsContent(setups_raw_content)
 
     // Process the setups content into an array of Setups.content objects
     const setups_to_add: SetupCompleteProps[] = processSetupsContent(setups_split_content)
