@@ -131,6 +131,11 @@ const readFiles = async (files_list: FileList): Promise<SetupCompleteRawProps[]>
   return (await Promise.all(files)) as SetupCompleteRawProps[]
 }
 
+const removeWeirdChars = (string: string): string =>
+  Array.from(string)
+    .map((char: string) => (char.charCodeAt(0) <= 127 ? char : '\n\n'))
+    .join('')
+
 const joinNotesInSingleLine = (content: string[]): string[] => {
   const notes_line_start = 'Notes='
 
@@ -159,11 +164,14 @@ const joinNotesInSingleLine = (content: string[]): string[] => {
     (prev_value: string, current_value: string): string => `${prev_value}${current_value}`,
   )
 
+  // Remove weird characters from the notes line
+  const notes_without_weird_characters = removeWeirdChars(notes_in_one_line)
+
   // pop all lines that contain notes
   const content_without_notes = content.filter((line: string) => !line.startsWith(notes_line_start))
 
   // add new line with all notes together
-  const content_with_notes_joined = [...content_without_notes, notes_in_one_line]
+  const content_with_notes_joined = [...content_without_notes, notes_without_weird_characters]
 
   return content_with_notes_joined
 }
