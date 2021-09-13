@@ -1,6 +1,6 @@
-import { useState, useEffect, ReactNode , ReactElement } from 'react'
+import { useState, useEffect, ReactNode, ReactElement } from 'react'
 
-import { Flex, Square, Text , Link , Icon , Slide } from '@chakra-ui/react'
+import { Flex, Square, Text, Link, Icon, Slide } from '@chakra-ui/react'
 import { GoMarkGithub } from 'react-icons/go'
 import { IconType } from 'react-icons/lib'
 

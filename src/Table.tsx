@@ -96,9 +96,9 @@ const TableBody = ({ setups, tab }: TableBodyProps): ReactElement => (
                       {default_content.key === setup_content_in_current_key?.key && (
                         <>
                           {key2 === 0 && <Th>{`${default_content.name}`}</Th>}
-                          <Td
-                            style={{ textAlign: 'center' }}
-                          >{`${setup_content_in_current_key?.value}`}</Td>
+                          <Td style={{ textAlign: 'center', whiteSpace: 'pre-wrap' }}>
+                            {`${setup_content_in_current_key?.value}`}
+                          </Td>
                         </>
                       )}
                     </React.Fragment>
