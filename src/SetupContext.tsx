@@ -1,15 +1,21 @@
 import { useState, useContext, createContext, ReactNode, ReactElement } from 'react'
 
-import { SetupProps, empty_setup } from './setup'
+import { SetupProps, empty_setup, show_keys, SetupKeysToShowProps } from './setup'
 
 export interface SetupCompleteProps {
   name: string
   content: SetupProps[]
 }
 
+export interface SetupKeysToShowValuesProps {
+  key: string
+  values: string[]
+}
+
 interface SetupContextProps {
   setups: SetupCompleteProps[]
   updateSetups: (new_setups: FileList) => void
+  setupKeysToShow: SetupKeysToShowProps[]
 }
 
 interface SetupCompleteRawProps {
@@ -44,7 +50,14 @@ const splitByEquals = (line: string): string[] => {
 }
 
 const getLineTitle = (current_title: string, line: string): string => {
-  const titles_list = ['FRONTRIGHT', 'FRONTLEFT', 'REARRIGHT', 'REARLEFT']
+  const titles_list = [
+    'FRONTRIGHT',
+    'FRONTLEFT',
+    'REARRIGHT',
+    'REARLEFT',
+    'LEFTFENDER',
+    'RIGHTFENDER',
+  ]
 
   if (line.startsWith('[')) {
     const initial_title = line.substring(1, line.length - 2)
@@ -73,6 +86,7 @@ const cleanLine = (FRFLRRRL: string, line: string): SetupProps => {
       (item: SetupProps) =>
         item.key === new_line_array[0] || item.key === new_line_array[0] + FRFLRRRL,
     )
+
     const res: SetupProps = {
       tab: current_tab?.tab || '',
       key: new_line_array[0] + FRFLRRRL,
@@ -98,7 +112,7 @@ const processSetupsContent = (setups: SetupCompleteSplitProps[]): SetupCompleteP
           FRFLRRRL = getLineTitle(FRFLRRRL, line)
           return cleanLine(FRFLRRRL, line)
         })
-        .filter((line) => line.tab !== '' && line.key !== '' && line.value !== '')
+        .filter((line) => line.tab !== '' && line.key !== '')
         .filter((line) => !line.value.startsWith('"Notes'))
       const setup_with_processed_content: SetupCompleteProps = {
         name: setup.name,
@@ -199,11 +213,59 @@ interface SetupProviderProps {
 
 export const SetupProvider = ({ children }: SetupProviderProps): ReactElement => {
   const [setups, setSetups] = useState<SetupCompleteProps[]>([])
+  const [setupKeysToShow, setSetupKeysToShow] = useState<SetupKeysToShowProps[]>(show_keys)
 
   const createSetups = async (new_setups: SetupCompleteProps[]): Promise<void> => {
-    setSetups((currentSetups: SetupCompleteProps[]) => {
-      return [...currentSetups, ...new_setups]
-    })
+    // TODO
+    // In the future this might be
+    // setSetups((currentSetups: SetupCompleteProps[]) => {
+    //   return [...new_setups]
+    // })
+    // For now we just erase everything when loading more setups
+    setSetups([...new_setups])
+  }
+
+  const compareSetups = (
+    setups: SetupCompleteProps[],
+    setup_keys_to_show: SetupKeysToShowProps[],
+  ): void => {
+    const setups_keys: SetupKeysToShowValuesProps[] = setup_keys_to_show.map(
+      (setup_key_to_show: SetupKeysToShowProps): SetupKeysToShowValuesProps => {
+        const setups_key_to_show_values: SetupKeysToShowValuesProps['values'] = setups.map(
+          (setup: SetupCompleteProps) => {
+            const r = setup.content.find(
+              (content: SetupProps) => content.key === setup_key_to_show.key,
+            )?.value
+            return r
+          },
+        ) as string[]
+
+        return { key: setup_key_to_show.key, values: setups_key_to_show_values }
+      },
+    )
+
+    const new_setup_keys_to_show: SetupKeysToShowProps[] = setup_keys_to_show.map(
+      (line: SetupKeysToShowProps) => {
+        const values_to_compare: SetupKeysToShowValuesProps['values'] = setups_keys.find(
+          (line2: SetupKeysToShowValuesProps) => line.key === line2.key,
+        )?.values as string[]
+
+        let show = !(values_to_compare.length > 1)
+
+        if (!show) {
+          for (let i = 1; i < values_to_compare.length; i++) {
+            show = values_to_compare[i] !== values_to_compare[i - 1]
+            if (show) break
+          }
+        }
+
+        const r = { ...line, show: show }
+
+        return r
+      },
+    )
+
+    setSetupKeysToShow(new_setup_keys_to_show)
   }
 
   const updateSetups = async (new_files: FileList): Promise<void> => {
@@ -218,10 +280,15 @@ export const SetupProvider = ({ children }: SetupProviderProps): ReactElement =>
 
     // Add the new setups to setups
     createSetups(setups_to_add)
+
+    // Set the lines that have to be shown after comparison
+    compareSetups(setups_to_add, setupKeysToShow)
   }
 
   return (
-    <SetupContext.Provider value={{ setups: setups, updateSetups: updateSetups }}>
+    <SetupContext.Provider
+      value={{ setups: setups, updateSetups: updateSetups, setupKeysToShow: setupKeysToShow }}
+    >
       {children}
     </SetupContext.Provider>
   )

@@ -32,7 +32,12 @@ const Navbar = (): ReactElement => {
     if (updateSetups) updateSetups(f)
 
     const amount_new_setups = Array.from(f).length
-    setAmountSetups((old_amount_setups: number) => old_amount_setups + amount_new_setups)
+
+    //TODO
+    // In the future this might be
+    // setAmountSetups((old_amount_setups: number) => old_amount_setups + amount_new_setups)
+    // For now we just erase everything when loading more setups
+    setAmountSetups(amount_new_setups)
   }
 
   return (

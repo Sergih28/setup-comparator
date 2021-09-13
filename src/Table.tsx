@@ -17,7 +17,7 @@ import {
   ScaleFade,
 } from '@chakra-ui/react'
 
-import { tabs, SetupProps, empty_setup } from './setup'
+import { tabs, SetupProps, empty_setup, SetupKeysToShowProps } from './setup'
 import { useSetup, SetupCompleteProps } from './SetupContext'
 
 interface TabsProps {
@@ -71,9 +71,10 @@ const TableFooter = ({ setups }: TableFooterProps): ReactElement => (
 interface TableBodyProps {
   setups: SetupCompleteProps[] | undefined
   tab: string
+  setupKeysToShow: SetupKeysToShowProps[]
 }
 
-const TableBody = ({ setups, tab }: TableBodyProps): ReactElement => (
+const TableBody = ({ setups, tab, setupKeysToShow }: TableBodyProps): ReactElement => (
   <Tbody>
     {
       // Loop through an empty setup as reference
@@ -91,9 +92,13 @@ const TableBody = ({ setups, tab }: TableBodyProps): ReactElement => (
                     (content: SetupProps) => content.key === default_content.key,
                   )
 
+                  const show = setupKeysToShow.find(
+                    (line: SetupKeysToShowProps) => line.key === default_content.key,
+                  )?.show
+
                   return (
                     <React.Fragment key={key2}>
-                      {default_content.key === setup_content_in_current_key?.key && (
+                      {default_content.key === setup_content_in_current_key?.key && show && (
                         <>
                           {key2 === 0 && <Th>{`${default_content.name}`}</Th>}
                           <Td style={{ textAlign: 'center', whiteSpace: 'pre-wrap' }}>
@@ -116,16 +121,17 @@ interface PanelsProps {
   tabs: string[]
   setups: SetupCompleteProps[] | undefined
   scrollbarHeight: number
+  setupKeysToShow: SetupKeysToShowProps[]
 }
 
-const MyTabPanels = ({ tabs, setups }: PanelsProps): ReactElement => (
+const MyTabPanels = ({ tabs, setups, setupKeysToShow }: PanelsProps): ReactElement => (
   <TabPanels className='main-table' style={{ paddingTop: '3px' }}>
     {tabs.map((tab: string, key: number) => (
       <TabPanel key={key}>
         <Table size='sm' variant='striped'>
           <TableHead setups={setups} />
           <TableCaption>You are comparing rFactor 2 setups</TableCaption>
-          <TableBody setups={setups} tab={tab} />
+          <TableBody setups={setups} tab={tab} setupKeysToShow={setupKeysToShow} />
           <TableFooter setups={setups} />
         </Table>
       </TabPanel>
@@ -162,7 +168,7 @@ const empty_differences: DifferencesProps = {
 const MyTable = (): ReactElement => {
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth)
   const [scrollbarHeight, setScrollbarHeight] = useState<number>(0)
-  const { setups } = useSetup()
+  const { setups, setupKeysToShow } = useSetup()
   const [differences] = useState<DifferencesProps>(empty_differences)
   const tabs_div = useRef(null)
 
@@ -221,7 +227,12 @@ const MyTable = (): ReactElement => {
       {setups && setups?.length > 0 && (
         <Tabs isFitted className='main-grid'>
           <MyTabList tabs={tabs} scrollbarHeight={scrollbarHeight} />
-          <MyTabPanels tabs={tabs} setups={setups} scrollbarHeight={scrollbarHeight} />
+          <MyTabPanels
+            tabs={tabs}
+            setups={setups}
+            scrollbarHeight={scrollbarHeight}
+            setupKeysToShow={setupKeysToShow ?? []}
+          />
         </Tabs>
       )}
     </ScaleFade>
