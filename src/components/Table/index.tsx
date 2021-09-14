@@ -1,74 +1,69 @@
-import React, { useState, useEffect, useRef, ReactElement } from 'react'
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
 
 import {
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
   ScaleFade,
+  Tab,
+  Table,
+  TableCaption,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Tbody,
+  Td,
+  Tfoot,
+  Th,
+  Thead,
+  Tr,
 } from '@chakra-ui/react'
 
+import { useSetup } from 'hooks/Setup'
+import { empty_setup, tabs } from 'hooks/Setup/assets'
 import {
-  tabs,
-  SetupProps,
-  empty_setup,
-  SetupKeysToShowProps,
   DifferencesListProps,
-} from 'hooks/setup'
-import { useSetup, SetupCompleteProps } from 'hooks/SetupContext'
+  SetupCompleteProps,
+  SetupKeysToShowProps,
+  SetupProps,
+} from 'hooks/Setup/types'
 
-interface TabsProps {
-  tabs: string[]
-  scrollbarHeight: number
-}
+import { tableCaptionText } from './utils'
 
-const getSetupsNames = (setups: SetupCompleteProps[] | undefined): ReactElement[] | undefined =>
-  setups?.map((setup: SetupCompleteProps, key2: number) => (
-    <Th style={{ textAlign: 'center' }} key={key2}>
-      {setup.name}
-    </Th>
-  ))
+import {
+  PanelsProps,
+  SetupsNamesRowProps,
+  TableBodyProps,
+  TableFooterProps,
+  TableHeadProps,
+  TabsProps,
+} from './types'
 
-interface TableHeadProps {
-  setups: SetupCompleteProps[] | undefined
-}
+const SetupsNamesRow = ({ setups }: SetupsNamesRowProps): ReactElement => (
+  <>
+    {setups?.map((setup: SetupCompleteProps, key2: number) => (
+      <Th style={{ textAlign: 'center' }} key={key2}>
+        {setup.name}
+      </Th>
+    ))}
+  </>
+)
 
 const TableHead = ({ setups }: TableHeadProps): ReactElement => (
   <Thead>
     <Tr>
       <Th></Th>
-      {getSetupsNames(setups)}
+      <SetupsNamesRow setups={setups} />
     </Tr>
   </Thead>
 )
-
-interface TableFooterProps {
-  setups: SetupCompleteProps[] | undefined
-}
 
 const TableFooter = ({ setups }: TableFooterProps): ReactElement => (
   <Tfoot>
     <Tr>
       <Th></Th>
-      {getSetupsNames(setups)}
+      <SetupsNamesRow setups={setups} />
     </Tr>
   </Tfoot>
 )
-
-interface TableBodyProps {
-  setups: SetupCompleteProps[] | undefined
-  tab: string
-  setupKeysToShow: SetupKeysToShowProps[]
-}
 
 const TableBody = ({ setups, tab, setupKeysToShow }: TableBodyProps): ReactElement => (
   <Tbody>
@@ -113,21 +108,14 @@ const TableBody = ({ setups, tab, setupKeysToShow }: TableBodyProps): ReactEleme
   </Tbody>
 )
 
-interface PanelsProps {
-  tabs: string[]
-  setups: SetupCompleteProps[] | undefined
-  scrollbarHeight: number
-  setupKeysToShow: SetupKeysToShowProps[]
-}
-
 const MyTabPanels = ({ tabs, setups, setupKeysToShow }: PanelsProps): ReactElement => (
   <TabPanels className='main-table' style={{ paddingTop: '3px' }}>
     {tabs.map((tab: string) => (
       <TabPanel key={tab}>
         <Table size='sm' variant='striped'>
           <TableHead setups={setups} />
-          <TableCaption>You are comparing rFactor 2 setups</TableCaption>
           <TableBody setups={setups} tab={tab} setupKeysToShow={setupKeysToShow} />
+          <TableCaption>{tableCaptionText(setups?.length ?? 0)}</TableCaption>
           <TableFooter setups={setups} />
         </Table>
       </TabPanel>

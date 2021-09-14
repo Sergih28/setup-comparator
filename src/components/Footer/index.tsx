@@ -1,32 +1,19 @@
-import { useState, useEffect, ReactNode, ReactElement } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 
-import { Flex, Square, Text, Link, Icon, Slide } from '@chakra-ui/react'
+import { Flex, Icon, Link, Slide, Square, Text } from '@chakra-ui/react'
 import { GoMarkGithub } from 'react-icons/go'
-import { IconType } from 'react-icons/lib'
 
-import { version, author } from '../../../package.json'
+import { copyrightYears } from './utils'
 
-const copyrightYears = (): string => {
-  const first_year = new Date(new Date().setFullYear(2019, 3, 6)).getFullYear()
-  const today_year = new Date().getFullYear()
-  if (first_year !== today_year) return `${first_year} - ${today_year}`
-  return `${first_year}`
-}
+import { CopyrightProps, ImageFooterProps, VersionProps, WrapperProps } from './types'
 
-interface CopyrightProps {
-  years: string
-  author: { name: string }
-}
+import { author, version } from '../../../package.json'
 
 const Copyright = ({ years, author }: CopyrightProps): ReactElement => (
   <span className='footer-copyright'>
     Copyright © {years}, {author.name}
   </span>
 )
-
-interface VersionProps {
-  version: string
-}
 
 const Version = ({ version }: VersionProps): ReactElement => (
   <Link
@@ -38,19 +25,11 @@ const Version = ({ version }: VersionProps): ReactElement => (
   </Link>
 )
 
-interface ImageFooterProps {
-  image: IconType
-}
-
 const ImageFooter = ({ image }: ImageFooterProps): ReactElement => (
   <Link href='https://github.com/Sergih28/setup-comparator' isExternal>
     <Icon className='footer-icon' as={image} />
   </Link>
 )
-
-interface WrapperProps {
-  children: ReactNode
-}
 
 const Wrapper = ({ children }: WrapperProps): ReactElement => (
   <Flex color='white'>

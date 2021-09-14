@@ -1,29 +1,6 @@
+import { DifferencesProps, SetupKeysToShowProps, SetupProps, SetupWithoutValueProps } from './types'
+
 export const tabs: string[] = ['Setup', 'General', 'Suspension', 'Chassis', 'Advanced']
-
-interface SetupWithoutValueProps {
-  tab: string
-  key: string
-  name: string
-}
-
-export interface SetupProps extends SetupWithoutValueProps {
-  value: string
-}
-
-export interface SetupKeysToShowProps {
-  key: string
-  show: boolean
-}
-
-export interface DifferencesListProps {
-  key: 'Setup' | 'General' | 'Suspension' | 'Chassis' | 'Advanced'
-  value: number
-}
-
-export interface DifferencesProps {
-  total: number
-  list: DifferencesListProps[]
-}
 
 export const empty_differences: DifferencesProps = {
   total: 0,

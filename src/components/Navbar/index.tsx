@@ -1,21 +1,11 @@
-import { useState, useEffect, ReactElement } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 
 import { AttachmentIcon } from '@chakra-ui/icons'
 import { Slide } from '@chakra-ui/react'
 
-import { useSetup } from 'hooks/SetupContext'
+import { useSetup } from 'hooks/Setup'
 
-const loadSetupsText = (amount_setups: number): ReactElement => (
-  <>
-    {amount_setups === 0 ? (
-      <span>Load Setups</span>
-    ) : amount_setups === 1 ? (
-      <span>There is 1 setup loaded</span>
-    ) : (
-      <span>There are {amount_setups} setups loaded</span>
-    )}
-  </>
-)
+import { loadSetupsText } from './utils'
 
 const Navbar = (): ReactElement => {
   const { updateSetups } = useSetup()

@@ -21,13 +21,25 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "import"],
+  "plugins": ["react", "@typescript-eslint", "import", "typescript-sort-keys"],
   "rules": {
     "@typescript-eslint/explicit-function-return-type": "off",
     "react/react-in-jsx-scope": "off",
     "import/no-unresolved": "error",
-    "no-console": "error",
+    "sort-imports": [
+      "warn",
+      {
+        "ignoreCase": true,
+        "ignoreDeclarationSort": true,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
+        "allowSeparatedGroups": true
+      }
+    ],
+    "no-console": "warn",
     "quotes": ["error", "single"],
+    "typescript-sort-keys/interface": "warn",
+    "typescript-sort-keys/string-enum": "warn",
     "@typescript-eslint/ban-types": [
       "error",
       {
@@ -38,8 +50,14 @@
       }
     ],
     "import/order": [
-      "error",
+      "warn",
       {
+        "pathGroupsExcludedImportTypes": ["react"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
         "groups": ["builtin", "external", ["sibling", "parent", "internal", "index"], "object"],
         "pathGroups": [
           {
@@ -48,8 +66,28 @@
             "position": "before"
           },
           {
-            "pattern": "*.css",
-            "group": "object",
+            "pattern": "hooks/**",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "./utils",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "./assets",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "./types",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "./styles",
+            "group": "internal",
             "position": "after"
           },
           {
@@ -65,30 +103,25 @@
           {
             "pattern": "components/**",
             "group": "internal",
-            "position": "after"
-          },
-          {
-            "pattern": "types/**",
-            "group": "internal",
-            "position": "after"
-          },
-          {
-            "pattern": "redux/**",
-            "group": "internal",
-            "position": "after"
+            "position": "before"
           },
           {
             "pattern": "styles/**",
             "group": "internal",
-            "position": "after"
+            "position": "before"
+          },
+          {
+            "pattern": "*.scss",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "*.css",
+            "group": "internal",
+            "position": "before"
           }
         ],
-        "pathGroupsExcludedImportTypes": ["react"],
-        "newlines-between": "always",
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true
-        }
+        "warnOnUnassignedImports": true
       }
     ]
   },
