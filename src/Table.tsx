@@ -116,8 +116,8 @@ interface PanelsProps {
 
 const MyTabPanels = ({ tabs, setups, setupKeysToShow }: PanelsProps): ReactElement => (
   <TabPanels className='main-table' style={{ paddingTop: '3px' }}>
-    {tabs.map((tab: string, key: number) => (
-      <TabPanel key={key}>
+    {tabs.map((tab: string) => (
+      <TabPanel key={tab}>
         <Table size='sm' variant='striped'>
           <TableHead setups={setups} />
           <TableCaption>You are comparing rFactor 2 setups</TableCaption>
@@ -167,7 +167,7 @@ const MyTable = (): ReactElement => {
         marginBottom: `${scrollbarHeight + 2}px`,
       }}
     >
-      {tabs.map((tab: string, key: number): ReactElement => {
+      {tabs.map((tab: string): ReactElement => {
         const differences_value: number =
           differences?.list.find((item: DifferencesListProps) => item.key === tab)?.value ?? 0
 
@@ -176,7 +176,7 @@ const MyTable = (): ReactElement => {
         const title = `There ${singular_plural[0]} ${differences_value} ${singular_plural[1]} in the ${tab} tab`
 
         return (
-          <Tab key={key} title={title}>
+          <Tab key={tab} title={title}>
             {tab}
             <div className='badge'>{differences_value}</div>
           </Tab>
