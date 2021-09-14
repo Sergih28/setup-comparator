@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 
-import Table from './Table'
+import Table from 'components/Table'
 
 const Main = (): ReactElement => (
   <div id='main'>

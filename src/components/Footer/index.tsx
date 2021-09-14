@@ -4,7 +4,7 @@ import { Flex, Square, Text, Link, Icon, Slide } from '@chakra-ui/react'
 import { GoMarkGithub } from 'react-icons/go'
 import { IconType } from 'react-icons/lib'
 
-import { version, author } from '../package.json'
+import { version, author } from '../../../package.json'
 
 const copyrightYears = (): string => {
   const first_year = new Date(new Date().setFullYear(2019, 3, 6)).getFullYear()

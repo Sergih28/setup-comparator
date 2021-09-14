@@ -2,10 +2,11 @@ import { ReactElement } from 'react'
 
 import { ChakraProvider } from '@chakra-ui/react'
 
-import Footer from './Footer'
-import Main from './Main'
-import Navbar from './Navbar'
-import { SetupProvider } from './SetupContext'
+import { SetupProvider } from 'hooks/SetupContext'
+
+import Footer from 'components/Footer'
+import Main from 'components/Main'
+import Navbar from 'components/Navbar'
 
 import './App.scss'
 

@@ -3,7 +3,7 @@ import { useState, useEffect, ReactElement } from 'react'
 import { AttachmentIcon } from '@chakra-ui/icons'
 import { Slide } from '@chakra-ui/react'
 
-import { useSetup } from './SetupContext'
+import { useSetup } from 'hooks/SetupContext'
 
 const loadSetupsText = (amount_setups: number): ReactElement => (
   <>

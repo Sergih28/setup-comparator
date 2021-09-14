@@ -17,8 +17,14 @@ import {
   ScaleFade,
 } from '@chakra-ui/react'
 
-import { tabs, SetupProps, empty_setup, SetupKeysToShowProps, DifferencesListProps } from './setup'
-import { useSetup, SetupCompleteProps } from './SetupContext'
+import {
+  tabs,
+  SetupProps,
+  empty_setup,
+  SetupKeysToShowProps,
+  DifferencesListProps,
+} from 'hooks/setup'
+import { useSetup, SetupCompleteProps } from 'hooks/SetupContext'
 
 interface TabsProps {
   tabs: string[]
