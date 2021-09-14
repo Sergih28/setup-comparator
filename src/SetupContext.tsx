@@ -1,6 +1,14 @@
 import { useState, useContext, createContext, ReactNode, ReactElement } from 'react'
 
-import { SetupProps, empty_setup, show_keys, SetupKeysToShowProps } from './setup'
+import {
+  SetupProps,
+  empty_setup,
+  show_keys,
+  SetupKeysToShowProps,
+  empty_differences,
+  DifferencesProps,
+  DifferencesListProps,
+} from './setup'
 
 export interface SetupCompleteProps {
   name: string
@@ -16,6 +24,7 @@ interface SetupContextProps {
   setups: SetupCompleteProps[]
   updateSetups: (new_setups: FileList) => void
   setupKeysToShow: SetupKeysToShowProps[]
+  differences: DifferencesProps
 }
 
 interface SetupCompleteRawProps {
@@ -214,6 +223,7 @@ interface SetupProviderProps {
 export const SetupProvider = ({ children }: SetupProviderProps): ReactElement => {
   const [setups, setSetups] = useState<SetupCompleteProps[]>([])
   const [setupKeysToShow, setSetupKeysToShow] = useState<SetupKeysToShowProps[]>(show_keys)
+  const [differences, setDifferences] = useState<DifferencesProps>(empty_differences)
 
   const createSetups = async (new_setups: SetupCompleteProps[]): Promise<void> => {
     // TODO
@@ -228,7 +238,7 @@ export const SetupProvider = ({ children }: SetupProviderProps): ReactElement =>
   const compareSetups = (
     setups: SetupCompleteProps[],
     setup_keys_to_show: SetupKeysToShowProps[],
-  ): void => {
+  ): SetupKeysToShowProps[] => {
     const setups_keys: SetupKeysToShowValuesProps[] = setup_keys_to_show.map(
       (setup_key_to_show: SetupKeysToShowProps): SetupKeysToShowValuesProps => {
         const setups_key_to_show_values: SetupKeysToShowValuesProps['values'] = setups.map(
@@ -266,6 +276,41 @@ export const SetupProvider = ({ children }: SetupProviderProps): ReactElement =>
     )
 
     setSetupKeysToShow(new_setup_keys_to_show)
+
+    return new_setup_keys_to_show
+  }
+
+  const updateNumberOfDifferences = (
+    setup_keys_to_show: SetupKeysToShowProps[],
+    empty_setup: SetupProps[],
+    empty_differences: DifferencesProps,
+  ): void => {
+    let new_differences = { ...empty_differences }
+
+    empty_setup.forEach((setup_content_item: SetupProps) => {
+      const current_setup_key_to_show = setup_keys_to_show.find(
+        (item: SetupKeysToShowProps) => item.key === setup_content_item.key && item.show,
+      )
+
+      // If undefined, the items must not be shown
+      if (typeof current_setup_key_to_show === 'undefined') return
+
+      const related_tab: string = setup_content_item.tab
+
+      // add +1 to new_differences total value
+      new_differences.total++
+
+      // add +1 to new_differences in the related tab
+      new_differences = {
+        ...new_differences,
+        list: new_differences.list.map((list_item: DifferencesListProps) => {
+          if (related_tab === list_item.key) return { ...list_item, value: list_item.value + 1 }
+          return { ...list_item }
+        }),
+      }
+    })
+
+    setDifferences(new_differences)
   }
 
   const updateSetups = async (new_files: FileList): Promise<void> => {
@@ -282,12 +327,20 @@ export const SetupProvider = ({ children }: SetupProviderProps): ReactElement =>
     createSetups(setups_to_add)
 
     // Set the lines that have to be shown after comparison
-    compareSetups(setups_to_add, setupKeysToShow)
+    const setup_keys_to_show: SetupKeysToShowProps[] = compareSetups(setups_to_add, setupKeysToShow)
+
+    // Update number of differences
+    updateNumberOfDifferences(setup_keys_to_show, empty_setup, empty_differences)
   }
 
   return (
     <SetupContext.Provider
-      value={{ setups: setups, updateSetups: updateSetups, setupKeysToShow: setupKeysToShow }}
+      value={{
+        setups: setups,
+        updateSetups: updateSetups,
+        setupKeysToShow: setupKeysToShow,
+        differences: differences,
+      }}
     >
       {children}
     </SetupContext.Provider>

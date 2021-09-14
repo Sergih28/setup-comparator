@@ -15,6 +15,42 @@ export interface SetupKeysToShowProps {
   show: boolean
 }
 
+export interface DifferencesListProps {
+  key: 'Setup' | 'General' | 'Suspension' | 'Chassis' | 'Advanced'
+  value: number
+}
+
+export interface DifferencesProps {
+  total: number
+  list: DifferencesListProps[]
+}
+
+export const empty_differences: DifferencesProps = {
+  total: 0,
+  list: [
+    {
+      key: 'Setup',
+      value: 0,
+    },
+    {
+      key: 'General',
+      value: 0,
+    },
+    {
+      key: 'Suspension',
+      value: 0,
+    },
+    {
+      key: 'Chassis',
+      value: 0,
+    },
+    {
+      key: 'Advanced',
+      value: 0,
+    },
+  ],
+}
+
 const setup_keys: string[] = [
   'FuelSetting',
   'NumPitstopsSetting',

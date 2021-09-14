@@ -17,22 +17,12 @@ import {
   ScaleFade,
 } from '@chakra-ui/react'
 
-import { tabs, SetupProps, empty_setup, SetupKeysToShowProps } from './setup'
+import { tabs, SetupProps, empty_setup, SetupKeysToShowProps, DifferencesListProps } from './setup'
 import { useSetup, SetupCompleteProps } from './SetupContext'
 
 interface TabsProps {
   tabs: string[]
   scrollbarHeight: number
-}
-
-interface DifferencesListProps {
-  key: 'Setup' | 'General' | 'Suspension' | 'Chassis' | 'Advanced'
-  value: number
-}
-
-interface DifferencesProps {
-  total: number
-  list: DifferencesListProps[]
 }
 
 const getSetupsNames = (setups: SetupCompleteProps[] | undefined): ReactElement[] | undefined =>
@@ -139,37 +129,10 @@ const MyTabPanels = ({ tabs, setups, setupKeysToShow }: PanelsProps): ReactEleme
   </TabPanels>
 )
 
-const empty_differences: DifferencesProps = {
-  total: 0,
-  list: [
-    {
-      key: 'Setup',
-      value: 0,
-    },
-    {
-      key: 'General',
-      value: 0,
-    },
-    {
-      key: 'Suspension',
-      value: 0,
-    },
-    {
-      key: 'Chassis',
-      value: 0,
-    },
-    {
-      key: 'Advanced',
-      value: 0,
-    },
-  ],
-}
-
 const MyTable = (): ReactElement => {
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth)
   const [scrollbarHeight, setScrollbarHeight] = useState<number>(0)
-  const { setups, setupKeysToShow } = useSetup()
-  const [differences] = useState<DifferencesProps>(empty_differences)
+  const { setups, setupKeysToShow, differences } = useSetup()
   const tabs_div = useRef(null)
 
   const handleResize = (): void => {
@@ -206,7 +169,7 @@ const MyTable = (): ReactElement => {
     >
       {tabs.map((tab: string, key: number): ReactElement => {
         const differences_value: number =
-          differences.list.find((item: DifferencesListProps) => item.key === tab)?.value ?? 0
+          differences?.list.find((item: DifferencesListProps) => item.key === tab)?.value ?? 0
 
         const singular_plural =
           differences_value === 1 ? ['is', 'difference'] : ['are', 'differences']
