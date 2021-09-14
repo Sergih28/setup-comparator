@@ -826,6 +826,11 @@ const empty_setup_without_value: SetupWithoutValueProps[] = [
   },
 ]
 
-export const empty_setup: SetupProps[] = empty_setup_without_value.map(
+const unordered_empty_setup: SetupProps[] = empty_setup_without_value.map(
   (content: SetupWithoutValueProps) => ({ ...content, value: '' }),
+)
+
+// sort setups
+export const empty_setup: SetupProps[] = unordered_empty_setup.sort(
+  (a: SetupProps, b: SetupProps) => (a.name > b.name ? 1 : -1),
 )
