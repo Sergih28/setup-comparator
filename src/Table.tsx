@@ -75,32 +75,30 @@ const TableBody = ({ setups, tab, setupKeysToShow }: TableBodyProps): ReactEleme
         setups.length > 0 &&
         empty_setup.map((default_content: SetupProps, key: number) => (
           <React.Fragment key={key}>
-            {default_content.tab === tab && (
-              <Tr>
-                {setups?.map((setup: SetupCompleteProps, key2: number) => {
-                  const setup_content_in_current_key: SetupProps | undefined = setup.content.find(
-                    (content: SetupProps) => content.key === default_content.key,
-                  )
+            {default_content.tab === tab &&
+              setupKeysToShow.find((line: SetupKeysToShowProps) => line.key === default_content.key)
+                ?.show && (
+                <Tr>
+                  {setups?.map((setup: SetupCompleteProps, key2: number) => {
+                    const setup_content_in_current_key: SetupProps | undefined = setup.content.find(
+                      (content: SetupProps) => content.key === default_content.key,
+                    )
 
-                  const show = setupKeysToShow.find(
-                    (line: SetupKeysToShowProps) => line.key === default_content.key,
-                  )?.show
-
-                  return (
-                    <React.Fragment key={key2}>
-                      {default_content.key === setup_content_in_current_key?.key && show && (
-                        <>
-                          {key2 === 0 && <Th>{`${default_content.name}`}</Th>}
-                          <Td style={{ textAlign: 'center', whiteSpace: 'pre-wrap' }}>
-                            {`${setup_content_in_current_key?.value}`}
-                          </Td>
-                        </>
-                      )}
-                    </React.Fragment>
-                  )
-                })}
-              </Tr>
-            )}
+                    return (
+                      <React.Fragment key={key2}>
+                        {default_content.key === setup_content_in_current_key?.key && (
+                          <>
+                            {key2 === 0 && <Th>{`${default_content.name}`}</Th>}
+                            <Td style={{ textAlign: 'center', whiteSpace: 'pre-wrap' }}>
+                              {`${setup_content_in_current_key?.value}`}
+                            </Td>
+                          </>
+                        )}
+                      </React.Fragment>
+                    )
+                  })}
+                </Tr>
+              )}
           </React.Fragment>
         ))
     }
