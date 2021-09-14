@@ -96,12 +96,13 @@ const cleanLine = (FRFLRRRL: string, line: string): SetupProps => {
         item.key === new_line_array[0] || item.key === new_line_array[0] + FRFLRRRL,
     )
 
-    const res: SetupProps = {
-      tab: current_tab?.tab || '',
-      key: new_line_array[0] + FRFLRRRL,
-      name: current_tab?.name || '',
-      value: new_line_array[new_line_array.length - 1],
-    }
+    const tab = current_tab?.tab || ''
+    const key = new_line_array[0] + FRFLRRRL
+    const name = current_tab?.name || ''
+    const value = new_line_array[new_line_array.length - 1]
+
+    const res: SetupProps = { tab, key, name, value }
+
     return res
   }
 
