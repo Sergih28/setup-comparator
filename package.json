@@ -1,7 +1,7 @@
 {
   "name": "setup-comparator",
   "version": "1.0.0",
-  "private": true,
+  "homepage": "https://sergih28.github.io/setup-comparator/",
   "author": {
     "name": "Sergi Heras"
   },
@@ -31,10 +31,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
     "lint": "eslint --color ./src",
     "lintcss": "stylelint --color **/*.scss",
+    "test": "react-scripts test",
+    "build": "react-scripts build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
