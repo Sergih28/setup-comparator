@@ -1,5 +1,6 @@
 # Setup comparator
 
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/Sergih28/setup-comparator/Build/dev?style=flat-square)
 ![Repo size](https://img.shields.io/github/repo-size/sergih28/setup-comparator?style=flat-square)
 ![Open issues](https://img.shields.io/github/issues/sergih28/setup-comparator?style=flat-square)
 ![License](https://img.shields.io/github/license/sergih28/setup-comparator?style=flat-square)
