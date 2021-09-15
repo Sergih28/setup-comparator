@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "homepage": "https://sergih28.github.io/setup-comparator/",
   "author": {
-    "name": "Sergi Heras"
+    "name": "Sergi",
+    "email": "Sergih28@users.noreply.github.com"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.15",
