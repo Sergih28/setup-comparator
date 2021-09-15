@@ -12,6 +12,10 @@ If you have any doubts, don't hesitate to reach me out on the [discussions secti
 
 You can check how to get the project up and running in the [README](README.md#how-to-use).
 
+## Project structure
+
+Make sure to follow the [project structure](README.md#project-structure-src) when creating new files.
+
 ## Issues
 
 If you want to report a bug, request a new feature or anything else, feel free to open an issue. Choose the issue template that fits best when opening it.
@@ -45,6 +49,11 @@ Make sure to follow these coding rules:
 
 - Name the variables **like_this**, unless it's in a react Hook (useState), then it would be **likeThis**
 - Name the functions **likeThis()**
+
+### TS Rules
+
+- End interfaces names with 'Props'
+- Sort interfaces keys alphabetically
 
 ## Testing
 

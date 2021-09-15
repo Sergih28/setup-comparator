@@ -54,6 +54,39 @@ List of tech used:
 
 I strongly believe that a good organization is key, thus that's why I use all those linters with my own set of rules, following the best practices.
 
+## Folder structure (/src)
+
+```markdown
+├── components
+│   └── Component
+│       ├── assets.ts
+│       ├── Component.scss
+│       ├── index.tsx
+│       ├── types.ts
+│       └── utils.ts
+├── hooks
+│   └── Hook
+│       ├── assets.ts
+│       ├── Hook.scss
+│       ├── index.tsx
+│       ├── types.ts
+│       └── utils.ts
+├── index.css
+└── index.tsx
+```
+
+We separate hooks from components, but the folder structure is the same:
+
+- **assets**(*.ts*): static variables
+
+- **Component**(*.scss*): scss styles
+
+- **index**(*.tsx*): react component
+
+- **types**(*.ts*): typescript interfaces
+
+- **utils**(*.ts*): functions
+
 ## How to use
 
 The project has been created with [***Create React App***][Create React App].
