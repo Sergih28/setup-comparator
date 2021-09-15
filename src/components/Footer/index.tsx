@@ -26,7 +26,7 @@ const Version = ({ version }: VersionProps): ReactElement => (
 )
 
 const ImageFooter = ({ image }: ImageFooterProps): ReactElement => (
-  <Link href='https://github.com/Sergih28/setup-comparator' isExternal>
+  <Link alt='Github Logo' href='https://github.com/Sergih28/setup-comparator' isExternal>
     <Icon className='footer-icon' as={image} />
   </Link>
 )
