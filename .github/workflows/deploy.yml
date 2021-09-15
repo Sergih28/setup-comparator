@@ -41,9 +41,10 @@ jobs:
       with:
         cmd: build # will run `yarn build` command
 
-    - name: Deploy app
-      uses: borales/actions-yarn@v2.3.0
+    - name: Deploy to GitHub Pages
+      uses: Cecilapp/GitHub-Pages-deploy@v3
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        cmd: deploy # will run `yarn deploy` command
-
- 
+        email: Sergih28@users.noreply.github.com
+        build_dir: build
