@@ -17,7 +17,16 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "removeComments": true
+    "removeComments": true,
+    "plugins": [
+      {
+        "name": "typescript-styled-plugin",
+        "lint": {
+          "duplicateProperties": "warning",
+          "emptyRules": "warning"
+        }
+      }
+    ]
   },
   "include": ["src"],
   "exclude": ["node_modules"]

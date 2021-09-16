@@ -14,11 +14,6 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^12.0.0",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@types/react-icons": "^3.0.0",
     "framer-motion": "^4",
     "gh-pages": "^3.2.3",
     "node-sass": "^6.0.1",
@@ -28,13 +23,14 @@
     "react-scripts": "4.0.3",
     "sass": "^1.39.0",
     "sass-loader": "^12.1.0",
+    "styled-components": "^5.3.1",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "lint": "eslint --color ./src",
-    "lintcss": "stylelint --color **/*.scss",
+    "lintcss": "stylelint --color **/styles.tsx",
     "test": "react-scripts test",
     "build": "react-scripts build",
     "deploy": "gh-pages -d build",
@@ -59,13 +55,26 @@
     ]
   },
   "devDependencies": {
+    "@stylelint/postcss-css-in-js": "^0.37.2",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-icons": "^3.0.0",
+    "@types/styled-components": "^5.1.14",
     "@typescript-eslint/eslint-plugin": "^4.31.0",
     "@typescript-eslint/parser": "^4.31.0",
     "eslint": "^7.32.0",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-react": "^7.25.1",
     "eslint-plugin-typescript-sort-keys": "^1.8.0",
+    "postcss": "^8.3.6",
+    "postcss-syntax": "^0.36.2",
     "stylelint": "^13.13.1",
-    "stylelint-config-sass-guidelines": "^8.0.0"
+    "stylelint-config-sass-guidelines": "^8.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-order": "^4.1.0",
+    "stylelint-processor-styled-components": "^1.10.0",
+    "typescript-styled-plugin": "^0.18.1"
   }
 }
