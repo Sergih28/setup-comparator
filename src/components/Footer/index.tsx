@@ -1,6 +1,6 @@
-import { ReactElement, useEffect, useState } from 'react'
+import { ReactElement } from 'react'
 
-import { Flex, Icon, Link, Slide, Square, Text } from '@chakra-ui/react'
+import { Flex, Icon, Link, Square, Text } from '@chakra-ui/react'
 import { GoMarkGithub } from 'react-icons/go'
 
 import { copyrightYears } from './utils'
@@ -42,20 +42,12 @@ const Wrapper = ({ children }: WrapperProps): ReactElement => (
 )
 
 const Footer = (): ReactElement => {
-  const [show, setShow] = useState<boolean>(false)
-
-  useEffect(() => {
-    setShow(true)
-  }, [])
-
   return (
-    <Slide direction='bottom' in={show} id='footer'>
-      <Wrapper>
-        <Copyright years={copyrightYears()} author={author} />
-        <Version version={version} />
-        <ImageFooter image={GoMarkGithub} />
-      </Wrapper>
-    </Slide>
+    <Wrapper>
+      <Copyright years={copyrightYears()} author={author} />
+      <Version version={version} />
+      <ImageFooter image={GoMarkGithub} />
+    </Wrapper>
   )
 }
 

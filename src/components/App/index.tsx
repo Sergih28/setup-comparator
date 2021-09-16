@@ -10,17 +10,22 @@ import Navbar from 'components/Navbar'
 
 import './App.scss'
 
+import { GlobalStyle, Wrapper } from './styles'
+
 function App(): ReactElement {
   return (
-    <div className='app'>
-      <ChakraProvider>
-        <SetupProvider>
-          <Navbar />
-          <Main />
-          <Footer />
-        </SetupProvider>
-      </ChakraProvider>
-    </div>
+    <>
+      <GlobalStyle />
+      <Wrapper>
+        <ChakraProvider>
+          <SetupProvider>
+            <Navbar />
+            <Main />
+            <Footer />
+          </SetupProvider>
+        </ChakraProvider>
+      </Wrapper>
+    </>
   )
 }
 

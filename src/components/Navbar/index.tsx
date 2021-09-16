@@ -1,52 +1,29 @@
-import { ReactElement, useEffect, useState } from 'react'
+import { ReactElement } from 'react'
 
-import { AttachmentIcon } from '@chakra-ui/icons'
-import { Slide } from '@chakra-ui/react'
+import { FaBook, FaBookOpen, FaInfoCircle, FaMoon, FaSun } from 'react-icons/fa'
 
-import { useSetup } from 'hooks/Setup'
+import InputSetups from 'components/Navbar/InputSetups'
 
-import { loadSetupsText } from './utils'
+import { LeftSide, Logo, RightSide, Wrapper } from './styles'
+
+import logo from 'assets/logo.png'
 
 const Navbar = (): ReactElement => {
-  const { updateSetups } = useSetup()
-  const [amountSetups, setAmountSetups] = useState<number>(0)
-  const [show, setShow] = useState<boolean>(false)
-
-  useEffect(() => {
-    setShow(true)
-  }, [])
-
-  const handleFilesLoad = (files: unknown): void => {
-    const f = files as FileList
-
-    if (updateSetups) updateSetups(f)
-
-    const amount_new_setups = Array.from(f).length
-
-    //TODO
-    // In the future this might be
-    // setAmountSetups((old_amount_setups: number) => old_amount_setups + amount_new_setups)
-    // For now we just erase everything when loading more setups
-    setAmountSetups(amount_new_setups)
-  }
+  //<FaBookOpen key={2} />,
+  //<FaSun key={5} />,
 
   return (
-    <Slide direction='top' in={show} style={{ zIndex: 1 }} id='navbar'>
-      <div>
-        <input
-          type='file'
-          id='file-loadSetup'
-          className='inputfile inputfile-LoadSetup'
-          data-multiple-caption='{count} setups loaded'
-          multiple
-          onChange={(e): void => handleFilesLoad(e.target.files)}
-        />
-        <label id='lblLoadSetup' htmlFor='file-loadSetup'>
-          <AttachmentIcon />
-          <span style={{ marginLeft: '4px' }}>{loadSetupsText(amountSetups)}</span>
-        </label>
-      </div>
-    </Slide>
+    <Wrapper id='navbar'>
+      <LeftSide>
+        <Logo src={logo} />
+      </LeftSide>
+      <RightSide>
+        <FaBook />
+        <FaInfoCircle />
+        <InputSetups />
+        <FaMoon />
+      </RightSide>
+    </Wrapper>
   )
 }
 

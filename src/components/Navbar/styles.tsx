@@ -1,16 +1,43 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
-  background: red;
-  border: 1px solid red;
-  color: black;
-  color: #ffffff;
-  display: block;
-  font-size: 3rem;
-  height: 40px;
-  position: absolute;
-  top: 0;
-  width: 400px;
+  background: gray;
+  display: flex;
+  grid-area: navbar;
+  height: 3.5rem;
+  justify-content: space-between;
+  width: 100%;
 `
 
-const x = ''
+export const LeftSide = styled.div`
+  display: flex;
+  padding-left: 1rem;
+  padding-right: 1rem;
+`
+
+export const Logo = styled.img`
+  align-self: center;
+  display: flex;
+  height: 2.5rem;
+`
+
+export const RightSide = styled.div`
+  color: #ffffff;
+  display: flex;
+  font-size: 1.1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  svg {
+    align-self: center;
+    display: flex;
+  }
+
+  svg:not(:first-child) {
+    margin-left: 1rem;
+  }
+
+  svg:not(:last-child) {
+    margin-right: 1rem;
+  }
+`

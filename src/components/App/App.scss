@@ -1,31 +1,3 @@
-body {
-    font-family: sans-serif;
-    height: 100vh !important;
-    margin: 0;
-    padding: 0;
-}
-
-#root {
-    height: 100%;
-    width: 100%;
-}
-
-.app {
-    align-content: stretch;
-    display: grid;
-    grid-template-areas:
-        'navbar'
-        'main'
-        'footer';
-    grid-template-columns: auto;
-    grid-template-rows: auto 1fr auto;
-    height: 100%;
-}
-
-#navbar {
-    grid-area: navbar;
-}
-
 #main {
     display: grid;
     grid-area: main;
@@ -34,10 +6,6 @@ body {
 
 #footer {
     grid-area: footer;
-}
-
-.chakra-slide {
-    position: relative !important;
 }
 
 .main-grid {
@@ -90,59 +58,6 @@ body {
     margin-right: 0.3rem;
 }
 
-.inputfile {
-    height: 0.1px;
-    opacity: 0;
-    /*overflow: hidden;*/
-    position: absolute;
-    width: 0.1px;
-    z-index: -1;
-}
-
-.inputfile + label {
-    background-color: #000000;
-    color: #ffffff;
-    display: inline-block;
-    font-size: 1.25em;
-    font-weight: 700;
-}
-
-.inputfile:focus + label,
-.inputfile + abel:hover {
-    background-color: #ff0000;
-}
-
-.inputfile + label {
-    cursor: pointer;
-}
-
-.inputfile:focus + label {
-    outline: 1px dotted #000000;
-    outline: -webkit-focus-ring-color auto 5px;
-}
-
-.inputfile + label * {
-    pointer-events: none;
-}
-
-#lblLoadSetup {
-    background-color: #02c3ee;
-    color: #ffffff;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 0.855555rem;
-    font-weight: 600;
-    padding: 15px 40px !important;
-    text-align: center;
-    text-transform: uppercase;
-    transition: all 0.25s;
-    width: fit-content;
-    width: 100%;
-}
-
-#lblLoadSetup:hover {
-    background: #ff3000;
-}
 
 .tab-sticky {
     background: #ffffff;
