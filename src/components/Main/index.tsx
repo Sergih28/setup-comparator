@@ -2,10 +2,12 @@ import { ReactElement } from 'react'
 
 import Table from 'components/Table'
 
+import { Wrapper } from './styles'
+
 const Main = (): ReactElement => (
-  <div id='main'>
+  <Wrapper>
     <Table />
-  </div>
+  </Wrapper>
 )
 
 export default Main

@@ -37,6 +37,8 @@ import {
   TabsProps,
 } from './types'
 
+import { MyTableWrapper, MyTabs, MyTabs2, MyTabsWrapper, MyTabTest } from './styles'
+
 const SetupsNamesRow = ({ setups }: SetupsNamesRowProps): ReactElement => (
   <>
     {setups?.map((setup: SetupCompleteProps, key2: number) => (
@@ -180,9 +182,9 @@ const MyTable = (): ReactElement => {
   )
 
   return (
-    <ScaleFade in={setups && setups?.length > 0} initialScale={0.8} className='grid-children'>
+    <>
       {setups && setups?.length > 0 && (
-        <Tabs isFitted className='main-grid'>
+        <MyTabs isFitted className='main-grid'>
           <MyTabList tabs={tabs} scrollbarHeight={scrollbarHeight} />
           <MyTabPanels
             tabs={tabs}
@@ -190,9 +192,9 @@ const MyTable = (): ReactElement => {
             scrollbarHeight={scrollbarHeight}
             setupKeysToShow={setupKeysToShow ?? []}
           />
-        </Tabs>
+        </MyTabs>
       )}
-    </ScaleFade>
+    </>
   )
 }
 
