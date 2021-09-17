@@ -2,8 +2,8 @@ import { Tabs } from '@chakra-ui/react'
 import styled from 'styled-components'
 
 export const MyTableWrapper = styled.div`
-  display: flex;
   background: yellow;
+  display: flex;
 `
 
 export const MyTabs = styled(Tabs)``
