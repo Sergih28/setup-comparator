@@ -1,13 +1,23 @@
-import { ReactElement } from 'react'
+import { ReactElement, ReactNode } from 'react'
 
-import Table from 'components/Table'
+import styled from 'styled-components'
 
-import { Wrapper } from './styles'
+import Tabs from 'components/Tabs'
+//import Table from 'components/Table'
+
+import { MyContentWrapper, Wrapper } from './styles'
+
+const ContentWrapper = ({ children }: { children: ReactNode }): ReactElement => (
+  <MyContentWrapper>{children}</MyContentWrapper>
+)
 
 const Main = (): ReactElement => (
   <Wrapper>
-    <Table />
+    <ContentWrapper>
+      <Tabs />
+    </ContentWrapper>
   </Wrapper>
 )
 
+//<Table />
 export default Main

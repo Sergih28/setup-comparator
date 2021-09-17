@@ -33,7 +33,7 @@ import {
   TabsProps,
 } from './types'
 
-import { Badge, MyTabs, TabListStyled, TabPanelsStyled } from './styles'
+import { MyTabs, TabListStyled, TabPanelsStyled } from './styles'
 
 const SetupsNamesRow = ({ setups }: SetupsNamesRowProps): ReactElement => (
   <>
@@ -169,7 +169,7 @@ const MyTable = (): ReactElement => {
         return (
           <Tab key={tab} title={title}>
             {tab}
-            <Badge>{differences_value} </Badge>
+            {differences_value}
           </Tab>
         )
       })}

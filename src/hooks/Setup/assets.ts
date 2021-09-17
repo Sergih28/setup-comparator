@@ -1,6 +1,17 @@
-import { DifferencesProps, SetupKeysToShowProps, SetupProps, SetupWithoutValueProps } from './types'
+import {
+  DifferencesProps,
+  SetupKeysToShowProps,
+  SetupProps,
+  SetupWithoutValueProps,
+  TabsSelectionProps,
+} from './types'
 
 export const tabs: string[] = ['Setup', 'General', 'Suspension', 'Chassis', 'Advanced']
+
+export const tabs_selection: TabsSelectionProps[] = tabs.map((tab: string, key: number) => ({
+  name: tab,
+  show: key === 0,
+}))
 
 export const empty_differences: DifferencesProps = {
   total: 0,

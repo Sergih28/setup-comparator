@@ -29,9 +29,3 @@ export const TabPanelsStyled = styled(TabPanels)`
   overflow-x: auto;
   padding-top: 3px;
 `
-
-export const Badge = styled.div`
-  font-size: 0.75rem;
-  margin-left: 0.5rem;
-  margin-top: -0.75rem;
-`
