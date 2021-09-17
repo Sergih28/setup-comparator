@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
-  background: gray;
+  background: #ff3000;
   display: flex;
   grid-area: navbar;
   height: 3.5rem;

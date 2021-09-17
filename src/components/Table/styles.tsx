@@ -2,7 +2,6 @@ import { TabList, TabPanels, Tabs } from '@chakra-ui/react'
 import styled from 'styled-components'
 
 export const MyTableWrapper = styled.div`
-  background: yellow;
   display: flex;
 `
 
@@ -13,13 +12,13 @@ export const MyTabs = styled(Tabs)`
     'tables';
   grid-template-columns: auto;
   grid-template-rows: 50px 1fr;
-  width: 100%;
   height: 100%;
+  width: 100%;
 `
 export const TabListStyled = styled(TabList)`
+  background: #ffffff;
   grid-area: tabs;
   overflow-x: auto;
-  background: #ffffff;
   padding-bottom: 2px;
   position: sticky !important;
   top: 0 !important;

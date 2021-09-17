@@ -1,14 +1,10 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 
 import {
-  ScaleFade,
   Tab,
   Table,
   TableCaption,
-  TabList,
   TabPanel,
-  TabPanels,
-  Tabs,
   Tbody,
   Td,
   Tfoot,
@@ -16,7 +12,6 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
-import styled from 'styled-components'
 
 import { useSetup } from 'hooks/Setup'
 import { empty_setup, tabs } from 'hooks/Setup/assets'
@@ -38,16 +33,7 @@ import {
   TabsProps,
 } from './types'
 
-import {
-  Badge,
-  MyTableWrapper,
-  MyTabs,
-  MyTabs2,
-  MyTabsWrapper,
-  MyTabTest,
-  TabListStyled,
-  TabPanelsStyled,
-} from './styles'
+import { Badge, MyTabs, TabListStyled, TabPanelsStyled } from './styles'
 
 const SetupsNamesRow = ({ setups }: SetupsNamesRowProps): ReactElement => (
   <>
