@@ -1,9 +1,10 @@
 import styled, { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
-  body {
+  html, body {
     font-family: sans-serif;
-    height: 100vh !important;
+    height: 100%;
+    width: 100%;
     margin: 0;
     padding: 0;
   }
