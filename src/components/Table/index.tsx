@@ -16,6 +16,7 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
+import styled from 'styled-components'
 
 import { useSetup } from 'hooks/Setup'
 import { empty_setup, tabs } from 'hooks/Setup/assets'
@@ -37,7 +38,16 @@ import {
   TabsProps,
 } from './types'
 
-import { MyTableWrapper, MyTabs, MyTabs2, MyTabsWrapper, MyTabTest } from './styles'
+import {
+  Badge,
+  MyTableWrapper,
+  MyTabs,
+  MyTabs2,
+  MyTabsWrapper,
+  MyTabTest,
+  TabListStyled,
+  TabPanelsStyled,
+} from './styles'
 
 const SetupsNamesRow = ({ setups }: SetupsNamesRowProps): ReactElement => (
   <>
@@ -111,7 +121,7 @@ const TableBody = ({ setups, tab, setupKeysToShow }: TableBodyProps): ReactEleme
 )
 
 const MyTabPanels = ({ tabs, setups, setupKeysToShow }: PanelsProps): ReactElement => (
-  <TabPanels className='main-table' style={{ paddingTop: '3px' }}>
+  <TabPanelsStyled>
     {tabs.map((tab: string) => (
       <TabPanel key={tab}>
         <Table size='sm' variant='striped'>
@@ -122,7 +132,7 @@ const MyTabPanels = ({ tabs, setups, setupKeysToShow }: PanelsProps): ReactEleme
         </Table>
       </TabPanel>
     ))}
-  </TabPanels>
+  </TabPanelsStyled>
 )
 
 const MyTable = (): ReactElement => {
@@ -155,8 +165,7 @@ const MyTable = (): ReactElement => {
   }, [setups])
 
   const MyTabList = ({ tabs, scrollbarHeight }: TabsProps): ReactElement => (
-    <TabList
-      className='tab-sticky main-tabs'
+    <TabListStyled
       ref={tabs_div}
       style={{
         height: `${50 + scrollbarHeight}px`,
@@ -174,17 +183,17 @@ const MyTable = (): ReactElement => {
         return (
           <Tab key={tab} title={title}>
             {tab}
-            <div className='badge'>{differences_value}</div>
+            <Badge>{differences_value} </Badge>
           </Tab>
         )
       })}
-    </TabList>
+    </TabListStyled>
   )
 
   return (
     <>
       {setups && setups?.length > 0 && (
-        <MyTabs isFitted className='main-grid'>
+        <MyTabs isFitted>
           <MyTabList tabs={tabs} scrollbarHeight={scrollbarHeight} />
           <MyTabPanels
             tabs={tabs}

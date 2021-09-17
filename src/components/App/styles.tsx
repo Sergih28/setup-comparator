@@ -23,7 +23,12 @@ export const GlobalStyle = createGlobalStyle`
     height: 100%;
     width: 100%;
   }
+
+  * {
+    box-shadow: none !important;
+  }
 `
+//TODO: Remove Box shadow
 
 export const Wrapper = styled.div`
   align-content: stretch;
