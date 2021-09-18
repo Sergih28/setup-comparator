@@ -1,28 +1,28 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.footer`
-  grid-area: footer;
-  display: flex;
-  font-size: 0.9rem;
-  flex-basis: 100%;
-  justify-content: center;
   align-items: center;
-  color: #ffffff;
   background: #202020;
-  height: 3rem;
+  color: #ffffff;
+  display: flex;
+  flex-basis: 100%;
+  font-size: 0.9rem;
   gap: 0.35rem;
+  grid-area: footer;
+  height: 3rem;
+  justify-content: center;
 `
 
 export const WrapperCopyright = styled.span``
 
 export const WrapperVersion = styled.a`
-  text-decoration: none;
   color: inherit;
+  text-decoration: none;
 `
 
 export const WrapperIcon = styled.a`
-  text-decoration: none;
   color: inherit;
+  text-decoration: none;
 
   svg {
     :hover {

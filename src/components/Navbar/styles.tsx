@@ -2,12 +2,12 @@ import styled from 'styled-components'
 
 export const Wrapper = styled.header`
   background: #202020;
+  border-bottom: 1px solid hsla(0, 0%, 53.3%, 0.4);
   display: flex;
   grid-area: navbar;
   height: 3.5rem;
   justify-content: space-between;
   width: 100%;
-  border-bottom: 1px solid hsla(0, 0%, 53.3%, 0.4);
 `
 
 export const LeftSide = styled.div`

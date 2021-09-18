@@ -3,22 +3,22 @@ import styled from 'styled-components'
 import { TabContentProps } from './types'
 
 export const Wrapper = styled.div`
-  flex: 1;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
   align-items: center;
+  background: rgba(0, 0, 0, 0.8);
+  color: #ffffff;
+  display: flex;
+  flex: 1;
   justify-content: center;
   padding-left: 1.2rem;
   padding-right: 1.2rem;
-  color: #ffffff;
 
   :not(:last-child) {
     border-right: 1px solid hsla(0, 0%, 53.3%, 0.4);
   }
 
   :hover {
-    cursor: pointer;
     background: #4d4d4d;
+    cursor: pointer;
   }
 
   span {
@@ -27,15 +27,15 @@ export const Wrapper = styled.div`
 `
 
 export const MyTabsWrapper = styled.div`
+  align-items: stretch;
   background: #ffffff;
+  border-bottom: 1px solid #878787;
+  display: flex;
+  flex-basis: 100%;
   grid-area: tabs;
   overflow-x: auto;
   position: sticky !important;
   top: 0 !important;
-  display: flex;
-  flex-basis: 100%;
-  align-items: stretch;
-  border-bottom: 1px solid #878787;
 `
 //    border-top: 1px solid hsla(0, 0%, 53.3%, 0.4);
 
@@ -51,10 +51,10 @@ export const Table = styled.table`
 `
 
 export const TabContent = styled.div<TabContentProps>`
-  display: ${({ active }): string => (!active ? 'block' : 'none')};
-  width: 100%;
-  overflow-x: auto;
   background: #181818;
   color: #ffffff;
+  display: ${({ active }): string => ( !active ? 'block' : 'none')};
   grid-area: tables;
+  overflow-x: auto;
+  width: 100%;
 `
