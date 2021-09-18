@@ -1,7 +1,5 @@
 import { ReactElement, ReactNode } from 'react'
 
-import styled from 'styled-components'
-
 import Tabs from 'components/Tabs'
 //import Table from 'components/Table'
 

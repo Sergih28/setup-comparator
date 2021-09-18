@@ -4,20 +4,21 @@ import { TabContentProps } from './types'
 
 export const Wrapper = styled.div`
   flex: 1;
-  background: #fff00d45;
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
   padding-left: 1.2rem;
   padding-right: 1.2rem;
+  color: #ffffff;
 
   :not(:last-child) {
-    border-right: 1px solid #43f;
+    border-right: 1px solid hsla(0, 0%, 53.3%, 0.4);
   }
 
   :hover {
     cursor: pointer;
-    background: #fff00d86;
+    background: #4d4d4d;
   }
 
   span {
@@ -36,7 +37,9 @@ export const TabContent = styled.div<TabContentProps>`
   display: ${({ active }): string => (!active ? 'flex' : 'none')};
   flex-basis: 100%;
   align-items: stretch;
-  background: limegreen;
+  background: #181818;
+  color: #ffffff;
   align-items: flex-start;
   justify-content: center;
+  border-top: 1px solid hsla(0, 0%, 53.3%, 0.4);
 `

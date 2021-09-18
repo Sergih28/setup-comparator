@@ -3,10 +3,10 @@ import React, { ReactElement, useState } from 'react'
 import styled from 'styled-components'
 
 import { useSetup } from 'hooks/Setup'
-import { empty_setup, tabs, tabs_selection } from 'hooks/Setup/assets'
+import { tabs, tabs_selection } from 'hooks/Setup/assets'
 import { DifferencesListProps, DifferencesProps, TabsSelectionProps } from 'hooks/Setup/types'
 
-import { ContentProps, TabProps } from './types'
+import { ContentProps } from './types'
 
 import { Badge, TabContent, Wrapper } from './styles'
 
@@ -17,7 +17,7 @@ const TabsWrapper = ({
   tabs_selection,
 }: {
   differences: DifferencesProps | undefined
-  onClick: any
+  onClick: (tab: string) => void
   tabs: string[]
   tabs_selection: TabsSelectionProps[]
 }): ReactElement => (
@@ -79,18 +79,23 @@ const MyTab = ({
 }: {
   differences: number
   name: string
-  onClick: any
+  onClick: () => void
   selected: boolean
   title: string
 }): ReactElement => (
-  <Wrapper onClick={onClick} title={title} style={{ background: selected ? 'orange' : 'inherit' }}>
+  <Wrapper
+    onClick={onClick}
+    title={title}
+    style={{ background: selected ? '#ffffff' : '', color: selected ? '#030303' : '' }}
+  >
     <span>{name}</span>
     <Badge>{differences}</Badge>
   </Wrapper>
 )
 
 const Tabs = (): ReactElement => {
-  const { setups, setupKeysToShow, differences } = useSetup()
+  //setupKeysToShow
+  const { setups, differences } = useSetup()
   const [contents, setContents] = useState<ContentProps[]>([
     { content: 'content tab1', tab: 'Setup', show: true },
     { content: 'content tab2', tab: 'General', show: false },

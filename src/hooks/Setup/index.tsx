@@ -80,16 +80,12 @@ export const SetupProvider = ({ children }: SetupProviderProps): ReactElement =>
     updateNumberOfDifferences(setup_keys_to_show, empty_setup)
   }
 
-  return (
-    <SetupContext.Provider
-      value={{
-        setups: setups,
-        updateSetups: updateSetups,
-        setupKeysToShow: setupKeysToShow,
-        differences: differences,
-      }}
-    >
-      {children}
-    </SetupContext.Provider>
-  )
+  const values = {
+    setups,
+    updateSetups,
+    setupKeysToShow,
+    differences,
+  }
+
+  return <SetupContext.Provider value={values}>{children}</SetupContext.Provider>
 }

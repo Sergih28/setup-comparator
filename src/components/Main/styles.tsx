@@ -8,13 +8,14 @@ export const Wrapper = styled.div`
 `
 
 export const MyContentWrapper = styled.div`
-  background: blue;
+  background: #181818;
   display: grid !important;
   grid-template-areas:
     'tabs'
     'tables';
   grid-template-columns: auto;
-  grid-template-rows: 50px 1fr;
+  grid-template-rows: 3rem 1fr;
   height: 100%;
   width: 100%;
+  border-bottom: 1px solid hsla(0, 0%, 53.3%, 0.4);
 `

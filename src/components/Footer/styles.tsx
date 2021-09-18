@@ -7,6 +7,8 @@ export const Footer = styled(Text)`
 
 export const Wrapper = styled(Flex)`
   grid-area: footer;
+  background: #202020;
+  color: #ffffff;
 `
 
 export const WrapperCopyright = styled.span`

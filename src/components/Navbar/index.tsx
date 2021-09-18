@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 
-import { FaBook, FaInfoCircle, FaSun } from 'react-icons/fa'
+import { FaBook, FaInfoCircle, FaMoon } from 'react-icons/fa'
 
 import InputSetups from 'components/Navbar/InputSetups'
 
@@ -10,19 +10,19 @@ import logo from 'assets/logo.png'
 
 const Navbar = (): ReactElement => {
   //<FaBookOpen key={2} />,
-  //<FaMoon key={5} />,
+  //<FaSun key={5} />,
   //TODO: Save Theme in local storage
 
   return (
     <Wrapper id='navbar'>
       <LeftSide>
-        <Logo src={logo} />
+        <Logo src={logo} alt='logo' />
       </LeftSide>
       <RightSide>
         <FaBook />
         <FaInfoCircle />
         <InputSetups />
-        <FaSun />
+        <FaMoon />
       </RightSide>
     </Wrapper>
   )

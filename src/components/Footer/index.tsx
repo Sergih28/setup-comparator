@@ -39,8 +39,8 @@ const ImageFooter = ({ image }: ImageFooterProps): ReactElement => (
 )
 
 const Wrapper = ({ children }: WrapperProps): ReactElement => (
-  <WrapperStyled color='white'>
-    <Square bg='#FF3000' size='100%' p={3}>
+  <WrapperStyled>
+    <Square size='100%' p={3}>
       <MyFooter align='center'>{children}</MyFooter>
     </Square>
   </WrapperStyled>
