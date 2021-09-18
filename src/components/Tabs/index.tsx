@@ -1,14 +1,25 @@
 import React, { ReactElement, useState } from 'react'
 
-import styled from 'styled-components'
-
 import { useSetup } from 'hooks/Setup'
-import { tabs, tabs_selection } from 'hooks/Setup/assets'
-import { DifferencesListProps, DifferencesProps, TabsSelectionProps } from 'hooks/Setup/types'
+import { empty_setup, tabs, tabs_selection } from 'hooks/Setup/assets'
+import {
+  DifferencesListProps,
+  DifferencesProps,
+  SetupCompleteProps,
+  SetupKeysToShowProps,
+  SetupProps,
+} from 'hooks/Setup/types'
 
-import { ContentProps } from './types'
+import {
+  Panels2Props,
+  SetupsNamesRowProps,
+  TableBodyProps,
+  TableFooterProps,
+  TableHeadProps,
+  TabsSelectionProps,
+} from './types'
 
-import { Badge, TabContent, Wrapper } from './styles'
+import { Badge, MyTabsWrapper, TabContent, Table, Wrapper } from './styles'
 
 const TabsWrapper = ({
   tabs,
@@ -49,26 +60,92 @@ const TabsWrapper = ({
   </MyTabsWrapper>
 )
 
-const TabsContentsWrapper = ({ contents }: { contents: ContentProps[] }): ReactElement => (
+const SetupsNamesRow = ({ setups }: SetupsNamesRowProps): ReactElement => (
   <>
-    {contents.map((content: ContentProps) => (
-      <TabContent key={content.tab} active={!content.show}>
-        {content.content}
-      </TabContent>
+    {setups?.map((setup: SetupCompleteProps, key2: number) => (
+      <th style={{ textAlign: 'center' }} key={key2}>
+        {setup.name}
+      </th>
     ))}
   </>
 )
 
-const MyTabsWrapper = styled.div`
-  background: #ffffff;
-  grid-area: tabs;
-  overflow-x: auto;
-  position: sticky !important;
-  top: 0 !important;
-  display: flex;
-  flex-basis: 100%;
-  align-items: stretch;
-`
+const TableHead = ({ setups }: TableHeadProps): ReactElement => (
+  <thead>
+    <tr>
+      <th></th>
+      <SetupsNamesRow setups={setups} />
+    </tr>
+  </thead>
+)
+
+const TableFooter = ({ setups }: TableFooterProps): ReactElement => (
+  <tfoot>
+    <tr>
+      <th></th>
+      <SetupsNamesRow setups={setups} />
+    </tr>
+  </tfoot>
+)
+
+const TableBody = ({ setups, tab, setupKeysToShow }: TableBodyProps): ReactElement => (
+  <tbody>
+    {
+      // Loop through an empty setup as reference
+      // Add the rows when the key of the empty setup matches the current
+      // setup key in the loop (checking before if we are in the same tab)
+
+      setups &&
+        setups.length > 0 &&
+        empty_setup.map((default_content: SetupProps, key: number) => (
+          <React.Fragment key={key}>
+            {default_content.tab === tab &&
+              setupKeysToShow.find((line: SetupKeysToShowProps) => line.key === default_content.key)
+                ?.show && (
+                <tr>
+                  {setups?.map((setup: SetupCompleteProps, key2: number) => {
+                    const setup_content_in_current_key: SetupProps | undefined = setup.content.find(
+                      (content: SetupProps) => content.key === default_content.key,
+                    )
+
+                    return (
+                      <React.Fragment key={key2}>
+                        {default_content.key === setup_content_in_current_key?.key && (
+                          <>
+                            {key2 === 0 && (
+                              <th title={`${default_content.key}`}>{`${default_content.name}`}</th>
+                            )}
+                            <td style={{ textAlign: 'center', whiteSpace: 'pre-wrap' }}>
+                              {`${setup_content_in_current_key?.value}`}
+                            </td>
+                          </>
+                        )}
+                      </React.Fragment>
+                    )
+                  })}
+                </tr>
+              )}
+          </React.Fragment>
+        ))
+    }
+  </tbody>
+)
+
+const TabsContentsWrapper = ({ tabs, setups, setupKeysToShow }: Panels2Props): ReactElement => (
+  <>
+    {tabs.map(
+      (tab: TabsSelectionProps): ReactElement => (
+        <TabContent key={tab.name} active={!tab.show}>
+          <Table>
+            <TableHead setups={setups} />
+            <TableBody setups={setups} tab={tab.name} setupKeysToShow={setupKeysToShow} />
+            <TableFooter setups={setups} />
+          </Table>
+        </TabContent>
+      ),
+    )}
+  </>
+)
 
 const MyTab = ({
   name,
@@ -94,29 +171,18 @@ const MyTab = ({
 )
 
 const Tabs = (): ReactElement => {
-  //setupKeysToShow
-  const { setups, differences } = useSetup()
-  const [contents, setContents] = useState<ContentProps[]>([
-    { content: 'content tab1', tab: 'Setup', show: true },
-    { content: 'content tab2', tab: 'General', show: false },
-    { content: 'content tab3', tab: 'Suspension', show: false },
-    { content: 'content tab4', tab: 'Chassis', show: false },
-    { content: 'content tab5', tab: 'Advanced', show: false },
-  ])
+  const { setups, differences, setupKeysToShow } = useSetup()
+
   const [tabsSelection, setTabsSelection] = useState<TabsSelectionProps[]>(tabs_selection)
 
   const handleTabClick = (tab: string): void => {
-    setContents((old_contents: ContentProps[]): ContentProps[] =>
-      old_contents.map((old_content: ContentProps) => ({
-        ...old_content,
-        show: old_content.tab === tab,
-      })),
-    )
     setTabsSelection((old_tabs: TabsSelectionProps[]): TabsSelectionProps[] =>
-      old_tabs.map((old_tab: TabsSelectionProps) => ({
-        ...old_tab,
-        show: old_tab.name === tab,
-      })),
+      old_tabs.map((old_tab: TabsSelectionProps) => {
+        return {
+          ...old_tab,
+          show: old_tab.name === tab,
+        }
+      }),
     )
   }
 
@@ -129,8 +195,12 @@ const Tabs = (): ReactElement => {
             tabs_selection={tabsSelection}
             onClick={handleTabClick}
             differences={differences}
-          ></TabsWrapper>
-          <TabsContentsWrapper contents={contents} />
+          />
+          <TabsContentsWrapper
+            setups={setups}
+            setupKeysToShow={setupKeysToShow ?? []}
+            tabs={tabsSelection}
+          />
         </>
       )}
     </>

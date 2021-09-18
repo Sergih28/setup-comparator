@@ -1,28 +1,29 @@
-import { Flex, Link, Text } from '@chakra-ui/react'
 import styled from 'styled-components'
 
-export const Footer = styled(Text)`
-  font-size: 0.9rem;
-`
-
-export const Wrapper = styled(Flex)`
+export const Wrapper = styled.footer`
   grid-area: footer;
-  background: #202020;
+  display: flex;
+  font-size: 0.9rem;
+  flex-basis: 100%;
+  justify-content: center;
+  align-items: center;
   color: #ffffff;
+  background: #202020;
+  height: 3rem;
 `
 
-export const WrapperCopyright = styled.span`
-  margin-right: 0.4rem;
+export const WrapperCopyright = styled.span``
+
+export const WrapperVersion = styled.a`
+  text-decoration: none;
+  color: inherit;
 `
 
-export const WrapperVersion = styled(Link)`
-  margin-right: 0.3rem;
-`
+export const WrapperIcon = styled.a`
+  text-decoration: none;
+  color: inherit;
 
-export const WrapperIcon = styled(Link)`
   svg {
-    margin-bottom: 0.2rem;
-
     :hover {
       color: #02c3ee;
     }

@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle`
   body {
     display: table-cell;
     width: 100%;
+    background: rgb(24,24,24);
   }
 
   html,

@@ -1,6 +1,5 @@
 import { ReactElement } from 'react'
 
-import { Icon, Square } from '@chakra-ui/react'
 import { GoMarkGithub } from 'react-icons/go'
 
 import { copyrightYears } from './utils'
@@ -9,13 +8,7 @@ import { CopyrightProps, ImageFooterProps, VersionProps, WrapperProps } from './
 
 import { author, version } from '../../../package.json'
 
-import {
-  Footer as MyFooter,
-  WrapperCopyright,
-  WrapperIcon,
-  Wrapper as WrapperStyled,
-  WrapperVersion,
-} from './styles'
+import { WrapperCopyright, WrapperIcon, Wrapper as WrapperStyled, WrapperVersion } from './styles'
 
 const Copyright = ({ years, author }: CopyrightProps): ReactElement => (
   <WrapperCopyright>
@@ -26,24 +19,25 @@ const Copyright = ({ years, author }: CopyrightProps): ReactElement => (
 const Version = ({ version }: VersionProps): ReactElement => (
   <WrapperVersion
     href={`https://github.com/Sergih28/setup-comparator/releases/tag/v${version}`}
-    isExternal
+    target='_blank'
+    rel='noopener noreferrer'
   >
     v{version}
   </WrapperVersion>
 )
 
-const ImageFooter = ({ image }: ImageFooterProps): ReactElement => (
-  <WrapperIcon alt='Github Logo' href='https://github.com/Sergih28/setup-comparator' isExternal>
-    <Icon as={image} />
+const ImageFooter = ({ Image }: ImageFooterProps): ReactElement => (
+  <WrapperIcon
+    href='https://github.com/Sergih28/setup-comparator'
+    target='_blank'
+    rel='noopener noreferrer'
+  >
+    <Image title='Github Repository' />
   </WrapperIcon>
 )
 
 const Wrapper = ({ children }: WrapperProps): ReactElement => (
-  <WrapperStyled>
-    <Square size='100%' p={3}>
-      <MyFooter align='center'>{children}</MyFooter>
-    </Square>
-  </WrapperStyled>
+  <WrapperStyled>{children}</WrapperStyled>
 )
 
 const Footer = (): ReactElement => {
@@ -51,7 +45,7 @@ const Footer = (): ReactElement => {
     <Wrapper>
       <Copyright years={copyrightYears()} author={author} />
       <Version version={version} />
-      <ImageFooter image={GoMarkGithub} />
+      <ImageFooter Image={GoMarkGithub} />
     </Wrapper>
   )
 }

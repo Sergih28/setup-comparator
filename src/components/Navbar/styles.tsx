@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.header`
   background: #202020;
   display: flex;
   grid-area: navbar;

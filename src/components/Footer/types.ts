@@ -16,5 +16,5 @@ export interface VersionProps {
 }
 
 export interface ImageFooterProps {
-  image: IconType
+  Image: IconType
 }

@@ -1,7 +1,5 @@
 import { ReactElement } from 'react'
 
-import { ChakraProvider } from '@chakra-ui/react'
-
 import { SetupProvider } from 'hooks/Setup'
 
 import Footer from 'components/Footer'
@@ -15,13 +13,11 @@ function App(): ReactElement {
     <>
       <GlobalStyle />
       <Wrapper>
-        <ChakraProvider>
-          <SetupProvider>
-            <Navbar />
-            <Main />
-            <Footer />
-          </SetupProvider>
-        </ChakraProvider>
+        <SetupProvider>
+          <Navbar />
+          <Main />
+          <Footer />
+        </SetupProvider>
       </Wrapper>
     </>
   )

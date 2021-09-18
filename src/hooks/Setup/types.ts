@@ -1,9 +1,5 @@
 import { ReactNode } from 'react'
 
-export interface TabsSelectionProps {
-  name: string
-  show: boolean
-}
 export interface SetupProviderProps {
   children: ReactNode
 }
