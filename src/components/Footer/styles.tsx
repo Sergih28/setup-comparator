@@ -10,6 +10,7 @@ export const Wrapper = styled.footer`
   color: #ffffff;
   background: #202020;
   height: 3rem;
+  gap: 0.35rem;
 `
 
 export const WrapperCopyright = styled.span``
