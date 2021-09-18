@@ -4,19 +4,20 @@ import { useSetup } from 'hooks/Setup'
 import { empty_setup, tabs, tabs_selection } from 'hooks/Setup/assets'
 import {
   DifferencesListProps,
-  DifferencesProps,
   SetupCompleteProps,
   SetupKeysToShowProps,
   SetupProps,
 } from 'hooks/Setup/types'
 
 import {
+  MyTabProps,
   Panels2Props,
   SetupsNamesRowProps,
   TableBodyProps,
   TableFooterProps,
   TableHeadProps,
   TabsSelectionProps,
+  TabsWrapperProps,
 } from './types'
 
 import { Badge, MyTabsWrapper, TabContent, Table, Wrapper } from './styles'
@@ -26,12 +27,7 @@ const TabsWrapper = ({
   onClick,
   differences,
   tabs_selection,
-}: {
-  differences: DifferencesProps | undefined
-  onClick: (tab: string) => void
-  tabs: string[]
-  tabs_selection: TabsSelectionProps[]
-}): ReactElement => (
+}: TabsWrapperProps): ReactElement => (
   <MyTabsWrapper>
     {tabs.map((tab: string): ReactElement => {
       const differences_value: number =
@@ -147,19 +143,7 @@ const TabsContentsWrapper = ({ tabs, setups, setupKeysToShow }: Panels2Props): R
   </>
 )
 
-const MyTab = ({
-  name,
-  onClick,
-  differences,
-  title,
-  selected,
-}: {
-  differences: number
-  name: string
-  onClick: () => void
-  selected: boolean
-  title: string
-}): ReactElement => (
+const MyTab = ({ name, onClick, differences, title, selected }: MyTabProps): ReactElement => (
   <Wrapper
     onClick={onClick}
     title={title}

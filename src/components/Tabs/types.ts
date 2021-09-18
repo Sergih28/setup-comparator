@@ -1,7 +1,22 @@
-import { SetupCompleteProps, SetupKeysToShowProps } from 'hooks/Setup/types'
+import { DifferencesProps, SetupCompleteProps, SetupKeysToShowProps } from 'hooks/Setup/types'
 
 interface SetupsProps {
   setups: SetupCompleteProps[] | undefined
+}
+
+export interface TabsWrapperProps {
+  differences: DifferencesProps | undefined
+  onClick: (tab: string) => void
+  tabs: string[]
+  tabs_selection: TabsSelectionProps[]
+}
+
+export interface MyTabProps {
+  differences: number
+  name: string
+  onClick: () => void
+  selected: boolean
+  title: string
 }
 
 export interface TabsSelectionProps {
