@@ -20,7 +20,7 @@ import {
   TabsWrapperProps,
 } from './types'
 
-import { Badge, MyTabsWrapper, TabContent, Table, Wrapper } from './styles'
+import { Badge, FirstRow, MyTabsWrapper, TabContent, Table, Td, Wrapper } from './styles'
 
 const TabsWrapper = ({
   tabs,
@@ -59,9 +59,7 @@ const TabsWrapper = ({
 const SetupsNamesRow = ({ setups }: SetupsNamesRowProps): ReactElement => (
   <>
     {setups?.map((setup: SetupCompleteProps, key2: number) => (
-      <th style={{ textAlign: 'center' }} key={key2}>
-        {setup.name}
-      </th>
+      <th key={key2}>{setup.name}</th>
     ))}
   </>
 )
@@ -109,11 +107,11 @@ const TableBody = ({ setups, tab, setupKeysToShow }: TableBodyProps): ReactEleme
                         {default_content.key === setup_content_in_current_key?.key && (
                           <>
                             {key2 === 0 && (
-                              <th title={`${default_content.key}`}>{`${default_content.name}`}</th>
+                              <FirstRow
+                                title={`${default_content.key}`}
+                              >{`${default_content.name}`}</FirstRow>
                             )}
-                            <td style={{ textAlign: 'center', whiteSpace: 'pre-wrap' }}>
-                              {`${setup_content_in_current_key?.value}`}
-                            </td>
+                            <Td>{`${setup_content_in_current_key?.value}`}</Td>
                           </>
                         )}
                       </React.Fragment>

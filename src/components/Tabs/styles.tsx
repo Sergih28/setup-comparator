@@ -53,8 +53,17 @@ export const Table = styled.table`
 export const TabContent = styled.div<TabContentProps>`
   background: #181818;
   color: #ffffff;
-  display: ${({ active }): string => ( !active ? 'block' : 'none')};
+  display: ${({ active }): string => (!active ? 'block' : 'none')};
   grid-area: tables;
   overflow-x: auto;
   width: 100%;
+`
+
+export const FirstRow = styled.th`
+  text-align: justify;
+`
+
+export const Td = styled.td`
+  text-align: center;
+  white-space: pre-wrap;
 `
