@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.header`
-  background: #202020;
-  border-bottom: 1px solid hsla(0, 0%, 53.3%, 0.4);
+  background: ${({ theme }): string => theme.color2};
+  border-bottom: 1px solid ${({ theme }): string => theme.border1};
   display: flex;
   grid-area: navbar;
   height: 3.5rem;
@@ -23,7 +23,6 @@ export const Logo = styled.img`
 `
 
 export const RightSide = styled.div`
-  color: #ffffff;
   display: flex;
   font-size: 1.1rem;
   padding-left: 1rem;
@@ -32,6 +31,7 @@ export const RightSide = styled.div`
   svg {
     align-self: center;
     display: flex;
+    cursor: pointer;
   }
 
   svg:not(:first-child) {

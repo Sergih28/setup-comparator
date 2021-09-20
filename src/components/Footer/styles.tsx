@@ -2,8 +2,8 @@ import styled from 'styled-components'
 
 export const Wrapper = styled.footer`
   align-items: center;
-  background: #202020;
-  color: #ffffff;
+  background: ${({ theme }): string => theme.color2};
+  border-top: 1px solid ${({ theme }): string => theme.border1};
   display: flex;
   flex-basis: 100%;
   font-size: 0.9rem;
@@ -18,15 +18,13 @@ export const WrapperCopyright = styled.span``
 export const WrapperVersion = styled.a`
   color: inherit;
   text-decoration: none;
+
+  :hover {
+    text-decoration: underline;
+  }
 `
 
 export const WrapperIcon = styled.a`
   color: inherit;
   text-decoration: none;
-
-  svg {
-    :hover {
-      color: #02c3ee;
-    }
-  }
 `

@@ -20,7 +20,7 @@ import {
   TabsWrapperProps,
 } from './types'
 
-import { Badge, FirstRow, MyTabsWrapper, TabContent, Table, Td, Wrapper } from './styles'
+import { Badge, FirstColumn, MyTabsWrapper, TabContent, Table, Td, Wrapper } from './styles'
 
 const TabsWrapper = ({
   tabs,
@@ -58,6 +58,7 @@ const TabsWrapper = ({
 
 const SetupsNamesRow = ({ setups }: SetupsNamesRowProps): ReactElement => (
   <>
+    <th>Setup Name</th>
     {setups?.map((setup: SetupCompleteProps, key2: number) => (
       <th key={key2}>{setup.name}</th>
     ))}
@@ -67,7 +68,6 @@ const SetupsNamesRow = ({ setups }: SetupsNamesRowProps): ReactElement => (
 const TableHead = ({ setups }: TableHeadProps): ReactElement => (
   <thead>
     <tr>
-      <th></th>
       <SetupsNamesRow setups={setups} />
     </tr>
   </thead>
@@ -76,7 +76,6 @@ const TableHead = ({ setups }: TableHeadProps): ReactElement => (
 const TableFooter = ({ setups }: TableFooterProps): ReactElement => (
   <tfoot>
     <tr>
-      <th></th>
       <SetupsNamesRow setups={setups} />
     </tr>
   </tfoot>
@@ -107,9 +106,9 @@ const TableBody = ({ setups, tab, setupKeysToShow }: TableBodyProps): ReactEleme
                         {default_content.key === setup_content_in_current_key?.key && (
                           <>
                             {key2 === 0 && (
-                              <FirstRow
+                              <FirstColumn
                                 title={`${default_content.key}`}
-                              >{`${default_content.name}`}</FirstRow>
+                              >{`${default_content.name}`}</FirstColumn>
                             )}
                             <Td>{`${setup_content_in_current_key?.value}`}</Td>
                           </>
@@ -142,18 +141,14 @@ const TabsContentsWrapper = ({ tabs, setups, setupKeysToShow }: Panels2Props): R
 )
 
 const MyTab = ({ name, onClick, differences, title, selected }: MyTabProps): ReactElement => (
-  <Wrapper
-    onClick={onClick}
-    title={title}
-    style={{ background: selected ? '#ffffff' : '', color: selected ? '#030303' : '' }}
-  >
+  <Wrapper onClick={onClick} title={title} selected={selected}>
     <span>{name}</span>
     <Badge>{differences}</Badge>
   </Wrapper>
 )
 
 const Tabs = (): ReactElement => {
-  const { setups, differences, setupKeysToShow } = useSetup()
+  const { setups, differences, setupKeysToShow = [] } = useSetup()
 
   const [tabsSelection, setTabsSelection] = useState<TabsSelectionProps[]>(tabs_selection)
 
@@ -180,7 +175,7 @@ const Tabs = (): ReactElement => {
           />
           <TabsContentsWrapper
             setups={setups}
-            setupKeysToShow={setupKeysToShow ?? []}
+            setupKeysToShow={setupKeysToShow}
             tabs={tabsSelection}
           />
         </>

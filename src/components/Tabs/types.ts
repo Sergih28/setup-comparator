@@ -47,3 +47,7 @@ export interface Panels2Props extends SetupsProps {
   setupKeysToShow: SetupKeysToShowProps[]
   tabs: TabsSelectionProps[]
 }
+
+export interface WrapperProps {
+  selected: boolean
+}

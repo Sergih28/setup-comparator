@@ -1,10 +1,6 @@
-import {
-  DifferencesProps,
-  SetupKeysToShowProps,
-  SetupProps,
-  SetupWithoutValueProps,
-  TabsSelectionProps,
-} from './types'
+import { DifferencesProps, SetupKeysToShowProps, SetupProps, SetupWithoutValueProps } from './types'
+
+import { TabsSelectionProps } from 'components/Tabs/types'
 
 export const tabs: string[] = ['Setup', 'General', 'Suspension', 'Chassis', 'Advanced']
 

@@ -8,7 +8,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: rgb(24, 24, 24);
+    background: #ffffff;
     display: table-cell;
     width: 100%;
   }
@@ -32,6 +32,8 @@ export const GlobalStyle = createGlobalStyle`
 //TODO: Remove Box shadow
 
 export const Wrapper = styled.div`
+  color: ${({ theme }): string => theme.color7};
+  background: ${({ theme }): string => theme.color1};
   align-content: stretch;
   display: grid;
   grid-template-areas:

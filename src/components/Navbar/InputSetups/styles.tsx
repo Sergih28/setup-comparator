@@ -6,7 +6,6 @@ export const MyInput = styled.input`
 
 export const MyLabel = styled.label`
   align-self: center;
-  color: #ffffff;
   cursor: pointer;
   display: flex;
   font-weight: 600;
@@ -14,8 +13,4 @@ export const MyLabel = styled.label`
   margin-right: 1rem;
   text-align: center;
   text-transform: uppercase;
-
-  :hover {
-    color: #02c3ee;
-  }
 `
