@@ -28,15 +28,18 @@ export interface TabsSelectionProps {
 
 export type SetupsNamesRowProps = SetupsProps
 
-export type TableHeadProps = SetupsProps
+export interface TableHeadersProps extends SetupsProps {
+  differences: DifferencesProps | undefined
+  showOnlyDifferences: boolean
+  tab: string
+  type: 'thead' | 'tfoot'
+}
 
 export interface TableBodyProps extends SetupsProps {
   setupKeysToShow: SetupKeysToShowProps[]
   showOnlyDifferences: boolean
   tab: string
 }
-
-export type TableFooterProps = SetupsProps
 
 export interface TabProps {
   name: string
@@ -47,6 +50,7 @@ export interface TabContentProps {
 }
 
 export interface PanelsProps extends SetupsProps {
+  differences: DifferencesProps | undefined
   setupKeysToShow: SetupKeysToShowProps[]
   showOnlyDifferences: boolean
   tabs: TabsSelectionProps[]

@@ -14,8 +14,7 @@ import {
   PanelsProps,
   SetupsNamesRowProps,
   TableBodyProps,
-  TableFooterProps,
-  TableHeadProps,
+  TableHeadersProps,
   TabsSelectionProps,
   TabsWrapperProps,
 } from './types'
@@ -68,22 +67,38 @@ const SetupsNamesRow = ({ setups }: SetupsNamesRowProps): ReactElement => (
     ))}
   </>
 )
-
-const TableHead = ({ setups }: TableHeadProps): ReactElement => (
-  <thead>
-    <tr>
-      <SetupsNamesRow setups={setups} />
-    </tr>
-  </thead>
-)
-
-const TableFooter = ({ setups }: TableFooterProps): ReactElement => (
-  <tfoot>
-    <tr>
-      <SetupsNamesRow setups={setups} />
-    </tr>
-  </tfoot>
-)
+const TableHeaders = ({
+  type,
+  setups,
+  tab,
+  differences,
+  showOnlyDifferences,
+}: TableHeadersProps): ReactElement => {
+  let show_header = false
+  if (!showOnlyDifferences) show_header = true
+  differences?.list.forEach((item: DifferencesListProps) => {
+    if (item?.key === tab && item?.value > 0) show_header = true
+  })
+  return show_header ? (
+    type === 'thead' ? (
+      <thead>
+        <tr>
+          <SetupsNamesRow setups={setups} />
+        </tr>
+      </thead>
+    ) : (
+      <tfoot>
+        <tr>
+          <SetupsNamesRow setups={setups} />
+        </tr>
+      </tfoot>
+    )
+  ) : type === 'thead' ? (
+    <thead></thead>
+  ) : (
+    <tfoot></tfoot>
+  )
+}
 
 const TableBody = ({
   setups,
@@ -140,20 +155,33 @@ const TabsContentsWrapper = ({
   setups,
   setupKeysToShow,
   showOnlyDifferences,
+  differences,
 }: PanelsProps): ReactElement => (
   <>
     {tabs.map(
       (tab: TabsSelectionProps): ReactElement => (
         <TabContent key={tab.name} active={!tab.show}>
           <Table>
-            <TableHead setups={setups} />
+            <TableHeaders
+              type='thead'
+              setups={setups}
+              tab={tab.name}
+              differences={differences}
+              showOnlyDifferences={showOnlyDifferences}
+            />
             <TableBody
               setups={setups}
               tab={tab.name}
               setupKeysToShow={setupKeysToShow}
               showOnlyDifferences={showOnlyDifferences}
             />
-            <TableFooter setups={setups} />
+            <TableHeaders
+              type='tfoot'
+              setups={setups}
+              tab={tab.name}
+              differences={differences}
+              showOnlyDifferences={showOnlyDifferences}
+            />
           </Table>
         </TabContent>
       ),
@@ -201,6 +229,7 @@ const Tabs = (): ReactElement => {
             setups={setups}
             setupKeysToShow={setupKeysToShow}
             tabs={tabsSelection}
+            differences={differences}
           />
         </>
       )}
