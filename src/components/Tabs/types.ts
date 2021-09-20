@@ -7,6 +7,8 @@ interface SetupsProps {
 export interface TabsWrapperProps {
   differences: DifferencesProps | undefined
   onClick: (tab: string) => void
+  setups: SetupCompleteProps[] | undefined
+  showOnlyDifferences: boolean
   tabs: string[]
   tabs_selection: TabsSelectionProps[]
 }
@@ -30,6 +32,7 @@ export type TableHeadProps = SetupsProps
 
 export interface TableBodyProps extends SetupsProps {
   setupKeysToShow: SetupKeysToShowProps[]
+  showOnlyDifferences: boolean
   tab: string
 }
 
@@ -43,8 +46,9 @@ export interface TabContentProps {
   active: boolean
 }
 
-export interface Panels2Props extends SetupsProps {
+export interface PanelsProps extends SetupsProps {
   setupKeysToShow: SetupKeysToShowProps[]
+  showOnlyDifferences: boolean
   tabs: TabsSelectionProps[]
 }
 

@@ -1,5 +1,5 @@
 import { ThemeProps } from '../types'
-import { createTheme } from '../utils'
+//import { createTheme } from '../utils'
 
 const colors = {
   color0: 'hsl(0, 0%, 0%)',

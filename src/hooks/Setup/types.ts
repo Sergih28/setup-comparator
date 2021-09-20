@@ -8,7 +8,9 @@ export interface SetupContextProps {
   differences: DifferencesProps
   setupKeysToShow: SetupKeysToShowProps[]
   setups: SetupCompleteProps[]
-  updateSetups: (new_setups: FileList) => void
+  showOnlyDifferences: boolean
+  updateSetups: (new_setups: FileList) => void,
+  updateShowOnlyDifferences: () => void
 }
 
 export interface SetupWithoutValueProps {

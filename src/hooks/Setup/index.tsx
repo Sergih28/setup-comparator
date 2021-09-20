@@ -29,6 +29,7 @@ export const SetupProvider = ({ children }: SetupProviderProps): ReactElement =>
   const [setups, setSetups] = useState<SetupCompleteProps[]>([])
   const [setupKeysToShow, setSetupKeysToShow] = useState<SetupKeysToShowProps[]>(show_keys)
   const [differences, setDifferences] = useState<DifferencesProps>(empty_differences)
+  const [showOnlyDifferences, setShowOnlyDifferences] = useState<boolean>(true)
 
   const createSetups = async (new_setups: SetupCompleteProps[]): Promise<void> => {
     // TODO
@@ -80,11 +81,17 @@ export const SetupProvider = ({ children }: SetupProviderProps): ReactElement =>
     updateNumberOfDifferences(setup_keys_to_show, empty_setup)
   }
 
+  const updateShowOnlyDifferences = (): void => {
+    setShowOnlyDifferences((old_value: boolean) => !old_value)
+  }
+
   const values = {
     setups,
     updateSetups,
     setupKeysToShow,
     differences,
+    showOnlyDifferences,
+    updateShowOnlyDifferences,
   }
 
   return <SetupContext.Provider value={values}>{children}</SetupContext.Provider>

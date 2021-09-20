@@ -11,7 +11,7 @@ import {
 
 import {
   MyTabProps,
-  Panels2Props,
+  PanelsProps,
   SetupsNamesRowProps,
   TableBodyProps,
   TableFooterProps,
@@ -27,11 +27,15 @@ const TabsWrapper = ({
   onClick,
   differences,
   tabs_selection,
+  showOnlyDifferences,
 }: TabsWrapperProps): ReactElement => (
   <MyTabsWrapper>
     {tabs.map((tab: string): ReactElement => {
-      const differences_value: number =
-        differences?.list.find((item: DifferencesListProps) => item.key === tab)?.value ?? 0
+      let differences_value = 0
+      !showOnlyDifferences
+        ? empty_setup.forEach((line: SetupProps) => line.tab === tab && differences_value++)
+        : (differences_value =
+            differences?.list.find((item: DifferencesListProps) => item.key === tab)?.value ?? 0)
 
       const singular_plural =
         differences_value === 1 ? ['is', 'difference'] : ['are', 'differences']
@@ -81,7 +85,12 @@ const TableFooter = ({ setups }: TableFooterProps): ReactElement => (
   </tfoot>
 )
 
-const TableBody = ({ setups, tab, setupKeysToShow }: TableBodyProps): ReactElement => (
+const TableBody = ({
+  setups,
+  tab,
+  setupKeysToShow,
+  showOnlyDifferences,
+}: TableBodyProps): ReactElement => (
   <tbody>
     {
       // Loop through an empty setup as reference
@@ -93,8 +102,10 @@ const TableBody = ({ setups, tab, setupKeysToShow }: TableBodyProps): ReactEleme
         empty_setup.map((default_content: SetupProps, key: number) => (
           <React.Fragment key={key}>
             {default_content.tab === tab &&
-              setupKeysToShow.find((line: SetupKeysToShowProps) => line.key === default_content.key)
-                ?.show && (
+              (setupKeysToShow.find(
+                (line: SetupKeysToShowProps) => line.key === default_content.key,
+              )?.show ||
+                !showOnlyDifferences) && (
                 <tr>
                   {setups?.map((setup: SetupCompleteProps, key2: number) => {
                     const setup_content_in_current_key: SetupProps | undefined = setup.content.find(
@@ -124,14 +135,24 @@ const TableBody = ({ setups, tab, setupKeysToShow }: TableBodyProps): ReactEleme
   </tbody>
 )
 
-const TabsContentsWrapper = ({ tabs, setups, setupKeysToShow }: Panels2Props): ReactElement => (
+const TabsContentsWrapper = ({
+  tabs,
+  setups,
+  setupKeysToShow,
+  showOnlyDifferences,
+}: PanelsProps): ReactElement => (
   <>
     {tabs.map(
       (tab: TabsSelectionProps): ReactElement => (
         <TabContent key={tab.name} active={!tab.show}>
           <Table>
             <TableHead setups={setups} />
-            <TableBody setups={setups} tab={tab.name} setupKeysToShow={setupKeysToShow} />
+            <TableBody
+              setups={setups}
+              tab={tab.name}
+              setupKeysToShow={setupKeysToShow}
+              showOnlyDifferences={showOnlyDifferences}
+            />
             <TableFooter setups={setups} />
           </Table>
         </TabContent>
@@ -148,7 +169,7 @@ const MyTab = ({ name, onClick, differences, title, selected }: MyTabProps): Rea
 )
 
 const Tabs = (): ReactElement => {
-  const { setups, differences, setupKeysToShow = [] } = useSetup()
+  const { setups, differences, setupKeysToShow = [], showOnlyDifferences = true } = useSetup()
 
   const [tabsSelection, setTabsSelection] = useState<TabsSelectionProps[]>(tabs_selection)
 
@@ -169,11 +190,14 @@ const Tabs = (): ReactElement => {
         <>
           <TabsWrapper
             tabs={tabs}
+            setups={setups}
             tabs_selection={tabsSelection}
             onClick={handleTabClick}
             differences={differences}
+            showOnlyDifferences={showOnlyDifferences}
           />
           <TabsContentsWrapper
+            showOnlyDifferences={showOnlyDifferences}
             setups={setups}
             setupKeysToShow={setupKeysToShow}
             tabs={tabsSelection}
