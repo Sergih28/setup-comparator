@@ -39,7 +39,7 @@ const Navbar = (): ReactElement => {
     n_setups > 1 ? <>{getSetupDifferencesIconElement(showing_differences, onClick)}</> : <></>
 
   const ThemeIcon = ({ theme }: { theme: ThemeContextProps['theme'] }): ReactElement =>
-    theme === 'light' ? <FaSun onClick={toggleTheme} /> : <FaMoon onClick={toggleTheme} />
+    theme === 'dark' ? <FaSun onClick={toggleTheme} /> : <FaMoon onClick={toggleTheme} />
 
   return (
     <Wrapper id='navbar'>
