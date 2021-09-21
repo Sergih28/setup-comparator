@@ -16,7 +16,7 @@
 
 ## Navigation Bar Icons
 
-- **Toggle Differences (Opened/Cloded Book)** *Hidden by default*
+- **Toggle Differences (Opened/Closed Book)** *Hidden by default*
 
   Toggle between showing all the setups (*Closed Book*) and showing only the differences (*Open Book*) among them
 
