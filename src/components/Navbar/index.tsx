@@ -2,6 +2,7 @@ import { ReactElement } from 'react'
 
 import { FaBook, FaBookOpen, FaInfoCircle, FaMoon, FaSun } from 'react-icons/fa'
 
+import { useModal } from 'hooks/Modal'
 import { useSetup } from 'hooks/Setup'
 import { useTheme } from 'hooks/Theme'
 import { ThemeContextProps } from 'hooks/Theme/types'
@@ -18,6 +19,7 @@ const Navbar = (): ReactElement => {
   //TODO: Save Theme in local storage
   const { setups, showOnlyDifferences = true as boolean, updateShowOnlyDifferences } = useSetup()
   const { theme = 'light', toggleTheme } = useTheme()
+  const { toggleIsOpen } = useModal()
 
   const getSetupDifferencesIconElement = (
     showing_differences: boolean,
@@ -50,7 +52,7 @@ const Navbar = (): ReactElement => {
           showing_differences={showOnlyDifferences}
           onClick={updateShowOnlyDifferences as () => void}
         />
-        <FaInfoCircle />
+        <FaInfoCircle onClick={toggleIsOpen} />
         <InputSetups />
         <ThemeIcon theme={theme} />
       </RightSide>

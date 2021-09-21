@@ -1,5 +1,6 @@
 import { ReactElement } from 'react'
 
+import { ModalProvider } from 'hooks/Modal'
 import { SetupProvider } from 'hooks/Setup'
 import { ThemeProvider } from 'hooks/Theme'
 
@@ -14,13 +15,15 @@ function App(): ReactElement {
     <>
       <ThemeProvider>
         <GlobalStyle />
-        <Wrapper>
-          <SetupProvider>
-            <Navbar />
-            <Main />
-            <Footer />
-          </SetupProvider>
-        </Wrapper>
+        <ModalProvider>
+          <Wrapper>
+            <SetupProvider>
+              <Navbar />
+              <Main />
+              <Footer />
+            </SetupProvider>
+          </Wrapper>
+        </ModalProvider>
       </ThemeProvider>
     </>
   )
