@@ -15,15 +15,15 @@ function App(): ReactElement {
     <>
       <ThemeProvider>
         <GlobalStyle />
-        <ModalProvider>
-          <Wrapper>
+        <Wrapper>
+          <ModalProvider>
             <SetupProvider>
               <Navbar />
               <Main />
               <Footer />
             </SetupProvider>
-          </Wrapper>
-        </ModalProvider>
+          </ModalProvider>
+        </Wrapper>
       </ThemeProvider>
     </>
   )

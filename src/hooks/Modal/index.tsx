@@ -2,7 +2,7 @@ import { createContext, ReactElement, useContext, useEffect, useRef, useState } 
 
 import ReactMarkdown from 'react-markdown'
 
-import { readTextFile, showContent } from './utils'
+import useReadTextFile from 'hooks/ReadTextFile'
 
 import { ModalContextProps, ModalProps } from './types'
 
@@ -16,12 +16,11 @@ export const useModal = (): Partial<ModalContextProps> => useContext(ModalContex
 
 export const ModalProvider = ({ children }: ModalProps): ReactElement => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [content, setContent] = useState<string[]>([])
+  const { content, updateContent } = useReadTextFile()
   const wrapperRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const new_content = readTextFile(info)
-    setContent(new_content)
+    updateContent(info)
   }, [])
 
   // handle click outside modal
@@ -44,10 +43,6 @@ export const ModalProvider = ({ children }: ModalProps): ReactElement => {
     setIsOpen((old_state: boolean) => !old_state)
   }
 
-  const updateContent = (new_content: string[]): void => {
-    setContent(new_content)
-  }
-
   const values = { isOpen, content, toggleIsOpen, updateContent }
 
   return (
@@ -56,7 +51,7 @@ export const ModalProvider = ({ children }: ModalProps): ReactElement => {
         <>
           <ModalWrapper>
             <Modal ref={wrapperRef}>
-              <ReactMarkdown>{showContent(content)}</ReactMarkdown>
+              <ReactMarkdown>{content}</ReactMarkdown>
             </Modal>
           </ModalWrapper>
         </>

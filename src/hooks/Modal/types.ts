@@ -5,8 +5,8 @@ export interface ModalProps {
 }
 
 export interface ModalContextProps {
-  content: unknown
+  content: string
   isOpen: boolean
   toggleIsOpen: () => void
-  updateContent: (new_content: string[]) => void
+  updateContent: (new_content: string) => void
 }

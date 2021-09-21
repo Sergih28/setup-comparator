@@ -44,4 +44,11 @@ export const Wrapper = styled.div`
   grid-template-rows: auto 1fr auto;
   height: 100%;
   width: 100%;
+
+  hr {
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid ${({ theme }): string => theme.color5};
+    border-left: 0;
+  }
 `

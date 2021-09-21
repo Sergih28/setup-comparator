@@ -15,7 +15,8 @@ export const ModalWrapper = styled.div`
 export const Modal = styled.div`
   width: calc(85% - ${({ theme }): string => `${theme.padding1} - ${theme.padding1}`});
   height: calc(95% - ${({ theme }): string => `${theme.padding1} - ${theme.padding1}`});
-  background: hsl(100, 100%, 100%);
+  background: ${({ theme }): string => theme.color2};
+  color: ${({ theme }): string => theme.color7};
   z-index: 100;
   overflow: auto;
   padding: ${({ theme }): string => theme.padding1};

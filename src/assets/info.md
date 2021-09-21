@@ -14,7 +14,7 @@
 
 ---
 
-## Navbar Icons
+## Navigation Bar Icons
 
 - **Toggle Differences (Opened/Cloded Book)** *Hidden by default*
 
