@@ -10,6 +10,7 @@ export const Wrapper = styled.footer`
   grid-area: footer;
   height: 3rem;
   justify-content: center;
+  user-select: none;
 `
 
 export const WrapperCopyright = styled.span``

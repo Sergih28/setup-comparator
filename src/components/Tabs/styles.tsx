@@ -37,6 +37,7 @@ export const MyTabsWrapper = styled.div`
   position: relative;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
+  user-select: none;
 `
 
 export const MyTabsInnerWrapper = styled.div`

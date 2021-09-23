@@ -8,6 +8,7 @@ export const Wrapper = styled.header`
   height: 3.5rem;
   justify-content: space-between;
   width: 100%;
+  user-select: none;
 `
 
 export const LeftSide = styled.div`
