@@ -1,14 +1,23 @@
+import { ReactElement, RefObject } from 'react'
+
 import { DifferencesProps, SetupCompleteProps, SetupKeysToShowProps } from 'hooks/Setup/types'
 
 interface SetupsProps {
   setups: SetupCompleteProps[] | undefined
 }
 
+interface OnArrowClickProps {
+  f: (side: ScrollArrowProps['side'], ref: RefObject<HTMLDivElement>) => void
+}
+
 export interface TabsWrapperProps {
-  differences: DifferencesProps | undefined
+  differences: DifferencesProps | undefined,
+  onArrowClick: OnArrowClickProps['f'],
   onClick: (tab: string) => void
+  scroll_ref: RefObject<HTMLDivElement>
   setups: SetupCompleteProps[] | undefined
   showOnlyDifferences: boolean
+  show_arrows: ShowArrowProps[]
   tabs: string[]
   tabs_selection: TabsSelectionProps[]
 }
@@ -19,6 +28,24 @@ export interface MyTabProps {
   onClick: () => void
   selected: boolean
   title: string
+}
+
+export interface ScrollArrowProps {
+  side: 'left' | 'right'
+}
+
+export interface ShowArrowProps extends ScrollArrowProps {
+  show: boolean
+}
+
+export interface ScrollArrowsProps {
+  onClick: OnArrowClickProps['f']
+  scroll_ref: RefObject<HTMLDivElement>
+  show_arrows: ShowArrowProps[]
+}
+
+export interface ScrollArrowListProps extends ScrollArrowProps {
+  icon: ReactElement
 }
 
 export interface TabsSelectionProps {

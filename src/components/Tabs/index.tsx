@@ -1,4 +1,6 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, RefObject, useEffect, useRef, useState } from 'react'
+
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 
 import { useSetup } from 'hooks/Setup'
 import { empty_setup, tabs, tabs_selection } from 'hooks/Setup/assets'
@@ -12,50 +14,91 @@ import {
 import {
   MyTabProps,
   PanelsProps,
+  ScrollArrowListProps,
+  ScrollArrowsProps,
   SetupsNamesRowProps,
+  ShowArrowProps,
   TableBodyProps,
   TableHeadersProps,
   TabsSelectionProps,
   TabsWrapperProps,
 } from './types'
 
-import { Badge, FirstColumn, MyTabsWrapper, TabContent, Table, Td, Wrapper } from './styles'
+import {
+  Badge,
+  FirstColumn,
+  MyTabsInnerWrapper,
+  MyTabsWrapper,
+  ScrollArrow,
+  TabContent,
+  Table,
+  Td,
+  Wrapper,
+} from './styles'
 
+const ScrollArrows = ({ show_arrows, onClick, scroll_ref }: ScrollArrowsProps): ReactElement => {
+  const items: ScrollArrowListProps[] = [
+    { side: 'left', icon: <FaArrowLeft /> },
+    { side: 'right', icon: <FaArrowRight /> },
+  ]
+
+  return (
+    <>
+      {items.map(
+        ({ side, icon }: ScrollArrowListProps): ReactElement => (
+          <React.Fragment key={side}>
+            {show_arrows.find((arrow: ShowArrowProps) => arrow.side === side)?.show && (
+              <ScrollArrow side={side} onClick={(): void => onClick(side, scroll_ref)}>
+                <span>{icon}</span>
+              </ScrollArrow>
+            )}
+          </React.Fragment>
+        ),
+      )}
+    </>
+  )
+}
 const TabsWrapper = ({
+  scroll_ref,
+  show_arrows,
   tabs,
   onClick,
+  onArrowClick,
   differences,
   tabs_selection,
   showOnlyDifferences,
 }: TabsWrapperProps): ReactElement => (
   <MyTabsWrapper>
-    {tabs.map((tab: string): ReactElement => {
-      let differences_value = 0
-      !showOnlyDifferences
-        ? empty_setup.forEach((line: SetupProps) => line.tab === tab && differences_value++)
-        : (differences_value =
-            differences?.list.find((item: DifferencesListProps) => item.key === tab)?.value ?? 0)
+    <ScrollArrows show_arrows={show_arrows} onClick={onArrowClick} scroll_ref={scroll_ref} />
+    <MyTabsInnerWrapper ref={scroll_ref}>
+      {tabs.map((tab: string): ReactElement => {
+        let differences_value = 0
+        !showOnlyDifferences
+          ? empty_setup.forEach((line: SetupProps) => line.tab === tab && differences_value++)
+          : (differences_value =
+              differences?.list.find((item: DifferencesListProps) => item.key === tab)?.value ?? 0)
 
-      const singular_plural =
-        differences_value === 1 ? ['is', 'difference'] : ['are', 'differences']
-      const title = `There ${singular_plural[0]} ${differences_value} ${singular_plural[1]} in the ${tab} tab`
+        const singular_plural =
+          differences_value === 1 ? ['is', 'difference'] : ['are', 'differences']
+        const title = `There ${singular_plural[0]} ${differences_value} ${singular_plural[1]} in the ${tab} tab`
 
-      const tab_selected: boolean =
-        tabs_selection.find((tab_selection: TabsSelectionProps) => tab_selection.name === tab)
-          ?.show ?? (false as boolean)
+        const tab_selected: boolean =
+          tabs_selection.find((tab_selection: TabsSelectionProps) => tab_selection.name === tab)
+            ?.show ?? (false as boolean)
 
-      return (
-        <React.Fragment key={tab}>
-          <MyTab
-            name={tab}
-            onClick={(): void => onClick(tab)}
-            differences={differences_value}
-            title={title}
-            selected={tab_selected}
-          />
-        </React.Fragment>
-      )
-    })}
+        return (
+          <React.Fragment key={tab}>
+            <MyTab
+              name={tab}
+              onClick={(): void => onClick(tab)}
+              differences={differences_value}
+              title={title}
+              selected={tab_selected}
+            />
+          </React.Fragment>
+        )
+      })}
+    </MyTabsInnerWrapper>
   </MyTabsWrapper>
 )
 
@@ -199,7 +242,54 @@ const MyTab = ({ name, onClick, differences, title, selected }: MyTabProps): Rea
 const Tabs = (): ReactElement => {
   const { setups, differences, setupKeysToShow = [], showOnlyDifferences = true } = useSetup()
 
+  const ref = useRef() as React.MutableRefObject<HTMLInputElement>
+  const [scrollbarWidth, setScrollbarWidth] = useState<number>(0)
+  const [scrollbarPosition, setScrollbarPosition] = useState<number>(0)
+  const [showArrows, setShowArrows] = useState<ShowArrowProps[]>([])
+
   const [tabsSelection, setTabsSelection] = useState<TabsSelectionProps[]>(tabs_selection)
+
+  const handleScroll = (): void => {
+    setScrollbarPosition(ref.current?.scrollLeft)
+  }
+
+  const handleWindowResize = (): void => {
+    setScrollbarWidth(ref.current?.scrollWidth - ref.current?.clientWidth)
+  }
+
+  const handleArrowClick = (side: 'left' | 'right', ref: RefObject<HTMLDivElement>): void => {
+    if (ref.current) {
+      const n = side === 'left' ? scrollbarPosition - 100 : scrollbarPosition + 100
+
+      // adjust n to not go over scrollbarWidth or below 0
+      const r = n > scrollbarWidth ? scrollbarWidth : n < 0 ? 0 : n
+
+      ref.current.scrollLeft = r
+    }
+  }
+
+  useEffect(() => {
+    ref.current?.addEventListener('scroll', handleScroll)
+    window.addEventListener('resize', handleWindowResize)
+    handleWindowResize()
+
+    return (): void => {
+      ref.current?.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleWindowResize)
+    }
+  }, [setups])
+
+  useEffect(() => {
+    const showArrowLeft = scrollbarPosition > 0
+    const showArrowRight = scrollbarPosition < scrollbarWidth
+
+    const r: ShowArrowProps[] = [
+      { side: 'left', show: showArrowLeft },
+      { side: 'right', show: showArrowRight },
+    ]
+
+    setShowArrows(r)
+  }, [scrollbarWidth, scrollbarPosition, setups])
 
   const handleTabClick = (tab: string): void => {
     setTabsSelection((old_tabs: TabsSelectionProps[]): TabsSelectionProps[] =>
@@ -217,6 +307,9 @@ const Tabs = (): ReactElement => {
       {setups && setups?.length > 0 && (
         <>
           <TabsWrapper
+            onArrowClick={handleArrowClick}
+            scroll_ref={ref}
+            show_arrows={showArrows}
             tabs={tabs}
             setups={setups}
             tabs_selection={tabsSelection}

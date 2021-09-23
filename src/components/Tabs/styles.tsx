@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { TabContentProps, WrapperProps } from './types'
+import { ScrollArrowProps, TabContentProps, WrapperProps } from './types'
 
 export const Wrapper = styled.div<WrapperProps>`
   background: ${({ theme, selected }): string => (selected ? theme.color6 : theme.color3)};
@@ -27,17 +27,45 @@ export const Wrapper = styled.div<WrapperProps>`
 `
 
 export const MyTabsWrapper = styled.div`
-  align-items: stretch;
   border-bottom: 1px solid ${({ theme }): string => theme.border1};
-  display: flex;
-  flex-basis: 100%;
   grid-area: tabs;
-  overflow-x: auto;
+  height: 100%;
   position: sticky;
   top: 0;
   z-index: 10;
+  display: grid;
+  position: relative;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
 `
-//    border-top: 1px solid hsla(0, 0%, 53.3%, 0.4);
+
+export const MyTabsInnerWrapper = styled.div`
+  display: flex;
+  height: 100%;
+  flex-basis: 100%;
+  ::-webkit-scrollbar {
+    width: 0; /* Remove scrollbar space */
+    height: 0;
+    background: transparent; /* Optional: just make scrollbar invisible */
+  }
+  overflow-x: auto;
+  scrollbar-width: none;
+`
+
+export const ScrollArrow = styled.div<ScrollArrowProps>`
+  right: ${({ side }): string | number => (side === 'right' ? 0 : '')};
+  left: ${({ side }): string | number => (side === 'left' ? 0 : '')};
+  position: absolute;
+  display: flex;
+  width: 2.25rem;
+  height: 100%;
+  color: ${({ theme }): string => theme.color6};
+  background: ${({ theme }): string => theme.color1};
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.985;
+`
 
 export const Badge = styled.div`
   font-size: 0.75rem;

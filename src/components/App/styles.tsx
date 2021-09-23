@@ -3,7 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components'
 export const GlobalStyle = createGlobalStyle`
   html {
     display: table;
-    height: 100%;
+    height: 100vh;
     width: 100%;
   }
 
@@ -21,7 +21,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   #root {
-    height: 100%;
+    height: 100vh;
     width: 100%;
   }
 
