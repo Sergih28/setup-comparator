@@ -21,14 +21,15 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   #root {
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
     width: 100%;
   }
 `
 
 export const Wrapper = styled.div`
   align-content: stretch;
-  background: ${({ theme }): string => theme.common.light};
+  background: ${({ theme }): string => theme.common.main};
   color: ${({ theme }): string => theme.primary.font.light.alternate};
   display: grid;
   grid-template-areas:
@@ -37,6 +38,7 @@ export const Wrapper = styled.div`
     'footer';
   grid-template-columns: auto;
   grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
   height: 100%;
   width: 100%;
 
