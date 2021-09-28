@@ -38,7 +38,6 @@ export const MyTabsWrapper = styled.div`
   grid-template-rows: 1fr;
   height: 100%;
   position: sticky;
-  position: relative;
   top: 0;
   user-select: none;
   z-index: 10;
@@ -146,7 +145,7 @@ export const Table = styled.table`
 `
 
 export const TabContent = styled.div<TabContentProps>`
-  display: ${({ active }): string => ( !active ? 'block' : 'none')};
+  display: ${({ active }): string => (!active ? 'block' : 'none')};
   grid-area: tables;
   overflow-x: auto;
   width: 100%;
