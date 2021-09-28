@@ -8,7 +8,7 @@ export const Wrapper = styled.main`
 `
 
 export const MyContentWrapper = styled.div`
-  background: ${({ theme }): string => theme.background1};
+  background: ${({ theme }): string => theme.common.main};
   display: grid !important;
   grid-template-areas:
     'tabs'

@@ -24,17 +24,12 @@ export const GlobalStyle = createGlobalStyle`
     height: 100vh;
     width: 100%;
   }
-
-  * {
-    box-shadow: none !important;
-  }
 `
-//TODO: Remove Box shadow
 
 export const Wrapper = styled.div`
-  color: ${({ theme }): string => theme.color7};
-  background: ${({ theme }): string => theme.color1};
   align-content: stretch;
+  background: ${({ theme }): string => theme.common.light};
+  color: ${({ theme }): string => theme.primary.font.light.alternate};
   display: grid;
   grid-template-areas:
     'navbar'
@@ -46,9 +41,19 @@ export const Wrapper = styled.div`
   width: 100%;
 
   hr {
-    border-top: 0;
-    border-right: 0;
-    border-bottom: 1px solid ${({ theme }): string => theme.color5};
+    border-bottom: 1px solid ${({ theme }): string => theme.border.primary};
     border-left: 0;
+    border-right: 0;
+    border-top: 0;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: ${({ theme }): string => theme.primary.font.light.normal};
+    text-decoration: underline;
   }
 `

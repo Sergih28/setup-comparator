@@ -1,14 +1,16 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.header`
-  background: ${({ theme }): string => theme.color2};
-  border-bottom: 1px solid ${({ theme }): string => theme.border1};
+  background: ${({ theme }): string => theme.primary.background.light};
+  box-shadow: ${({ theme }): string => theme.border.shadow};
+  color: ${({ theme }): string => theme.primary.font.light.alternate};
   display: flex;
   grid-area: navbar;
   height: 3.5rem;
   justify-content: space-between;
-  width: 100%;
   user-select: none;
+  width: 100%;
+  z-index: 1;
 `
 
 export const LeftSide = styled.div`
@@ -31,8 +33,8 @@ export const RightSide = styled.div`
 
   svg {
     align-self: center;
-    display: flex;
     cursor: pointer;
+    display: flex;
   }
 
   svg:not(:first-child) {
@@ -41,5 +43,9 @@ export const RightSide = styled.div`
 
   svg:not(:last-child) {
     margin-right: 1rem;
+  }
+
+  svg:hover {
+    color: ${({ theme }): string => theme.primary.font.light.normal};
   }
 `

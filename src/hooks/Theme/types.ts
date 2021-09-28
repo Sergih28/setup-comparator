@@ -8,7 +8,3 @@ export interface ThemeContextProps {
 export interface ThemeProviderProps {
   children: ReactNode
 }
-
-export interface ThemeProps {
-  [key: string]: string
-}

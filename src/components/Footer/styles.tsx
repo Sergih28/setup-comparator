@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 export const Wrapper = styled.footer`
   align-items: center;
-  background: ${({ theme }): string => theme.color2};
+  background: ${({ theme }): string => theme.primary.background.light};
+  color: ${({ theme }): string => theme.primary.font.light.alternate};
   display: flex;
   flex-basis: 100%;
   font-size: 0.9rem;
@@ -15,16 +16,6 @@ export const Wrapper = styled.footer`
 
 export const WrapperCopyright = styled.span``
 
-export const WrapperVersion = styled.a`
-  color: inherit;
-  text-decoration: none;
+export const WrapperVersion = styled.a``
 
-  :hover {
-    text-decoration: underline;
-  }
-`
-
-export const WrapperIcon = styled.a`
-  color: inherit;
-  text-decoration: none;
-`
+export const WrapperIcon = styled.a``

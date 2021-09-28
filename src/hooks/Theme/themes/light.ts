@@ -1,17 +1,38 @@
-import { ThemeProps } from '../types'
-//import { createTheme } from '../utils'
+import { createTheme } from './utils'
 
-const colors = {
-  color0: 'hsl(330, 90%, 100%)',
-  color1: 'hsl(330, 90%, 91%)',
-  color2: 'hsl(330, 90%, 87%)',
-  color3: 'hsl(330, 90%, 83%)',
-  color4: 'hsl(330, 90%, 76%)',
-  color5: 'hsl(330, 90%, 33%)',
-  color6: 'hsl(330, 90%, 5%)',
-  color7: 'hsl(330, 90%, 0%)',
-  border1: 'hsl(330, 90%, 70%)',
-  padding1: '0.8rem',
+import { SpacingProps, ThemeColorsProps } from './types'
+
+
+const colors: string[] = [
+  'hsl(0, 100%, 40%)',
+  'hsl(0, 100%, 50%)',
+  'hsl(0, 100%, 60%)',
+  'hsl(185, 100%, 40%)',
+  'hsl(185, 100%, 50%)',
+  'hsl(185, 100%, 60%)',
+  'hsl(0, 0%, 100%)',
+  'hsl(0, 0%, 7%)',
+]
+
+const font_colors: string[] = [
+  'hsl(0, 0%, 100%)',
+  'hsl(0, 0%, 90%)',
+  'hsl(0, 0%, 0%)',
+  'hsl(0, 0%, 10%)',
+]
+
+const border_colors: string[] = [
+  'hsl(0, 0%, 30%)',
+  'hsl(0, 0%, 60%)',
+  '0rem -0.1rem 0.4rem hsla(0, 0%, 0%, 0.9)',
+]
+
+const spacings: SpacingProps = {
+  narrow: '0.4rem',
+  normal: '0.8rem',
+  wide: '1.2rem',
 }
 
-export const light: ThemeProps = colors
+//TODO: Make more spacings, for navbar and other places (font-size)
+
+export const light: ThemeColorsProps = createTheme(colors, font_colors, border_colors, spacings)
